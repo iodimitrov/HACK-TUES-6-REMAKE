@@ -18,13 +18,22 @@ export default class MyDocument extends Document {
 
                     <meta name='mobile-web-app-capable' content='yes' />
                     <meta name='apple-mobile-web-app-capable' content='yes' />
-                    <meta name='application-name' content='HT6' />
-                    <meta name='apple-mobile-web-app-title' content='HT6' />
+                    <meta name='application-name' content='Hack TUES 6' />
+                    <meta
+                        name='apple-mobile-web-app-title'
+                        content='Hack TUES 6'
+                    />
                     <meta name='theme-color' content='#FDA520' />
                     <meta
                         name='msapplication-navbutton-color'
                         content='#FDA520'
                     />
+                    <meta name='msapplication-tap-highlight' content='no' />
+                    <meta
+                        name='msapplication-config'
+                        content='icon/browserconfig.xml'
+                    />
+
                     <meta
                         name='apple-mobile-web-app-status-bar-style'
                         content='black-translucent'

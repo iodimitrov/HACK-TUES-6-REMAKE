@@ -182,7 +182,6 @@ const Index = () => {
                         enableKeyboardControls
                         autoplay
                         wrapAround
-                        afterSlide={(index) => console.log(index)}
                         framePadding='20px 50px 0'
                         slidesToShow={columns}
                         renderBottomCenterControls={null}
