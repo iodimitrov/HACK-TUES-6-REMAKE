@@ -1,0 +1,364 @@
+@import 'variables';
+
+.content {
+    .herosection {
+        background-color: white;
+        border-radius: 5px;
+
+        .timer {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            flex-wrap: wrap;
+
+            div {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 0 15px;
+
+                span:first-child {
+                    line-height: 70px;
+                    font-size: 70px;
+                }
+
+                span:last-child {
+                    text-transform: uppercase;
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+            }
+        }
+
+        .date {
+            display: flex;
+            justify-content: space-around;
+            padding: 60px 0 30px;
+            text-align: center;
+
+            span {
+                display: flex;
+                font-size: 28px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .carousel-container {
+        background-color: white;
+        border-radius: 5px;
+        margin-top: 20px;
+
+        .carousel-status {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-evenly;
+            padding-top: 10px;
+            margin-bottom: 30px;
+
+            span {
+                padding: 20px 0 0;
+                margin: 0 10px;
+                font-weight: 500;
+                font-size: 15px;
+
+                &:after {
+                    content: '';
+                    display: inline-block;
+                    width: 25px;
+                    height: 5px;
+                    margin-left: 5px;
+                    margin-bottom: 3.5px;
+                }
+            }
+
+            .alpha {
+                &:after {
+                    background-color: black;
+                }
+            }
+
+            .beta {
+                &:after {
+                    background-color: red;
+                }
+            }
+
+            .gamma {
+                &:after {
+                    background-color: green;
+                }
+            }
+
+            .partners {
+                &:after {
+                    background-color: $primary-color;
+                }
+            }
+        }
+
+        .carousel {
+            .image-link {
+                display: block;
+                height: 100%;
+
+                img {
+                    object-fit: contain;
+                }
+            }
+
+            .sap {
+                border-top: 5px solid black;
+                img {
+                    transform: scale(0.6);
+                }
+            }
+
+            .telebid {
+                border-top: 5px solid black;
+
+                img {
+                    transform: scale(0.8);
+                }
+            }
+
+            .experian {
+                border-top: 5px solid black;
+
+                img {
+                    transform: scale(0.8);
+                }
+            }
+
+            .vmware {
+                border-top: 5px solid black;
+
+                img {
+                    transform: scale(0.8);
+                }
+            }
+
+            .astea {
+                border-top: 5px solid red;
+
+                img {
+                    transform: scale(0.6);
+                }
+            }
+
+            .ithub {
+                border-top: 5px solid red;
+
+                img {
+                    transform: scale(0.7);
+                }
+            }
+
+            .progress {
+                border-top: 5px solid red;
+
+                img {
+                    transform: scale(0.8);
+                }
+            }
+
+            .scalefocus {
+                border-top: 5px solid red;
+
+                img {
+                    transform: scale(0.9);
+                }
+            }
+
+            .bosch {
+                border-top: 5px solid green;
+
+                img {
+                    transform: scale(0.75);
+                }
+            }
+
+            .ca {
+                border-top: 5px solid green;
+
+                img {
+                    transform: scale(0.75);
+                }
+            }
+
+            .devrix {
+                border-top: 5px solid green;
+
+                img {
+                    transform: scale(0.65);
+                }
+            }
+
+            .dopamine {
+                border-top: 5px solid green;
+
+                img {
+                    transform: scale(0.8);
+                }
+            }
+
+            .ubisoft {
+                border-top: 5px solid green;
+
+                img {
+                    transform: scale(0.5);
+                }
+            }
+
+            .bulged {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.5);
+                }
+            }
+
+            .dominos {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.8);
+                }
+            }
+
+            .comet {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.7);
+                }
+            }
+
+            .cloudbalkan {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.6);
+                }
+            }
+
+            .galacticbanitsa {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.8);
+                }
+            }
+
+            .initlab {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.5);
+                }
+            }
+
+            .itstep {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.45);
+                }
+            }
+
+            .ora {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.45);
+                }
+            }
+
+            .purewater {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.8);
+                }
+            }
+
+            .smartcom {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.45);
+                }
+            }
+
+            .sofiatech {
+                border-top: 5px solid $primary-color;
+
+                img {
+                    transform: scale(0.8);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 710px) {
+    .content {
+        .herosection {
+            .date {
+                align-items: center;
+                flex-direction: column;
+
+                span:not(:first-child) {
+                    margin-top: 30px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 460px) {
+    .content {
+        .herosection {
+            .timer {
+                div {
+                    span:first-child {
+                        font-size: 50px;
+                    }
+
+                    span:last-child {
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+
+        .carousel-container {
+            .carousel-status {
+                span {
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 345px) {
+    .content {
+        .herosection {
+            .date {
+                span {
+                    align-items: center;
+                    font-size: 22px;
+                }
+            }
+        }
+
+        .carousel-container {
+            .carousel-status {
+                span {
+                    font-size: 13px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,378 @@
+.teaser-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 50px;
+}
+
+.teaser-logo > div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.teaser-logo > .hack,
+.teaser-logo > .tues {
+    width: 350px;
+}
+
+.teaser-logo > .six {
+    width: 90px;
+    margin-left: 50px;
+}
+
+.teaser-logo > div > div {
+    background-color: rgb(255, 255, 255, 0);
+    width: 12px;
+    height: 12px;
+    margin: 0.8px;
+    transition: 0.2s;
+}
+
+.teaser-logo > div > div:hover {
+    transform: scale(1.5) rotateZ(90deg);
+}
+
+.teaser-logo > .hack > div:nth-child(1),
+.teaser-logo > .hack > div:nth-child(2),
+.teaser-logo > .hack > div:nth-child(6),
+.teaser-logo > .hack > div:nth-child(7),
+.teaser-logo > .hack > div:nth-child(26),
+.teaser-logo > .hack > div:nth-child(27),
+.teaser-logo > .hack > div:nth-child(51),
+.teaser-logo > .hack > div:nth-child(52),
+.teaser-logo > .hack > div:nth-child(76),
+.teaser-logo > .hack > div:nth-child(77),
+.teaser-logo > .hack > div:nth-child(78),
+.teaser-logo > .hack > div:nth-child(79),
+.teaser-logo > .hack > div:nth-child(80),
+.teaser-logo > .hack > div:nth-child(81),
+.teaser-logo > .hack > div:nth-child(101),
+.teaser-logo > .hack > div:nth-child(102),
+.teaser-logo > .hack > div:nth-child(126),
+.teaser-logo > .hack > div:nth-child(127),
+.teaser-logo > .hack > div:nth-child(151),
+.teaser-logo > .hack > div:nth-child(152),
+.teaser-logo > .hack > div:nth-child(31),
+.teaser-logo > .hack > div:nth-child(32),
+.teaser-logo > .hack > div:nth-child(56),
+.teaser-logo > .hack > div:nth-child(57),
+.teaser-logo > .hack > div:nth-child(81),
+.teaser-logo > .hack > div:nth-child(82),
+.teaser-logo > .hack > div:nth-child(106),
+.teaser-logo > .hack > div:nth-child(107),
+.teaser-logo > .hack > div:nth-child(131),
+.teaser-logo > .hack > div:nth-child(132),
+.teaser-logo > .hack > div:nth-child(156),
+.teaser-logo > .hack > div:nth-child(157),
+.teaser-logo > .hack > div:nth-child(134),
+.teaser-logo > .hack > div:nth-child(135),
+.teaser-logo > .hack > div:nth-child(160),
+.teaser-logo > .hack > div:nth-child(110),
+.teaser-logo > .hack > div:nth-child(111),
+.teaser-logo > .hack > div:nth-child(112),
+.teaser-logo > .hack > div:nth-child(113),
+.teaser-logo > .hack > div:nth-child(161),
+.teaser-logo > .hack > div:nth-child(162),
+.teaser-logo > .hack > div:nth-child(163),
+.teaser-logo > .hack > div:nth-child(137),
+.teaser-logo > .hack > div:nth-child(138),
+.teaser-logo > .hack > div:nth-child(88),
+.teaser-logo > .hack > div:nth-child(87),
+.teaser-logo > .hack > div:nth-child(62),
+.teaser-logo > .hack > div:nth-child(61),
+.teaser-logo > .hack > div:nth-child(60),
+.teaser-logo > .hack > div:nth-child(66),
+.teaser-logo > .hack > div:nth-child(67),
+.teaser-logo > .hack > div:nth-child(68),
+.teaser-logo > .hack > div:nth-child(90),
+.teaser-logo > .hack > div:nth-child(115),
+.teaser-logo > .hack > div:nth-child(140),
+.teaser-logo > .hack > div:nth-child(141),
+.teaser-logo > .hack > div:nth-child(116),
+.teaser-logo > .hack > div:nth-child(91),
+.teaser-logo > .hack > div:nth-child(166),
+.teaser-logo > .hack > div:nth-child(167),
+.teaser-logo > .hack > div:nth-child(168),
+.teaser-logo > .hack > div:nth-child(170),
+.teaser-logo > .hack > div:nth-child(171),
+.teaser-logo > .hack > div:nth-child(145),
+.teaser-logo > .hack > div:nth-child(146),
+.teaser-logo > .hack > div:nth-child(120),
+.teaser-logo > .hack > div:nth-child(121),
+.teaser-logo > .hack > div:nth-child(95),
+.teaser-logo > .hack > div:nth-child(96),
+.teaser-logo > .hack > div:nth-child(70),
+.teaser-logo > .hack > div:nth-child(71),
+.teaser-logo > .hack > div:nth-child(45),
+.teaser-logo > .hack > div:nth-child(46),
+.teaser-logo > .hack > div:nth-child(20),
+.teaser-logo > .hack > div:nth-child(21),
+.teaser-logo > .hack > div:nth-child(97),
+.teaser-logo > .hack > div:nth-child(98),
+.teaser-logo > .hack > div:nth-child(122),
+.teaser-logo > .hack > div:nth-child(123),
+.teaser-logo > .hack > div:nth-child(148),
+.teaser-logo > .hack > div:nth-child(149),
+.teaser-logo > .hack > div:nth-child(174),
+.teaser-logo > .hack > div:nth-child(175),
+.teaser-logo > .hack > div:nth-child(74),
+.teaser-logo > .hack > div:nth-child(73),
+.teaser-logo > .six > div:nth-child(3),
+.teaser-logo > .six > div:nth-child(4),
+.teaser-logo > .six > div:nth-child(5),
+.teaser-logo > .six > div:nth-child(8),
+.teaser-logo > .six > div:nth-child(9),
+.teaser-logo > .six > div:nth-child(13),
+.teaser-logo > .six > div:nth-child(14),
+.teaser-logo > .six > div:nth-child(19),
+.teaser-logo > .six > div:nth-child(20),
+.teaser-logo > .six > div:nth-child(21),
+.teaser-logo > .six > div:nth-child(22),
+.teaser-logo > .six > div:nth-child(23),
+.teaser-logo > .six > div:nth-child(25),
+.teaser-logo > .six > div:nth-child(26),
+.teaser-logo > .six > div:nth-child(31),
+.teaser-logo > .six > div:nth-child(32),
+.teaser-logo > .six > div:nth-child(38),
+.teaser-logo > .six > div:nth-child(39),
+.teaser-logo > .six > div:nth-child(40),
+.teaser-logo > .six > div:nth-child(41),
+.teaser-logo > .six > div:nth-child(35),
+.teaser-logo > .six > div:nth-child(36),
+.teaser-logo > .six > div:nth-child(29),
+.teaser-logo > .six > div:nth-child(30) {
+    background-color: black;
+}
+
+.teaser-logo > .tues > div:nth-child(1),
+.teaser-logo > .tues > div:nth-child(2),
+.teaser-logo > .tues > div:nth-child(3),
+.teaser-logo > .tues > div:nth-child(4),
+.teaser-logo > .tues > div:nth-child(5),
+.teaser-logo > .tues > div:nth-child(6),
+.teaser-logo > .tues > div:nth-child(28),
+.teaser-logo > .tues > div:nth-child(29),
+.teaser-logo > .tues > div:nth-child(53),
+.teaser-logo > .tues > div:nth-child(54),
+.teaser-logo > .tues > div:nth-child(78),
+.teaser-logo > .tues > div:nth-child(79),
+.teaser-logo > .tues > div:nth-child(103),
+.teaser-logo > .tues > div:nth-child(104),
+.teaser-logo > .tues > div:nth-child(128),
+.teaser-logo > .tues > div:nth-child(129),
+.teaser-logo > .tues > div:nth-child(153),
+.teaser-logo > .tues > div:nth-child(154),
+.teaser-logo > .tues > div:nth-child(8),
+.teaser-logo > .tues > div:nth-child(9),
+.teaser-logo > .tues > div:nth-child(33),
+.teaser-logo > .tues > div:nth-child(34),
+.teaser-logo > .tues > div:nth-child(58),
+.teaser-logo > .tues > div:nth-child(59),
+.teaser-logo > .tues > div:nth-child(83),
+.teaser-logo > .tues > div:nth-child(84),
+.teaser-logo > .tues > div:nth-child(108),
+.teaser-logo > .tues > div:nth-child(109),
+.teaser-logo > .tues > div:nth-child(133),
+.teaser-logo > .tues > div:nth-child(134),
+.teaser-logo > .tues > div:nth-child(135),
+.teaser-logo > .tues > div:nth-child(159),
+.teaser-logo > .tues > div:nth-child(160),
+.teaser-logo > .tues > div:nth-child(161),
+.teaser-logo > .tues > div:nth-child(162),
+.teaser-logo > .tues > div:nth-child(137),
+.teaser-logo > .tues > div:nth-child(138),
+.teaser-logo > .tues > div:nth-child(113),
+.teaser-logo > .tues > div:nth-child(88),
+.teaser-logo > .tues > div:nth-child(63),
+.teaser-logo > .tues > div:nth-child(38),
+.teaser-logo > .tues > div:nth-child(13),
+.teaser-logo > .tues > div:nth-child(15),
+.teaser-logo > .tues > div:nth-child(16),
+.teaser-logo > .tues > div:nth-child(17),
+.teaser-logo > .tues > div:nth-child(18),
+.teaser-logo > .tues > div:nth-child(19),
+.teaser-logo > .tues > div:nth-child(40),
+.teaser-logo > .tues > div:nth-child(41),
+.teaser-logo > .tues > div:nth-child(65),
+.teaser-logo > .tues > div:nth-child(66),
+.teaser-logo > .tues > div:nth-child(67),
+.teaser-logo > .tues > div:nth-child(68),
+.teaser-logo > .tues > div:nth-child(90),
+.teaser-logo > .tues > div:nth-child(91),
+.teaser-logo > .tues > div:nth-child(115),
+.teaser-logo > .tues > div:nth-child(116),
+.teaser-logo > .tues > div:nth-child(140),
+.teaser-logo > .tues > div:nth-child(141),
+.teaser-logo > .tues > div:nth-child(165),
+.teaser-logo > .tues > div:nth-child(166),
+.teaser-logo > .tues > div:nth-child(167),
+.teaser-logo > .tues > div:nth-child(168),
+.teaser-logo > .tues > div:nth-child(169),
+.teaser-logo > .tues > div:nth-child(166),
+.teaser-logo > .tues > div:nth-child(22),
+.teaser-logo > .tues > div:nth-child(23),
+.teaser-logo > .tues > div:nth-child(24),
+.teaser-logo > .tues > div:nth-child(25),
+.teaser-logo > .tues > div:nth-child(46),
+.teaser-logo > .tues > div:nth-child(47),
+.teaser-logo > .tues > div:nth-child(71),
+.teaser-logo > .tues > div:nth-child(72),
+.teaser-logo > .tues > div:nth-child(73),
+.teaser-logo > .tues > div:nth-child(97),
+.teaser-logo > .tues > div:nth-child(98),
+.teaser-logo > .tues > div:nth-child(99),
+.teaser-logo > .tues > div:nth-child(123),
+.teaser-logo > .tues > div:nth-child(124),
+.teaser-logo > .tues > div:nth-child(125),
+.teaser-logo > .tues > div:nth-child(149),
+.teaser-logo > .tues > div:nth-child(150),
+.teaser-logo > .tues > div:nth-child(174),
+.teaser-logo > .tues > div:nth-child(173),
+.teaser-logo > .tues > div:nth-child(172),
+.teaser-logo > .tues > div:nth-child(171) {
+    background-color: #fda520;
+}
+
+@media only screen and (max-width: 1199px) {
+    .teaser-logo > .six {
+        margin-left: 30px;
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (max-width: 999px) {
+    .teaser-logo > .tues,
+    .teaser-logo > .six {
+        margin-top: 20px;
+    }
+    .teaser-logo > .six {
+        margin-left: 30px;
+    }
+}
+
+@media only screen and (max-width: 990px) {
+    .teaser-logo > .hack,
+    .teaser-logo > .tues {
+        width: 300px;
+    }
+
+    .teaser-logo > .tues {
+        margin-top: 0;
+    }
+
+    .teaser-logo > .six {
+        width: 80px;
+        margin-left: 0px;
+    }
+
+    .teaser-logo > div > div {
+        width: 10px;
+        height: 10px;
+    }
+}
+
+@media only screen and (max-width: 766px) {
+    .teaser-logo > .tues,
+    .teaser-logo > .six {
+        margin-top: 20px;
+    }
+
+    .teaser-logo > .six {
+        margin-left: 20px;
+    }
+}
+
+@media only screen and (max-width: 605px) {
+    .teaser-logo > .six {
+        margin-left: 40px;
+    }
+}
+
+@media only screen and (max-width: 475px) {
+    .teaser-logo > .hack,
+    .teaser-logo > .tues {
+        width: 230px;
+    }
+
+    .teaser-logo > .tues {
+        margin-top: 10px;
+    }
+
+    .teaser-logo > .six {
+        width: 60px;
+        margin-left: 10px;
+    }
+
+    .teaser-logo > div > div {
+        width: 8px;
+        height: 8px;
+        margin: 0.5px;
+    }
+}
+
+@media only screen and (max-width: 430px) {
+    .teaser-logo > .hack,
+    .teaser-logo > .tues {
+        width: 180px;
+    }
+
+    .teaser-logo > .tues,
+    .teaser-logo > .six {
+        margin-top: 10px;
+    }
+
+    .teaser-logo > .six {
+        width: 45px;
+    }
+
+    .teaser-logo > div > div {
+        width: 6px;
+        height: 6px;
+        margin: 0.5px;
+    }
+}
+
+@media only screen and (max-width: 350px) {
+    .teaser-logo > .hack,
+    .teaser-logo > .tues {
+        width: 150px;
+    }
+
+    .teaser-logo > .tues,
+    .teaser-logo > .six {
+        margin-top: 10px;
+    }
+
+    .teaser-logo > .six {
+        width: 40px;
+    }
+
+    .teaser-logo > div > div {
+        width: 5px;
+        height: 5px;
+        margin: 0.5px;
+    }
+}
+
+@media only screen and (max-width: 325px) {
+    .teaser-logo > .hack,
+    .teaser-logo > .tues {
+        width: 125px;
+    }
+
+    .teaser-logo > .tues,
+    .teaser-logo > .six {
+        margin-top: 10px;
+    }
+
+    .teaser-logo > .six {
+        width: 30px;
+    }
+
+    .teaser-logo > div > div {
+        width: 4px;
+        height: 4px;
+        margin: 0.5px;
+    }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "hack-tues-6",
+  "version": "4.0.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "^4.9.1",
+    "clsx": "latest",
+    "firebase": "^7.19.0",
+    "firebase-admin": "^8.12.1",
+    "js-cookie": "2.2.1",
+    "material-ui-image": "^3.2.3",
+    "next": "latest",
+    "next-cookies": "^2.0.3",
+    "nuka-carousel": "^4.7.0",
+    "prop-types": "latest",
+    "react": "latest",
+    "react-compound-timer": "^1.2.0",
+    "react-dom": "latest",
+    "sass": "^1.26.10",
+    "swr": "0.2.3"
+  },
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
+  }
+}

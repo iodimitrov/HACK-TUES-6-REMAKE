@@ -1,0 +1,77 @@
+@import 'variables';
+
+.navbar {
+    background-color: white;
+    margin: 20px 0;
+    border-radius: 10px;
+    padding: 0px 20px;
+    width: auto;
+
+    .title {
+        font-size: 28px;
+        margin-right: 20px;
+
+        span {
+            font-family: llpixel, 'Helvetica', 'Arial', sans-serif;
+            font-size: 25px;
+            color: black;
+
+            &:nth-child(2) {
+                color: $primary-color;
+            }
+        }
+    }
+
+    .links {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        .link {
+            margin: 0 8px 0 8px;
+
+            button {
+                width: max-content;
+                padding: 8px 16px;
+            }
+        }
+
+        .separator {
+            display: block;
+            width: 100%;
+        }
+    }
+
+    .separator {
+        display: none;
+        width: 100%;
+    }
+
+    .drawer-toggle {
+        display: none;
+        font-size: 28px;
+        padding: 0;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .navbar {
+        .drawer-toggle {
+            display: block;
+        }
+
+        .separator {
+            display: block;
+        }
+
+        .links {
+            display: none;
+        }
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .navbar {
+        padding: 0 10px;
+    }
+}
