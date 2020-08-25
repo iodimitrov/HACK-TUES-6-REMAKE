@@ -13,6 +13,36 @@ export default class MyDocument extends Document {
                         name='theme-color'
                         content={theme.palette.primary.main}
                     />
+                    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+                    <link rel='manifest' href='manifest.json' />
+
+                    <meta name='mobile-web-app-capable' content='yes' />
+                    <meta name='apple-mobile-web-app-capable' content='yes' />
+                    <meta name='application-name' content='HT6' />
+                    <meta name='apple-mobile-web-app-title' content='HT6' />
+                    <meta name='theme-color' content='#FDA520' />
+                    <meta
+                        name='msapplication-navbutton-color'
+                        content='#FDA520'
+                    />
+                    <meta
+                        name='apple-mobile-web-app-status-bar-style'
+                        content='black-translucent'
+                    />
+                    <meta name='msapplication-TileColor' content='#da532c' />
+
+                    <meta name='msapplication-starturl' content='/' />
+                    <link
+                        rel='mask-icon'
+                        href='icon/safari-pinned-tab.svg'
+                        color='#fda520'
+                    />
+                    <link
+                        rel='apple-touch-icon'
+                        sizes='180x180'
+                        href='icon/apple-touch-icon.png'
+                    />
+
                     <link
                         rel='stylesheet'
                         href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap'
