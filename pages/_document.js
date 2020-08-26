@@ -13,7 +13,7 @@ export default class MyDocument extends Document {
                         name='theme-color'
                         content={theme.palette.primary.main}
                     />
-                    <meta http-equiv='X-UA-Compatible' content='IE=edge' />
+                    <meta httpEquiv='X-UA-Compatible' content='IE=edge' />
                     <link rel='manifest' href='manifest.json' />
 
                     <meta name='mobile-web-app-capable' content='yes' />

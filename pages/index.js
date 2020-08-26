@@ -24,15 +24,8 @@ const Index = () => {
     const [columns, setColumns] = useState(4);
 
     useEffect(() => {
-        let columns = 4;
-        if (window.matchMedia('(max-width: 375px)').matches) {
-            columns = 1;
-        } else if (window.matchMedia('(max-width: 650px)').matches) {
-            columns = 2;
-        } else if (window.matchMedia('(max-width: 990px)').matches) {
-            columns = 3;
-        }
-        setColumns(columns);
+        window.addEventListener('resize', detectColumns);
+        detectColumns();
         (async () => {
             let images = await firebase
                 .storage()
@@ -45,6 +38,18 @@ const Index = () => {
             setImages(images_urls);
         })();
     }, []);
+
+    const detectColumns = () => {
+        let columns = 4;
+        if (window.matchMedia('(max-width: 375px)').matches) {
+            columns = 1;
+        } else if (window.matchMedia('(max-width: 650px)').matches) {
+            columns = 2;
+        } else if (window.matchMedia('(max-width: 990px)').matches) {
+            columns = 3;
+        }
+        setColumns(columns);
+    };
 
     const links = [
         'https://www.sap.com/bulgaria/index.html',
