@@ -18,7 +18,7 @@ const Navbar = () => {
 
     const navbarLinks = () => (
         <>
-            <Link underline='none' className={styles.link} href='/'>
+            <Link underline='none' className={styles.link} href='/schedule'>
                 <Button>Програма</Button>
             </Link>
             <Link underline='none' className={styles.link} href='/'>

@@ -3,7 +3,7 @@ import Head from 'next/head';
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
 import Logo from 'components/Logo';
-import { Container, Box, Link, IconButton } from '@material-ui/core';
+import { Container, Box, Link, IconButton, Grow } from '@material-ui/core';
 import Image from 'material-ui-image';
 import {
     CalendarToday,
@@ -123,107 +123,116 @@ const Index = () => {
             </Head>
             <Navbar />
             <Container className={styles.content} disableGutters>
-                <Box className={styles['herosection']}>
-                    <Logo />
-                    <Timer
-                        initialTime={
-                            new Date('2020-10-01T19:00:00').getTime() -
-                            new Date().getTime()
-                        }
-                        direction='backward'
-                    >
-                        <Box className={styles.timer}>
-                            <div>
-                                <span>
-                                    <Timer.Days />
-                                </span>
-                                <span>Дена</span>
-                            </div>
-                            <div>
-                                <span>
-                                    <Timer.Hours />
-                                </span>
-                                <span>Часа</span>
-                            </div>
-                            <div>
-                                <span>
-                                    <Timer.Minutes />
-                                </span>
-                                <span>Минути</span>
-                            </div>
-                            <div>
-                                <span>
-                                    <Timer.Seconds />
-                                </span>
-                                <span>Секунди</span>
-                            </div>
-                        </Box>
-                    </Timer>
-                    <Box className={styles.date}>
-                        <span>
-                            <CalendarToday fontSize='large' />
-                            1-4 октомври 2020
-                        </span>
-                        <span>
-                            <Room fontSize='large' />
-                            <Link
-                                target='_blank'
-                                rel='noopener'
-                                href='https://goo.gl/maps/pfY4KzmY2QfD6vCx5'
-                            >
-                                София Тех Парк
-                            </Link>
-                        </span>
-                    </Box>
-                </Box>
-                <Box className={styles['carousel-container']}>
-                    <Box className={styles['carousel-status']}>
-                        <span className={styles.alpha}>АЛФА</span>
-                        <span className={styles.beta}>БЕТА</span>
-                        <span className={styles.gamma}>ГАМА</span>
-                        <span className={styles.partners}>ПАРТНЬОРИ</span>
-                    </Box>
-                    <Carousel
-                        enableKeyboardControls
-                        autoplay
-                        wrapAround
-                        framePadding='20px 50px 0'
-                        slidesToShow={columns}
-                        renderBottomCenterControls={null}
-                        renderCenterLeftControls={({ previousSlide }) => (
-                            <IconButton
-                                style={{ color: 'black' }}
-                                onClick={previousSlide}
-                            >
-                                <ChevronLeft fontSize='large' />
-                            </IconButton>
-                        )}
-                        renderCenterRightControls={({ nextSlide }) => (
-                            <IconButton
-                                style={{ color: 'black' }}
-                                onClick={nextSlide}
-                            >
-                                <ChevronRight fontSize='large' />
-                            </IconButton>
-                        )}
-                        className={styles.carousel}
-                    >
-                        {images &&
-                            images.map((image, i) => (
+                <Grow in>
+                    <Box className={styles['herosection']}>
+                        <Logo />
+                        <Timer
+                            initialTime={
+                                new Date('2020-10-01T19:00:00').getTime() -
+                                new Date().getTime()
+                            }
+                            direction='backward'
+                        >
+                            <Box className={styles.timer}>
+                                <div>
+                                    <span>
+                                        <Timer.Days />
+                                    </span>
+                                    <span>Дена</span>
+                                </div>
+                                <div>
+                                    <span>
+                                        <Timer.Hours />
+                                    </span>
+                                    <span>Часа</span>
+                                </div>
+                                <div>
+                                    <span>
+                                        <Timer.Minutes />
+                                    </span>
+                                    <span>Минути</span>
+                                </div>
+                                <div>
+                                    <span>
+                                        <Timer.Seconds />
+                                    </span>
+                                    <span>Секунди</span>
+                                </div>
+                            </Box>
+                        </Timer>
+                        <Box className={styles.date}>
+                            <span>
+                                <CalendarToday fontSize='large' />
+                                1-4 октомври 2020
+                            </span>
+                            <span>
+                                <Room fontSize='large' />
                                 <Link
-                                    href={links[i]}
                                     target='_blank'
                                     rel='noopener'
-                                    className={`${styles['image-link']} ${
-                                        styles[names[i]]
-                                    }`}
-                                    key={i}
+                                    href='https://goo.gl/maps/pfY4KzmY2QfD6vCx5'
                                 >
-                                    <Image src={image} alt={names[i]} />
+                                    София Тех Парк
                                 </Link>
-                            ))}
-                    </Carousel>
-                </Box>
+                            </span>
+                        </Box>
+                    </Box>
+                </Grow>
+                {images && images.length > 0 && (
+                    <Grow in>
+                        <Box className={styles['carousel-container']}>
+                            <Box className={styles['carousel-status']}>
+                                <span className={styles.alpha}>АЛФА</span>
+                                <span className={styles.beta}>БЕТА</span>
+                                <span className={styles.gamma}>ГАМА</span>
+                                <span className={styles.partners}>
+                                    ПАРТНЬОРИ
+                                </span>
+                            </Box>
+                            <Carousel
+                                enableKeyboardControls
+                                autoplay
+                                wrapAround
+                                framePadding='20px 50px 0'
+                                slidesToShow={columns}
+                                renderBottomCenterControls={null}
+                                renderCenterLeftControls={({
+                                    previousSlide,
+                                }) => (
+                                    <IconButton
+                                        style={{ color: 'black' }}
+                                        onClick={previousSlide}
+                                    >
+                                        <ChevronLeft fontSize='large' />
+                                    </IconButton>
+                                )}
+                                renderCenterRightControls={({ nextSlide }) => (
+                                    <IconButton
+                                        style={{ color: 'black' }}
+                                        onClick={nextSlide}
+                                    >
+                                        <ChevronRight fontSize='large' />
+                                    </IconButton>
+                                )}
+                                className={styles.carousel}
+                            >
+                                {images.map((image, i) => (
+                                    <Link
+                                        href={links[i]}
+                                        target='_blank'
+                                        rel='noopener'
+                                        className={`${styles['image-link']} ${
+                                            styles[names[i]]
+                                        }`}
+                                        key={i}
+                                    >
+                                        <Image src={image} alt={names[i]} />
+                                    </Link>
+                                ))}
+                            </Carousel>
+                        </Box>
+                    </Grow>
+                )}
             </Container>
             <Footer />
         </Container>
