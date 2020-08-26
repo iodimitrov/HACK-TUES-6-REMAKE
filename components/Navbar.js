@@ -6,8 +6,6 @@ import {
     Button,
     SwipeableDrawer,
 } from '@material-ui/core';
-import { useUser } from 'utils/auth/useUser';
-import cookies from 'next-cookies';
 import { Menu } from '@material-ui/icons';
 import Link from './Link';
 import { useState, useEffect } from 'react';
@@ -15,7 +13,6 @@ import styles from 'styles/Navbar.module.scss';
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
-    const { user, logout } = useUser();
 
     useEffect(() => {}, []);
 
@@ -30,7 +27,7 @@ const Navbar = () => {
             <Link underline='none' className={styles.link} href='/'>
                 <Button>Регламент</Button>
             </Link>
-            <Link underline='none' className={styles.link} href='/'>
+            <Link underline='none' className={styles.link} href='/about'>
                 <Button>За Hack TUES</Button>
             </Link>
             <span className={styles.separator}></span>
@@ -89,18 +86,6 @@ const Navbar = () => {
             </Toolbar>
         </AppBar>
     );
-};
-
-export const getServerSideProps = async (ctx) => {
-    const allCookies = cookies(ctx);
-    // if (allCookies.auth) {
-    //     ctx.res.writeHead(302, { Location: "/auth" });
-    //     ctx.res.end();
-    //     return { props: {} };
-    // }
-    return {
-        props: {},
-    };
 };
 
 export default Navbar;
