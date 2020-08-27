@@ -79,13 +79,11 @@ a {
             }
         }
 
-        .separator {
+        & > span {
             height: 1px;
-            margin: 0;
-            padding: 0;
-            width: 1px;
-            background-color: transparent;
-            flex-grow: 1;
+            width: 80%;
+            margin: 20px 0px;
+            background: linear-gradient(to left, white, black, white);
         }
     }
 }
