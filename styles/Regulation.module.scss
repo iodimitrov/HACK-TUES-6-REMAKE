@@ -1,0 +1,23 @@
+.card {
+    &:not(:first-child) {
+        margin-top: 10px;
+    }
+
+    .card-header {
+        padding-bottom: 0;
+
+        :global .MuiCardHeader-content {
+            .MuiCardHeader-title {
+                font-weight: 500;
+            }
+        }
+    }
+
+    .card-content {
+        ul {
+            li {
+                font-size: 17px;
+            }
+        }
+    }
+}

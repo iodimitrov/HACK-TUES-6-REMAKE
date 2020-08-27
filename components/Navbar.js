@@ -24,7 +24,7 @@ const Navbar = () => {
             <Link underline='none' className={styles.link} href='/'>
                 <Button>Архив</Button>
             </Link>
-            <Link underline='none' className={styles.link} href='/'>
+            <Link underline='none' className={styles.link} href='/regulation'>
                 <Button>Регламент</Button>
             </Link>
             <Link underline='none' className={styles.link} href='/about'>
