@@ -104,11 +104,7 @@ const Navbar = (props) => {
                 <Button>Влез</Button>
             </Link>
             <Link underline='none' className={styles.link} href='/'>
-                <Button
-                    disableElevation={true}
-                    color='primary'
-                    variant='contained'
-                >
+                <Button disableElevation color='primary' variant='contained'>
                     Регистрация
                 </Button>
             </Link>

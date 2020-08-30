@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import Head from 'next/head';
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
@@ -7,9 +8,14 @@ import {
     CardContent,
     CardHeader,
     CardMedia,
+    CardActions,
+    Button,
     Avatar,
     Typography,
     Chip,
+    Grow,
+    Box,
+    Collapse,
 } from '@material-ui/core';
 import { EmojiEvents, People, Person } from '@material-ui/icons';
 import CountUp from 'react-countup';
@@ -17,6 +23,12 @@ import styles from 'styles/Archive.module.scss';
 import data from 'public/archive.json';
 
 const Archive = (props) => {
+    const [expanded, setExpanded] = useState(false);
+
+    const handleExpandClick = () => {
+        setExpanded(!expanded);
+    };
+
     const teamPlace = (place) => {
         if (place === 'first') {
             return (
@@ -82,93 +94,130 @@ const Archive = (props) => {
                     content='Архив за предишните издания на хакатона HackTUES'
                 ></meta>
             </Head>
-            <Navbar />
+            <Navbar theme={props.id} />
             <Container maxWidth='lg'>
-                <Container disableGutters className={styles['card-container']}>
-                    {props.winners &&
-                        props.winners.map((winner, i) => (
-                            <Card className={styles.card} key={i}>
-                                {teamPlace(winner.place)}
-                                {winner.image && (
-                                    <CardMedia
-                                        className={styles['card-media']}
-                                        image={winner.image}
-                                        title={winner.name}
-                                    />
-                                )}
+                <Grow in>
+                    <Container
+                        disableGutters
+                        className={styles['card-container']}
+                    >
+                        {props.winners &&
+                            props.winners.map((winner, i) => (
+                                <Card className={styles.card} key={i}>
+                                    {teamPlace(winner.place)}
+                                    {winner.image && (
+                                        <CardMedia
+                                            className={styles['card-media']}
+                                            image={winner.image}
+                                            title={winner.name}
+                                        />
+                                    )}
+                                    <CardContent
+                                        className={styles['card-content']}
+                                    >
+                                        <CardHeader
+                                            className={styles['card-header']}
+                                            title={winner.name}
+                                        />
+                                        <br />
+                                        <Typography component='p'>
+                                            <strong>Участници:</strong>{' '}
+                                            {winner.participants}
+                                        </Typography>
+                                        <br />
+                                        <Typography component='p'>
+                                            <strong>Проект:</strong>{' '}
+                                            {winner.project}
+                                        </Typography>
+                                    </CardContent>
+                                </Card>
+                            ))}
+                    </Container>
+                </Grow>
+                <Grow in timeout={350}>
+                    <Container className={styles['stats-container']}>
+                        <div>
+                            <CountUp end={props.allParticipants} />
+                            <Person
+                                style={{
+                                    top: '-16px',
+                                    position: 'absolute',
+                                    fontSize: '163px',
+                                    opacity: '0.05',
+                                }}
+                            />
+                            <span>Участници</span>
+                        </div>
+                        <div>
+                            <CountUp end={props.teams} />
+                            <People
+                                style={{
+                                    top: '-25px',
+                                    position: 'absolute',
+                                    fontSize: '182px',
+                                    opacity: '0.05',
+                                }}
+                            />
+                            <span>Отбора</span>
+                        </div>
+                        <div>
+                            <CountUp end={props.valuedProjects} />
+                            <EmojiEvents
+                                style={{
+                                    top: '1px',
+                                    position: 'absolute',
+                                    fontSize: '135px',
+                                    opacity: '0.05',
+                                }}
+                            />
+                            <span>Отличени проекта</span>
+                        </div>
+                    </Container>
+                </Grow>
+                <Grow in timeout={400}>
+                    <Container
+                        disableGutters
+                        className={styles['description-container']}
+                    >
+                        <Card className={styles.card}>
+                            <Box className={styles['card-uppersection']}>
+                                <CardHeader
+                                    className={styles['card-header']}
+                                    title='За събитието'
+                                />
+                                <CardActions disableSpacing>
+                                    <Button
+                                        onClick={handleExpandClick}
+                                        aria-expanded={expanded}
+                                        aria-label='show more'
+                                        disableElevation
+                                        color='primary'
+                                        variant='contained'
+                                    >
+                                        {expanded
+                                            ? 'Прочети по-малко'
+                                            : 'Прочети повече'}
+                                    </Button>
+                                </CardActions>
+                            </Box>
+                            <Collapse
+                                in={expanded}
+                                timeout='auto'
+                                collapsedHeight={200}
+                            >
                                 <CardContent className={styles['card-content']}>
-                                    <CardHeader
-                                        className={styles['card-header']}
-                                        title={winner.name}
+                                    <Typography
+                                        dangerouslySetInnerHTML={{
+                                            __html: props.description,
+                                        }}
                                     />
-                                    <br />
-                                    <Typography component='p'>
-                                        <strong>Участници:</strong>{' '}
-                                        {winner.participants}
-                                    </Typography>
-                                    <br />
-                                    <Typography component='p'>
-                                        <strong>Проект:</strong>{' '}
-                                        {winner.project}
-                                    </Typography>
                                 </CardContent>
-                            </Card>
-                        ))}
-                </Container>
-                <Container className={styles['stats-container']}>
-                    <div>
-                        <CountUp end={props.allParticipants} />
-                        <Person
-                            style={{
-                                top: '-16px',
-                                position: 'absolute',
-                                fontSize: '163px',
-                                opacity: '0.05',
-                            }}
-                        />
-                        <span>Участници</span>
-                    </div>
-                    <div>
-                        <CountUp end={props.teams} />
-                        <People
-                            style={{
-                                top: '-25px',
-                                position: 'absolute',
-                                fontSize: '182px',
-                                opacity: '0.05',
-                            }}
-                        />
-                        <span>Отбора</span>
-                    </div>
-                    <div>
-                        <CountUp end={props.valuedProjects} />
-                        <EmojiEvents
-                            style={{
-                                top: '1px',
-                                position: 'absolute',
-                                fontSize: '135px',
-                                opacity: '0.05',
-                            }}
-                        />
-                        <span>Отличени проекта</span>
-                    </div>
-                </Container>
-                <Container
-                    disableGutters
-                    className={styles['description-container']}
-                >
-                    <Card className={styles.card}>
-                        <CardHeader
-                            className={styles['card-header']}
-                            title='За събитието'
-                        />
-                        <CardContent className={styles['card-content']}>
-                            <Typography>{props.description}</Typography>
-                        </CardContent>
-                    </Card>
-                </Container>
+                            </Collapse>
+                        </Card>
+                    </Container>
+                </Grow>
             </Container>
-            <Footer />
+            <Footer theme={props.id} />
         </Container>
     );
 };
