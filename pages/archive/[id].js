@@ -185,7 +185,10 @@ const Archive = (props) => {
                                     className={styles['card-header']}
                                     title='За събитието'
                                 />
-                                <CardActions disableSpacing>
+                                <CardActions
+                                    className={styles['card-actions']}
+                                    disableSpacing
+                                >
                                     <Button
                                         onClick={handleExpandClick}
                                         aria-expanded={expanded}

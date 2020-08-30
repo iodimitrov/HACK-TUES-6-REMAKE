@@ -44,6 +44,7 @@ const Navbar = (props) => {
                 onClose={handleClose}
             >
                 <MenuItem
+                    underline='none'
                     className='archive-item hacktues'
                     component={Link}
                     href='/archive/[id]'
@@ -53,6 +54,7 @@ const Navbar = (props) => {
                     <span>Hack</span> <span>&nbsp;TUES</span>
                 </MenuItem>
                 <MenuItem
+                    underline='none'
                     className='archive-item hacktues2'
                     component={Link}
                     href='/archive/[id]'
@@ -63,6 +65,7 @@ const Navbar = (props) => {
                     <span>&nbsp;2</span>
                 </MenuItem>
                 <MenuItem
+                    underline='none'
                     className='archive-item hacktues3'
                     component={Link}
                     href='/archive/[id]'
@@ -73,6 +76,7 @@ const Navbar = (props) => {
                     <span>&nbsp;3</span>
                 </MenuItem>
                 <MenuItem
+                    underline='none'
                     className='archive-item hacktues30'
                     component={Link}
                     href='/archive/[id]'
@@ -83,6 +87,7 @@ const Navbar = (props) => {
                     <span>TUES</span>
                 </MenuItem>
                 <MenuItem
+                    underline='none'
                     className='archive-item hacktues365'
                     component={Link}
                     href='/archive/[id]'
