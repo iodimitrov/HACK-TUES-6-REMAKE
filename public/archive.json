@@ -1,0 +1,149 @@
+[
+    {
+        "id": "hacktues",
+        "winners": [
+            {
+                "place": "first",
+                "participants": "Телерик Арсов, Антонио Милев, Мартин Дацев",
+                "name": "Go6o",
+                "project": "Автоматизирана оценка на тестове",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht%2Fht-1.jpg?alt=media&token=a117c3ae-7168-4cbd-84d1-59e48cdaa4ff"
+            },
+            {
+                "place": "second",
+                "participants": "Антонио Миндов, Дария Никитова, Кристиана Иванова, Петър Петров, Ясен Алексиев",
+                "name": "R&T",
+                "project": "Визуализация на код с блок-схеми",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht%2Fht-2.jpg?alt=media&token=88bef65d-f596-44ed-993e-842b7090530e"
+            },
+            {
+                "place": "third",
+                "participants": "Габриел Гарвалов, Дейвид-Николас Петров, Илиян Кордев, Филип Пепегов, Кристиан Томов",
+                "name": "Coding Masters",
+                "project": "Система за обмен на информация и знания между учениците",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht%2Fht-3.jpg?alt=media&token=32983808-86ce-4f23-82ea-a7a8064afb6e"
+            }
+        ],
+        "allParticipants": 84,
+        "teams": 18,
+        "valuedProjects": 6,
+        "description": "test"
+    },
+    {
+        "id": "hacktues2",
+        "winners": [
+            {
+                "place": "first",
+                "participants": "Жанет Хаджиангелова, Мария Стоянова, Георги Данчев, Николай Миланов, Димитър Кацаров",
+                "name": "ASDF Unicorns",
+                "project": "Образователна игра за опазване на околната среда"
+            },
+            {
+                "place": "second",
+                "participants": "Николета Далакчиева, Владимир Младенов, Марина Тихова, Лъчезар Младенов",
+                "name": "Walking Chaos",
+                "project": "Уебсайт за продажба и обмен на продукти от рециклирани материали"
+            },
+            {
+                "place": "third",
+                "participants": "Андреа Георгиева, Николай Рангелов, Александър Велинов, Калин Карев, Светлин Йорданов, Теодор Добрев",
+                "name": "The Tanks",
+                "project": "Приложение за лекари и медицински работници"
+            }
+        ],
+        "allParticipants": 100,
+        "teams": 18,
+        "valuedProjects": 7,
+        "description": "test"
+    },
+    {
+        "id": "hacktues3",
+        "winners": [
+            {
+                "place": "first",
+                "participants": "Лазар Френкев, Александър Вербовский, Андрей Стрински, Християн Генчев, Алекс Стефанов",
+                "name": "Зор",
+                "project": "2D Platformer с puzzle game елементи",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht3%2Fht3-1.jpg?alt=media&token=7af0dd5d-558a-490f-9cbe-366603d70ebe"
+            },
+            {
+                "place": "second",
+                "participants": "Телерик Арсов, Стефан Бабуков, Николай Милчев, Мартин Дацев",
+                "name": "To6o",
+                "project": "Симулация на генетичен алгоритъм",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht3%2Fht3-2.jpg?alt=media&token=56fe9595-09f0-47b4-bd4b-4f59bf001376"
+            },
+            {
+                "place": "third",
+                "participants": "Георги Корчаков, Кристиян Йочев, Йордан Златанов, Симеон Георгиев, Александър Стоичков",
+                "name": "Top8",
+                "project": "Уеб приложение за създаване и редактиране на изображения",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht3%2Fht3-3.jpg?alt=media&token=8d29551b-5367-49c8-b929-a19410fb0aae"
+            }
+        ],
+        "allParticipants": 136,
+        "teams": 31,
+        "valuedProjects": 8,
+        "description": "test"
+    },
+    {
+        "id": "hacktues30",
+        "winners": [
+            {
+                "place": "first",
+                "participants": "Телерик Арсов, Ивона Мирчева, Владислав Георгиев, Мартин Дацев, Петър Милев",
+                "name": "COCOBE",
+                "project": "Приложение за резюмиране на текст, използващо невронни мрежи и машинно самообучение",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht30%2Fh30xt-1.jpg?alt=media&token=81998738-f4ce-4792-8406-7fe1313f6b8e"
+            },
+            {
+                "place": "second",
+                "participants": "Георги Любенов, Виктор Велев, Антон Янчев, Самуил Георгиев",
+                "name": "Old and Bald",
+                "project": "Приложение за чатбот на историческа тема, което предлага резюме на текстове по дадена тема, спрямо интересите на ползвателите",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht30%2Fh30xt-2.jpg?alt=media&token=ac1a56a7-c38d-412d-8368-3c747db878e0"
+            },
+            {
+                "place": "third",
+                "participants": "Михаил Киров, Петър Николов, Денис Бързанов, Тони Пеловски, Стефан Стефанов",
+                "name": "IDK",
+                "project": "Игрална конзола",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht30%2Fh30xt-3.jpg?alt=media&token=2ede6148-5de5-4582-be3c-32260577e382"
+            }
+        ],
+        "allParticipants": 206,
+        "teams": 45,
+        "valuedProjects": 11,
+        "description": "test"
+    },
+    {
+        "id": "hacktues365",
+        "winners": [
+            {
+                "place": "first",
+                "participants": "Виктор Велев, Петър Герасимов, Теодор Станишев",
+                "name": "Elsyser",
+                "project": "Персонален асистент целящ да промени живота на незрящите като използва Artificial intelligence",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht365%2Fht365-1.jpg?alt=media&token=fdf5b6b6-981c-49e7-a5d4-efe4c00a7990"
+            },
+            {
+                "place": "second",
+                "participants": "Владислав Георгиев, Мартин Дацев, Антонио Милев, Телерик Арсов",
+                "name": "Какводой",
+                "project": "Платформа за решаване на геометрични задачи",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht365%2Fht365-2.jpg?alt=media&token=64557df6-b2d4-455d-aca0-3ccac3543a40"
+            },
+            {
+                "place": "third",
+                "participants": "Мартин Йорданов, Самуил Георгиев, Антон Янчев, Огнян Барух, Георги Любенов",
+                "name": "Babba4e",
+                "project": "Система за проверка на автентичността на продукта чрез сканиране на уникален QR код на всеки продукт",
+                "image": "https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/ht_archive%2Fht365%2Fht365-3.jpg?alt=media&token=99e63270-7e9e-4f97-94d4-3046bdc05037"
+            }
+        ],
+        "allParticipants": 198,
+        "teams": 43,
+        "valuedProjects": 10,
+        "description": "test"
+    }
+]

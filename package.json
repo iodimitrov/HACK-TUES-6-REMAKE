@@ -17,6 +17,7 @@
     "prop-types": "latest",
     "react": "latest",
     "react-compound-timer": "^1.2.0",
+    "react-countup": "^4.3.3",
     "react-dom": "latest",
     "sass": "^1.26.10",
     "swr": "0.2.3"

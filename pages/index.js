@@ -15,7 +15,7 @@ import styles from 'styles/Index.module.scss';
 import Timer from 'react-compound-timer';
 import Carousel from 'nuka-carousel';
 import firebase from 'firebase/app';
-import initFirebase from '../utils/auth/initFirebase';
+import initFirebase from 'utils/auth/initFirebase';
 
 initFirebase();
 

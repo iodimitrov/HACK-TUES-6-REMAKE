@@ -1,0 +1,125 @@
+.card-container {
+    display: flex;
+    flex-direction: row;
+
+    .card {
+        margin: 0 10px;
+        width: 100%;
+        overflow: visible;
+        position: relative;
+
+        &:first-child {
+            margin-left: 0;
+        }
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        .card-media {
+            height: 250px;
+        }
+
+        .card-chip {
+            position: absolute;
+            left: -10px;
+            top: -10px;
+        }
+
+        .card-content {
+            padding-top: 24px;
+
+            .card-header {
+                padding: 0;
+
+                :global .MuiCardHeader-title {
+                    font-weight: 500;
+                }
+            }
+
+            :global .MuiTypography-root {
+                word-break: break-word;
+            }
+        }
+    }
+}
+
+.stats-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 10px;
+
+    div {
+        position: relative;
+        font-weight: 500;
+        text-align: center;
+        padding: 20px;
+        margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        span:first-child {
+            font-size: 45px;
+        }
+
+        span:last-child {
+            font-size: 20px;
+        }
+    }
+}
+
+.description-container {
+    margin-top: 10px;
+
+    .card {
+        .card-header {
+            :global .MuiCardHeader-title {
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 1130px) {
+    .card-container {
+        .card {
+            .card-media {
+                height: 200px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 930px) {
+    .card-container {
+        .card {
+            .card-media {
+                height: 150px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+
+        .card {
+            margin: 10px 0;
+
+            .card-media {
+                height: 250px;
+                background-position: 50% 20%;
+            }
+        }
+    }
+
+    .stats-container {
+        margin: 0;
+    }
+}

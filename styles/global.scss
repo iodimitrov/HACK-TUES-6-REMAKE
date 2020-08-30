@@ -45,6 +45,80 @@ a {
     text-decoration: none;
 }
 
+.archive {
+    .archive-item {
+        font-family: llpixel;
+        padding: 13px 16px;
+
+        sup {
+            line-height: 0;
+            position: relative;
+            font-size: 11px;
+            top: -2px;
+        }
+    }
+    .hacktues,
+    .hacktues2 {
+        span {
+            &:nth-child(1) {
+                color: black;
+            }
+
+            &:nth-child(2) {
+                color: #446576;
+            }
+
+            &:nth-child(3) {
+                color: black;
+            }
+        }
+    }
+
+    .hacktues3 {
+        background-color: #232323;
+
+        span {
+            &:nth-child(1) {
+                color: white;
+            }
+
+            &:nth-child(2) {
+                color: #09c0de;
+            }
+
+            &:nth-child(3) {
+                color: #b2006e;
+            }
+        }
+    }
+
+    .hacktues30 {
+        background-color: #232323;
+
+        * {
+            color: #21f9e5;
+        }
+    }
+
+    .hacktues365 {
+        background-color: #343a40;
+
+        span {
+            &:nth-child(1) {
+                color: #d6c6ad;
+            }
+
+            &:nth-child(2) {
+                color: #99d02b;
+            }
+        }
+
+        sup {
+            color: #99d02b;
+        }
+    }
+}
+
 .drawer {
     .MuiDrawer-paper {
         display: flex;
