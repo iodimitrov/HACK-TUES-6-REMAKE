@@ -10,14 +10,14 @@ import {
 } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import Link from './Link';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from 'styles/Navbar.module.scss';
+import { useUser } from 'utils/auth/useUser';
 
 const Navbar = (props) => {
+    const { user, logout } = useUser();
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
-
-    useEffect(() => {}, []);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -105,14 +105,35 @@ const Navbar = (props) => {
                 <Button>За Hack TUES</Button>
             </Link>
             <span className={styles.separator}></span>
-            <Link underline='none' className={styles.link} href='/'>
-                <Button>Влез</Button>
-            </Link>
-            <Link underline='none' className={styles.link} href='/'>
-                <Button disableElevation color='primary' variant='contained'>
-                    Регистрация
-                </Button>
-            </Link>
+            {user ? (
+                <>
+                    <Link underline='none' className={styles.link} href='/'>
+                        <Button>Профил</Button>
+                    </Link>
+                    <Button className={styles.link} onClick={() => logout()}>
+                        Излез
+                    </Button>
+                </>
+            ) : (
+                <>
+                    <Link underline='none' className={styles.link} href='/'>
+                        <Button>Влез</Button>
+                    </Link>
+                    <Link
+                        underline='none'
+                        className={styles.link}
+                        href='/register'
+                    >
+                        <Button
+                            disableElevation
+                            color='primary'
+                            variant='contained'
+                        >
+                            Регистрация
+                        </Button>
+                    </Link>
+                </>
+            )}
         </>
     );
 

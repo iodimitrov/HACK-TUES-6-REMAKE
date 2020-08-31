@@ -1,14 +1,14 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import firebase from "firebase/app";
-import "firebase/auth";
-import initFirebase from "../auth/initFirebase";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import initFirebase from '../auth/initFirebase';
 import {
     removeUserCookie,
     setUserCookie,
     getUserFromCookie,
-} from "./userCookies";
-import { mapUserData } from "./mapUserData";
+} from './userCookies';
+import { mapUserData } from './mapUserData';
 
 initFirebase();
 
@@ -22,7 +22,7 @@ const useUser = () => {
             .signOut()
             .then(() => {
                 // Sign-out successful.
-                router.push("/auth");
+                router.push('/');
             })
             .catch((e) => {
                 console.error(e);
@@ -45,11 +45,9 @@ const useUser = () => {
         });
 
         const userFromCookie = getUserFromCookie();
-        if (!userFromCookie) {
-            router.push("/");
-            return;
+        if (userFromCookie) {
+            setUser(userFromCookie);
         }
-        setUser(userFromCookie);
 
         return () => {
             cancelAuthListener();

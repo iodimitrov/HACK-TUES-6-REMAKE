@@ -94,7 +94,7 @@ const Archive = (props) => {
                     content='Архив за предишните издания на хакатона HackTUES'
                 ></meta>
             </Head>
-            <Navbar theme={props.id} />
+            <Navbar />
             <Container maxWidth='lg'>
                 <Grow in>
                     <Container
@@ -220,7 +220,7 @@ const Archive = (props) => {
                     </Container>
                 </Grow>
             </Container>
-            <Footer theme={props.id} />
+            <Footer />
         </Container>
     );
 };
