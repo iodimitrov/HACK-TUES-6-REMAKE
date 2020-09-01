@@ -23,10 +23,13 @@ export default class MyDocument extends Document {
                         name='apple-mobile-web-app-title'
                         content='Hack TUES 6'
                     />
-                    <meta name='theme-color' content='#FDA520' />
+                    <meta
+                        name='theme-color'
+                        content={theme.palette.primary.main}
+                    />
                     <meta
                         name='msapplication-navbutton-color'
-                        content='#FDA520'
+                        content={theme.palette.primary.main}
                     />
                     <meta name='msapplication-tap-highlight' content='no' />
                     <meta
@@ -44,7 +47,7 @@ export default class MyDocument extends Document {
                     <link
                         rel='mask-icon'
                         href='icon/safari-pinned-tab.svg'
-                        color='#fda520'
+                        color={theme.palette.primary.main}
                     />
                     <link
                         rel='apple-touch-icon'

@@ -5335,6 +5335,13 @@ next@latest:
     webpack "4.44.1"
     webpack-sources "1.4.3"
 
+nextjs-progressbar@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.yarnpkg.com/nextjs-progressbar/-/nextjs-progressbar-0.0.6.tgz#d1841df42f2342807dc6f7ad1034ddb8ec8541d4"
+  integrity sha512-9sxNpUSHOnmRV8/3yEZ9NV5c/ip2CpQ7jim3EOOZp49qIHrgNxmy/kzoulNjt50AlA7pAu/8rwgC2WpzmSMrdg==
+  dependencies:
+    nprogress "^0.2.0"
+
 node-fetch@2.6.0, node-fetch@^2.2.0, node-fetch@^2.3.0, node-fetch@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
@@ -5425,6 +5432,11 @@ normalize-url@1.9.1:
     prepend-http "^1.0.0"
     query-string "^4.1.0"
     sort-keys "^1.0.0"
+
+nprogress@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/nprogress/-/nprogress-0.2.0.tgz#cb8f34c53213d895723fcbab907e9422adbcafb1"
+  integrity sha1-y480xTIT2JVyP8urkH6UIq28r7E=
 
 nuka-carousel@^4.7.0:
   version "4.7.0"
