@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
@@ -13,9 +13,19 @@ import {
     Grow,
 } from '@material-ui/core';
 import styles from 'styles/Register.module.scss';
-import cookies from 'next-cookies';
+import { useUser } from 'utils/auth/useUser';
+import { useRouter } from 'next/router';
 
 const Register = () => {
+    const { user, logout } = useUser();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (user) {
+            router.push('/');
+        }
+    }, []);
+
     const [email, setEmail] = useState({
         value: '',
         error: false,
@@ -410,17 +420,6 @@ const Register = () => {
             <Footer />
         </Container>
     );
-};
-
-export const getServerSideProps = async (ctx) => {
-    const allCookies = cookies(ctx);
-    if (allCookies.auth) {
-        ctx.res.writeHead(302, { Location: '/' });
-        ctx.res.end();
-    }
-    return {
-        props: {},
-    };
 };
 
 export default Register;
