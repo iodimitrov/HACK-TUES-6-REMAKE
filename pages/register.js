@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Head from 'next/head';
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
@@ -11,20 +11,22 @@ import {
     FormControlLabel,
     Button,
     Grow,
+    Snackbar,
 } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 import styles from 'styles/Register.module.scss';
-import { useUser } from 'utils/auth/useUser';
 import { useRouter } from 'next/router';
+import { generateSearchQueries } from 'utils/functions';
+import initFirebase from 'utils/auth/initFirebase';
+import firebase from 'firebase/app';
+import 'firebase/auth';
+import 'firebase/firestore';
+import cookies from 'next-cookies';
+
+initFirebase();
 
 const Register = () => {
-    const { user, logout } = useUser();
     const router = useRouter();
-
-    useEffect(() => {
-        if (user) {
-            router.push('/');
-        }
-    }, []);
 
     const [email, setEmail] = useState({
         value: '',
@@ -65,6 +67,7 @@ const Register = () => {
         checked: false,
         error: false,
     });
+    const [error, setError] = useState(false);
 
     const grades = [
         '9А',
@@ -163,6 +166,42 @@ const Register = () => {
             setGdpr({ checked: gdpr.checked, error: true });
             return;
         }
+
+        firebase
+            .auth()
+            .createUserWithEmailAndPassword(email.value, password.value)
+            .then((data) => {
+                firebase
+                    .firestore()
+                    .collection('users')
+                    .doc(data.user.uid)
+                    .set({
+                        email: email.value,
+                        name: name.value,
+                        surname: surname.value,
+                        grade: grade.value,
+                        tshirt: tshirt.value,
+                        meat: meat,
+                        allergies: allergies,
+                        team: null,
+                        isLeader: false,
+                        searchQueries: generateSearchQueries(
+                            `${name.value} ${surname.value}`
+                        ),
+                        workshop: false,
+                        lectures: false,
+                        votedFor: null,
+                    })
+                    .then(() => {
+                        router.replace('/');
+                    })
+                    .catch((error) => {
+                        setError('Something went wrong.');
+                    });
+            })
+            .catch((error) => {
+                setError(error.message);
+            });
     };
 
     return (
@@ -415,11 +454,34 @@ const Register = () => {
                             </Button>
                         </div>
                     </form>
+                    <Snackbar
+                        open={error.length > 0}
+                        autoHideDuration={6000}
+                        onClose={() => setError(false)}
+                    >
+                        <Alert
+                            elevation={6}
+                            variant='filled'
+                            onClose={() => setError(false)}
+                            severity='error'
+                        >
+                            {error}
+                        </Alert>
+                    </Snackbar>
                 </Container>
             </Grow>
             <Footer />
         </Container>
     );
+};
+
+Register.getInitialProps = async (ctx) => {
+    const allCookies = cookies(ctx);
+    if (allCookies.auth) {
+        ctx.res.writeHead(302, { Location: '/' });
+        ctx.res.end();
+    }
+    return {};
 };
 
 export default Register;

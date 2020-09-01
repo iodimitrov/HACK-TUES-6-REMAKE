@@ -45,9 +45,10 @@ const useUser = () => {
         });
 
         const userFromCookie = getUserFromCookie();
-        if (userFromCookie) {
-            setUser(userFromCookie);
+        if (!userFromCookie) {
+            return;
         }
+        setUser(userFromCookie);
 
         return () => {
             cancelAuthListener();

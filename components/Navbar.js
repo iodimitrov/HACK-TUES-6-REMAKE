@@ -116,7 +116,11 @@ const Navbar = (props) => {
                 </>
             ) : (
                 <>
-                    <Link underline='none' className={styles.link} href='/'>
+                    <Link
+                        underline='none'
+                        className={styles.link}
+                        href='/login'
+                    >
                         <Button>Влез</Button>
                     </Link>
                     <Link

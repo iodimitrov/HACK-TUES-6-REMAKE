@@ -1,0 +1,23 @@
+.content {
+    background-color: white;
+    border-radius: 5px;
+    padding: 10px 20px;
+
+    .input-container {
+        display: flex;
+        flex-direction: row;
+
+        :global .MuiTextField-root {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        :global .MuiFormControlLabel-root {
+            margin: 0;
+        }
+
+        .submit {
+            margin: 10px 0 0;
+        }
+    }
+}
