@@ -59,7 +59,6 @@ const Index = () => {
         'http://asteasolutions.com',
         'https://www.ithub.kaufland.bg/ ',
         'https://www.progress.com/',
-        'http://www.scalefocus.com/',
         'https://bosch.io/corporate/about-us/bosch-sofia.html',
         'https://www.creative-assembly.com/home',
         'https://devrix.com/',
@@ -85,7 +84,6 @@ const Index = () => {
         'astea',
         'ithub',
         'progress',
-        'scalefocus',
         'bosch',
         'ca',
         'devrix',
@@ -128,7 +126,7 @@ const Index = () => {
                         <Logo />
                         <Timer
                             initialTime={
-                                new Date('2020-10-01T19:00:00').getTime() -
+                                new Date('2020-10-01T17:30:00').getTime() -
                                 new Date().getTime()
                             }
                             direction='backward'
