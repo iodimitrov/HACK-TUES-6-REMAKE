@@ -17,13 +17,9 @@ import Alert from '@material-ui/lab/Alert';
 import styles from 'styles/Register.module.scss';
 import { useRouter } from 'next/router';
 import { generateSearchQueries } from 'utils/functions';
-import initFirebase from 'utils/auth/initFirebase';
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/firestore';
 import cookies from 'next-cookies';
-
-initFirebase();
 
 const Register = () => {
     const router = useRouter();
@@ -176,7 +172,8 @@ const Register = () => {
                     .collection('users')
                     .doc(data.user.uid)
                     .set({
-                        email: email.value,
+                        createdAt: new Date().toJSON(),
+                        updatedAt: new Date().toJSON(),
                         name: name.value,
                         surname: surname.value,
                         grade: grade.value,

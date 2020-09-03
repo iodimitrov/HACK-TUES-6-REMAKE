@@ -12,12 +12,9 @@ import {
 import Alert from '@material-ui/lab/Alert';
 import styles from 'styles/Login.module.scss';
 import { useRouter } from 'next/router';
-import initFirebase from 'utils/auth/initFirebase';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import cookies from 'next-cookies';
-
-initFirebase();
 
 const Login = () => {
     const router = useRouter();

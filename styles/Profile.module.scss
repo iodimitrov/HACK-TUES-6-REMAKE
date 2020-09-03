@@ -1,0 +1,63 @@
+@import 'variables';
+
+.content {
+    .card {
+        .card-header {
+            :global .MuiCardHeader-avatar {
+                .MuiAvatar-root {
+                    background-color: $secondary-color;
+                }
+            }
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+
+            & > * {
+                width: 100%;
+                margin: 10px;
+            }
+
+            :global .MuiFormControlLabel-root {
+                margin: 0;
+            }
+
+            .is-editing {
+                background-color: #00e676;
+
+                &:hover {
+                    background-color: darken(#00e676, 10);
+                }
+            }
+
+            .delete {
+                background-color: #f50057;
+                color: white;
+
+                &:hover {
+                    background-color: darken(#f50057, 10);
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .content {
+        .card {
+            .input-container {
+                flex-direction: column;
+
+                & > * {
+                    margin: 10px 0;
+                }
+
+                :global .MuiFormControlLabel-root {
+                    margin-left: -13px;
+                }
+            }
+        }
+    }
+}

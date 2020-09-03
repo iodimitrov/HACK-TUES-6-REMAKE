@@ -107,7 +107,11 @@ const Navbar = (props) => {
             <span className={styles.separator}></span>
             {user ? (
                 <>
-                    <Link underline='none' className={styles.link} href='/'>
+                    <Link
+                        underline='none'
+                        className={styles.link}
+                        href='/profile'
+                    >
                         <Button>Профил</Button>
                     </Link>
                     <Button className={styles.link} onClick={() => logout()}>
