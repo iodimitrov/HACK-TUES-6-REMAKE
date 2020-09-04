@@ -42,8 +42,6 @@ const Profile = (props) => {
         }
     );
 
-    const [email, setEmail] = useState(props.user.email);
-    const [emailError, setEmailError] = useState(false);
     const [nameError, setNameError] = useState(false);
     const [surnameError, setSurnameError] = useState(false);
     const [gradeError, setGradeError] = useState(false);
@@ -87,11 +85,6 @@ const Profile = (props) => {
         if (!edit) {
             setEdit(true);
         } else {
-            if (!/\S/.test(email)) {
-                setEmailError('Невалиден имейл');
-                return;
-            }
-
             if (!/\S/.test(data.name)) {
                 setNameError('Невалидно име');
                 return;
@@ -113,12 +106,6 @@ const Profile = (props) => {
             }
 
             try {
-                if (email !== props.user.email) {
-                    await fetch('/api/changeemail', {
-                        method: 'POST',
-                        body: JSON.stringify({ email: email }),
-                    });
-                }
                 await update({
                     name: data.name,
                     surname: data.surname,
@@ -127,6 +114,7 @@ const Profile = (props) => {
                     meat: data.meat,
                     allergies: data.allergies,
                 });
+                setSuccess('Профилът бе редактиран успешно.');
             } catch (error) {
                 mutate();
                 setError(error.message);
@@ -138,7 +126,7 @@ const Profile = (props) => {
     const handlePasswordReset = () => {
         firebase
             .auth()
-            .sendPasswordResetEmail(email)
+            .sendPasswordResetEmail(props.user.email)
             .then(() => {
                 setSuccess('Изпратен е линк на имейла Ви');
             })
@@ -233,15 +221,11 @@ const Profile = (props) => {
                                     <TextField
                                         label='Имейл'
                                         type='email'
-                                        value={email}
+                                        value={props.user.email}
                                         InputProps={{
                                             readOnly: !edit,
                                         }}
-                                        error={emailError.length > 0}
-                                        helperText={emailError}
-                                        onChange={(e) =>
-                                            setEmail(e.target.value)
-                                        }
+                                        disabled={edit}
                                         required
                                     />
                                     <TextField
@@ -475,7 +459,7 @@ const Profile = (props) => {
     );
 };
 
-export const getServerSideProps = async (ctx) => {
+Profile.getInitialProps = async (ctx) => {
     const allCookies = cookies(ctx);
     let data = null;
     if (!allCookies.auth) {
@@ -488,7 +472,7 @@ export const getServerSideProps = async (ctx) => {
             .get();
         data = doc.data();
     }
-    return { props: { data, user: allCookies.auth } };
+    return { data, user: allCookies.auth };
 };
 
 export default Profile;
