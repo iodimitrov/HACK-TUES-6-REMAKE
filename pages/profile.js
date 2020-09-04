@@ -22,13 +22,14 @@ import {
     DialogContent,
     DialogContentText,
     DialogTitle,
+    Tooltip,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import styles from 'styles/Profile.module.scss';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import cookies from 'next-cookies';
-import { useDocument } from '@nandorojo/swr-firestore';
+import { useDocument, useCollection } from '@nandorojo/swr-firestore';
 import { useUser } from 'utils/auth/useUser';
 
 const Profile = (props) => {
@@ -41,6 +42,7 @@ const Profile = (props) => {
             initialData: props.data,
         }
     );
+    const { data: users } = useCollection(`users`, { listen: true });
 
     const [nameError, setNameError] = useState(false);
     const [surnameError, setSurnameError] = useState(false);
@@ -51,6 +53,8 @@ const Profile = (props) => {
     const [edit, setEdit] = useState(false);
     const [dialog, setDialog] = useState(false);
 
+    const lecturesLimit = 50;
+    const workshopLimit = 50;
     const grades = [
         '9А',
         '9Б',
@@ -107,12 +111,15 @@ const Profile = (props) => {
 
             try {
                 await update({
+                    updatedAt: new Date().toJSON(),
                     name: data.name,
                     surname: data.surname,
                     grade: data.grade,
                     tshirt: data.tshirt,
                     meat: data.meat,
                     allergies: data.allergies,
+                    lectures: data.lectures,
+                    workshop: data.workshop,
                 });
                 setSuccess('Профилът бе редактиран успешно.');
             } catch (error) {
@@ -313,6 +320,98 @@ const Profile = (props) => {
                                             : ' (никого)'}
                                     </Typography>
                                 </div>
+                                {users && (
+                                    <div className={styles['input-container']}>
+                                        <Tooltip
+                                            title={
+                                                users.filter(
+                                                    (user) => user.lectures
+                                                ).length >= lecturesLimit &&
+                                                !data.lectures
+                                                    ? 'Изчерпани места'
+                                                    : ' '
+                                            }
+                                        >
+                                            <FormControlLabel
+                                                className={
+                                                    styles['switch-label']
+                                                }
+                                                control={
+                                                    <Switch
+                                                        checked={data.lectures}
+                                                        disabled={
+                                                            users.filter(
+                                                                (user) =>
+                                                                    user.lectures
+                                                            ).length >=
+                                                                lecturesLimit &&
+                                                            !data.lectures
+                                                        }
+                                                        name='lectures'
+                                                        color='primary'
+                                                        onChange={(e) =>
+                                                            edit &&
+                                                            mutate(
+                                                                {
+                                                                    ...data,
+                                                                    lectures:
+                                                                        e.target
+                                                                            .checked,
+                                                                },
+                                                                false
+                                                            )
+                                                        }
+                                                    />
+                                                }
+                                                label='Искам да присъствам на лекциите'
+                                            />
+                                        </Tooltip>
+                                        <Tooltip
+                                            title={
+                                                users.filter(
+                                                    (user) => user.workshop
+                                                ).length >= workshopLimit &&
+                                                !data.workshop
+                                                    ? 'Изчерпани места'
+                                                    : ''
+                                            }
+                                        >
+                                            <FormControlLabel
+                                                className={
+                                                    styles['switch-label']
+                                                }
+                                                control={
+                                                    <Switch
+                                                        checked={data.workshop}
+                                                        disabled={
+                                                            users.filter(
+                                                                (user) =>
+                                                                    user.workshop
+                                                            ).length >=
+                                                                workshopLimit &&
+                                                            !data.workshop
+                                                        }
+                                                        name='workshop'
+                                                        color='primary'
+                                                        onChange={(e) =>
+                                                            edit &&
+                                                            mutate(
+                                                                {
+                                                                    ...data,
+                                                                    workshop:
+                                                                        e.target
+                                                                            .checked,
+                                                                },
+                                                                false
+                                                            )
+                                                        }
+                                                    />
+                                                }
+                                                label='Искам да присъствам на уъркшопа'
+                                            />
+                                        </Tooltip>
+                                    </div>
+                                )}
                                 <div className={styles['input-container']}>
                                     <FormControlLabel
                                         className={styles['switch-label']}
@@ -356,7 +455,7 @@ const Profile = (props) => {
                                     >
                                         {edit ? 'Запази' : 'Редактирай'}
                                     </Button>
-                                    {!edit && (
+                                    {!edit ? (
                                         <>
                                             <Button
                                                 className={styles.password}
@@ -417,6 +516,18 @@ const Profile = (props) => {
                                                 </DialogActions>
                                             </Dialog>
                                         </>
+                                    ) : (
+                                        <Button
+                                            className={styles.delete}
+                                            disableElevation
+                                            variant='contained'
+                                            onClick={() => {
+                                                setEdit(false);
+                                                mutate();
+                                            }}
+                                        >
+                                            Отказ
+                                        </Button>
                                     )}
                                 </div>
                             </CardActions>

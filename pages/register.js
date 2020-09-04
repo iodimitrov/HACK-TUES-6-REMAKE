@@ -12,6 +12,8 @@ import {
     Button,
     Grow,
     Snackbar,
+    Typography,
+    Link,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import styles from 'styles/Register.module.scss';
@@ -20,6 +22,7 @@ import { generateSearchQueries } from 'utils/functions';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import cookies from 'next-cookies';
+import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 const Register = () => {
     const router = useRouter();
@@ -65,6 +68,8 @@ const Register = () => {
     });
     const [error, setError] = useState(false);
 
+    const [verified, setVerified] = useState(false);
+
     const grades = [
         '9А',
         '9Б',
@@ -92,6 +97,14 @@ const Register = () => {
 
     const handleOnKeyUp = (e) => {
         e.target.value = e.target.value.replace(/[^а-я-\s]/i, '');
+    };
+
+    const verifyRecaptcha = (token) => {
+        fetch(`/api/verify/${token}`).then((response) => {
+            response.json().then((json) => {
+                setVerified(json.success);
+            });
+        });
     };
 
     const handleSubmit = (e) => {
@@ -440,15 +453,47 @@ const Register = () => {
                             />
                         </div>
                         <div className={styles['input-container']}>
+                            <GoogleReCaptcha onVerify={verifyRecaptcha} />
                             <Button
                                 className={styles.submit}
                                 type='submit'
                                 disableElevation
                                 color='primary'
                                 variant='contained'
+                                disabled={!verified}
                             >
                                 Регистритай ме
                             </Button>
+                        </div>
+                        <div className={styles['input-container']}>
+                            <Typography component='em'>
+                                <strong style={{ color: 'red' }}>
+                                    Внимание:
+                                </strong>{' '}
+                                За лекциите и уъркшопите ще може да се запишете
+                                от <u>'Профил'</u> страницата, когато се
+                                регистрирате успешно :). Имайте предвид, че
+                                бройките са ограничени.
+                                <br />
+                                <br />
+                                Този сайт е защитен от reCAPTCHA и важат 
+                                <Link
+                                    href='https://policies.google.com/privacy?hl=bg'
+                                    rel='noopener noreferrer'
+                                    target='_blank'
+                                >
+                                    Декларацията за поверителност
+                                </Link>{' '}
+                                и{' '}
+                                <Link
+                                    href='https://policies.google.com/terms?hl=bg'
+                                    rel='noopener noreferrer'
+                                    target='_blank'
+                                >
+                                    Общите условия на Google
+                                </Link>
+                                .
+                            </Typography>
                         </div>
                     </form>
                     <Snackbar

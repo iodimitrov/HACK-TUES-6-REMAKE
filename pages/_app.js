@@ -10,6 +10,7 @@ import NextNprogress from 'nextjs-progressbar';
 import { config } from 'utils/auth/initFirebase';
 import 'firebase/firestore';
 import { Fuego, FuegoProvider } from '@nandorojo/swr-firestore';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 const fuego = new Fuego(config);
 
@@ -42,9 +43,16 @@ export default function MyApp(props) {
                         height='3'
                         options={{ showSpinner: false }}
                     />
-                    <FuegoProvider fuego={fuego}>
-                        <Component {...pageProps} />
-                    </FuegoProvider>
+                    <GoogleReCaptchaProvider
+                        reCaptchaKey={
+                            process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+                        }
+                        language='bg'
+                    >
+                        <FuegoProvider fuego={fuego}>
+                            <Component {...pageProps} />
+                        </FuegoProvider>
+                    </GoogleReCaptchaProvider>
                 </StylesProvider>
             </ThemeProvider>
         </React.Fragment>

@@ -28,6 +28,10 @@ body {
     background-attachment: fixed;
 }
 
+.grecaptcha-badge {
+    visibility: hidden;
+}
+
 .MuiLink-root {
     transition: 0.2s;
 }
