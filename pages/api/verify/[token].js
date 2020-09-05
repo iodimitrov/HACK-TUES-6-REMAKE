@@ -14,11 +14,11 @@ export default (req, res) => {
     )
         .then((response) => {
             response.json().then((json) => {
-                res.json(json);
+                return res.json(json);
             });
         })
         .catch((error) => {
-            res.json(
+            return res.json(
                 error.code || 500,
                 error.message || 'Internal Server Error'
             );

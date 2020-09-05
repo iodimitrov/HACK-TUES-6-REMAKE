@@ -329,7 +329,7 @@ const Profile = (props) => {
                                                 ).length >= lecturesLimit &&
                                                 !data.lectures
                                                     ? 'Изчерпани места'
-                                                    : ' '
+                                                    : ''
                                             }
                                         >
                                             <FormControlLabel

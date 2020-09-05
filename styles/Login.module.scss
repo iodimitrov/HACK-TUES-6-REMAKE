@@ -16,8 +16,13 @@
             margin: 0;
         }
 
-        .submit {
+        .submit,
+        .password-reset {
             margin: 10px 0 0;
+        }
+
+        .password-reset {
+            margin-left: 15px;
         }
     }
 }
