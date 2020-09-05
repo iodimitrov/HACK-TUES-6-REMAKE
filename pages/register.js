@@ -14,7 +14,11 @@ import {
     Snackbar,
     Typography,
     Link,
+    Dialog,
+    DialogTitle,
+    DialogContent,
 } from '@material-ui/core';
+import GDPR from 'components/GDPR';
 import Alert from '@material-ui/lab/Alert';
 import styles from 'styles/Register.module.scss';
 import { useRouter } from 'next/router';
@@ -66,6 +70,7 @@ const Register = () => {
         checked: false,
         error: false,
     });
+    const [dialog, setDialog] = useState(false);
     const [error, setError] = useState(false);
 
     const [verified, setVerified] = useState(false);
@@ -449,8 +454,27 @@ const Register = () => {
                                         color='primary'
                                     />
                                 }
-                                label='Съгласен съм с Общият регламент за защита на данните'
+                                label={
+                                    <>
+                                        Съгласен съм с&nbsp;
+                                        <Link onClick={() => setDialog(true)}>
+                                            Общият регламент за защита на
+                                            данните
+                                        </Link>
+                                    </>
+                                }
                             />
+                            <Dialog
+                                onClose={() => setDialog(false)}
+                                open={dialog}
+                            >
+                                <DialogTitle onClose={() => setDialog(false)}>
+                                    Политика за поверителност на Hack TUES 6
+                                </DialogTitle>
+                                <DialogContent>
+                                    <GDPR />
+                                </DialogContent>
+                            </Dialog>
                         </div>
                         <div className={styles['input-container']}>
                             <GoogleReCaptcha onVerify={verifyRecaptcha} />
