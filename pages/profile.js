@@ -31,6 +31,7 @@ import 'firebase/auth';
 import cookies from 'next-cookies';
 import { useDocument, useCollection } from '@nandorojo/swr-firestore';
 import { useUser } from 'utils/auth/useUser';
+import Router from 'next/router';
 
 const Profile = (props) => {
     const { logout } = useUser();
@@ -320,7 +321,7 @@ const Profile = (props) => {
                                             : ' (никого)'}
                                     </Typography>
                                 </div>
-                                {users && (
+                                {/* {users && (
                                     <div className={styles['input-container']}>
                                         <Tooltip
                                             title={
@@ -411,7 +412,7 @@ const Profile = (props) => {
                                             />
                                         </Tooltip>
                                     </div>
-                                )}
+                                )} */}
                                 <div className={styles['input-container']}>
                                     <FormControlLabel
                                         className={styles['switch-label']}
@@ -574,16 +575,30 @@ Profile.getInitialProps = async (ctx) => {
     const allCookies = cookies(ctx);
     let data = null;
     if (!allCookies.auth) {
-        ctx.res.writeHead(302, { Location: '/' });
-        ctx.res.end();
+        if (typeof window === 'undefined') {
+            ctx.res.writeHead(302, { Location: '/' });
+            ctx.res.end();
+        } else {
+            Router.push('/');
+        }
     } else {
-        let doc = await firebase
-            .firestore()
-            .doc(`users/${allCookies.auth.id}`)
-            .get();
-        data = doc.data();
+        if (!allCookies.auth.emailVerified) {
+            if (typeof window === 'undefined') {
+                ctx.res.writeHead(302, { Location: '/verifyemail' });
+                ctx.res.end();
+            } else {
+                Router.push('/verifyemail');
+            }
+        } else {
+            let doc = await firebase
+                .firestore()
+                .doc(`users/${allCookies.auth.id}`)
+                .get();
+            data = doc.data();
+            return { data, user: allCookies.auth };
+        }
     }
-    return { data, user: allCookies.auth };
+    return {};
 };
 
 export default Profile;

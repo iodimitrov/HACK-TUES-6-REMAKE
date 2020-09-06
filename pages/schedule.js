@@ -51,12 +51,15 @@ const Schedule = () => (
                             </Typography>
                             <Typography component='li'>
                                 от <strong>19:15</strong> до{' '}
+                                <strong>20:30</strong> - *Образователна лекция
+                                (онлайн)
+                                <br />
+                            </Typography>
+                            <Typography component='li'>
+                                от <strong>19:15</strong> до{' '}
                                 <strong>20:30</strong> - *Образователни уъркшопи
                                 <br />
                             </Typography>
-                        </Typography>
-                        <Typography component='em'>
-                            *Очаквайте повече детайли скоро!
                         </Typography>
                     </CardContent>
                     <CardActions className={styles['card-actions']}>
@@ -71,6 +74,17 @@ const Schedule = () => (
                             clickable
                         />
                     </CardActions>
+                    <CardContent className={styles['card-content']}>
+                        <Typography
+                            component='em'
+                            style={{
+                                marginBottom: '8px',
+                                display: 'inline-block',
+                            }}
+                        >
+                            *Очаквайте повече детайли скоро!
+                        </Typography>
+                    </CardContent>
                 </Card>
             </Grow>
             <Grow in timeout={350}>
@@ -153,8 +167,7 @@ const Schedule = () => (
                             <Typography component='li'>
                                 от <strong>17:00</strong> до{' '}
                                 <strong>18:00</strong> - Презентация на тема
-                                “Как да презентираме проектите си” (по един
-                                представител на отбор, задължително)
+                                “Как да презентираме проектите си”
                                 <br />
                             </Typography>
                             <Typography component='li'>
@@ -256,9 +269,6 @@ const Schedule = () => (
                                 <br />
                             </Typography>
                         </Typography>
-                        <Typography component='em'>
-                            *Програмата подлежи на промени.
-                        </Typography>
                     </CardContent>
                     <CardActions className={styles['card-actions']}>
                         <Chip
@@ -272,6 +282,17 @@ const Schedule = () => (
                             clickable
                         />
                     </CardActions>
+                    <CardContent className={styles['card-content']}>
+                        <Typography
+                            component='em'
+                            style={{
+                                marginBottom: '8px',
+                                display: 'inline-block',
+                            }}
+                        >
+                            *Програмата подлежи на промени.
+                        </Typography>
+                    </CardContent>
                 </Card>
             </Grow>
         </Container>
