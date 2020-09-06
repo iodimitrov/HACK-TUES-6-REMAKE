@@ -23,13 +23,14 @@ const VerifyEmail = (props) => {
         } else {
             firebase.auth().onAuthStateChanged((user) => {
                 interval = setInterval(() => {
-                    user.reload().then(() => {
-                        if (user.emailVerified) {
-                            clearInterval(interval);
-                            router.replace('/');
-                            return;
-                        }
-                    });
+                    user &&
+                        user.reload().then(() => {
+                            if (user.emailVerified) {
+                                clearInterval(interval);
+                                router.replace('/');
+                                return;
+                            }
+                        });
                 }, 3000);
             });
         }

@@ -32,6 +32,7 @@ import cookies from 'next-cookies';
 import { useDocument, useCollection } from '@nandorojo/swr-firestore';
 import { useUser } from 'utils/auth/useUser';
 import Router from 'next/router';
+import { generateSearchQueries } from 'utils/functions';
 
 const Profile = (props) => {
     const { logout } = useUser();
@@ -121,6 +122,9 @@ const Profile = (props) => {
                     allergies: data.allergies,
                     lectures: data.lectures,
                     workshop: data.workshop,
+                    searchQueries: generateSearchQueries(
+                        `${data.name} ${data.surname}`
+                    ),
                 });
                 setSuccess('Профилът бе редактиран успешно.');
             } catch (error) {
