@@ -50,6 +50,7 @@ const Profile = (props) => {
     const [surnameError, setSurnameError] = useState(false);
     const [gradeError, setGradeError] = useState(false);
     const [tshirtError, setTshirtError] = useState(false);
+    const [phoneError, setPhoneError] = useState(false);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -101,6 +102,11 @@ const Profile = (props) => {
                 return;
             }
 
+            if (!/\S/.test(data.phone)) {
+                setPhoneError('Невалиден номер');
+                return;
+            }
+
             if (!/\S/.test(data.grade) || !grades.includes(data.grade)) {
                 setGradeError('Невалиден клас');
                 return;
@@ -119,6 +125,8 @@ const Profile = (props) => {
                     grade: data.grade,
                     tshirt: data.tshirt,
                     meat: data.meat,
+                    phone: data.phone,
+                    online: data.online,
                     allergies: data.allergies,
                     lectures: data.lectures,
                     workshop: data.workshop,
@@ -241,18 +249,22 @@ const Profile = (props) => {
                                         required
                                     />
                                     <TextField
-                                        label='Алергии'
-                                        value={data.allergies}
-                                        multiline
-                                        rowsMax={5}
-                                        InputProps={{
+                                        label='Телефон'
+                                        type='tel'
+                                        placeholder='0899999999'
+                                        value={data.phone}
+                                        inputProps={{
+                                            pattern: '[0-9]{10}',
                                             readOnly: !edit,
                                         }}
+                                        error={phoneError.length > 0}
+                                        helperText={phoneError}
+                                        required
                                         onChange={(e) =>
                                             mutate(
                                                 {
                                                     ...data,
-                                                    allergies: e.target.value,
+                                                    phone: e.target.value,
                                                 },
                                                 false
                                             )
@@ -312,6 +324,26 @@ const Profile = (props) => {
                                             </MenuItem>
                                         ))}
                                     </TextField>
+                                </div>
+                                <div className={styles['input-container']}>
+                                    <TextField
+                                        label='Алергии'
+                                        value={data.allergies}
+                                        multiline
+                                        rowsMax={5}
+                                        InputProps={{
+                                            readOnly: !edit,
+                                        }}
+                                        onChange={(e) =>
+                                            mutate(
+                                                {
+                                                    ...data,
+                                                    allergies: e.target.value,
+                                                },
+                                                false
+                                            )
+                                        }
+                                    />
                                 </div>
                                 <div className={styles['input-container']}>
                                     <Typography>
@@ -440,6 +472,29 @@ const Profile = (props) => {
                                             />
                                         }
                                         label='Консумирате ли месо?'
+                                    />
+                                    <FormControlLabel
+                                        className={styles['switch-label']}
+                                        control={
+                                            <Switch
+                                                checked={data.online}
+                                                name='online'
+                                                color='primary'
+                                                onChange={(e) =>
+                                                    edit &&
+                                                    mutate(
+                                                        {
+                                                            ...data,
+                                                            online:
+                                                                e.target
+                                                                    .checked,
+                                                        },
+                                                        false
+                                                    )
+                                                }
+                                            />
+                                        }
+                                        label='Искам да съм изцяло онлайн'
                                     />
                                 </div>
                             </CardContent>

@@ -64,7 +64,12 @@ const Register = () => {
         value: '',
         error: false,
     });
+    const [phone, setPhone] = useState({
+        value: '',
+        error: false,
+    });
     const [meat, setMeat] = useState(false);
+    const [online, setOnline] = useState(false);
     const [allergies, setAllergies] = useState('');
     const [gdpr, setGdpr] = useState({ checked: false, error: false });
     const [regulation, setRegulation] = useState({
@@ -144,6 +149,11 @@ const Register = () => {
             return;
         }
 
+        if (!/\S/.test(phone.value)) {
+            setPhone({ value: phone.value, error: 'Невалиден номер' });
+            return;
+        }
+
         if (!/\S/.test(grade.value) || !grades.includes(grade.value)) {
             setGrade({ value: grade.value, error: 'Невалиден клас' });
             return;
@@ -198,6 +208,7 @@ const Register = () => {
                         grade: grade.value,
                         tshirt: tshirt.value,
                         meat: meat,
+                        online: online,
                         allergies: allergies,
                         team: null,
                         isLeader: false,
@@ -207,6 +218,7 @@ const Register = () => {
                         workshop: false,
                         lectures: false,
                         votedFor: null,
+                        phone: phone.value,
                     })
                     .then(async () => {
                         await data.user.sendEmailVerification();
@@ -392,6 +404,22 @@ const Register = () => {
                         </div>
                         <div className={styles['input-container']}>
                             <TextField
+                                label='Телефон'
+                                type='tel'
+                                placeholder='0899999999'
+                                value={phone.value}
+                                inputProps={{ pattern: '[0-9]{10}' }}
+                                error={phone.error.length > 0}
+                                helperText={phone.error}
+                                required
+                                onChange={(e) =>
+                                    setPhone({
+                                        value: e.target.value,
+                                        error: false,
+                                    })
+                                }
+                            />
+                            <TextField
                                 label='Алергии'
                                 value={allergies}
                                 multiline
@@ -413,6 +441,20 @@ const Register = () => {
                                     />
                                 }
                                 label='Консумирате ли месо?'
+                            />
+                            <FormControlLabel
+                                className={styles['switch-label']}
+                                control={
+                                    <Switch
+                                        checked={online}
+                                        onChange={(e) =>
+                                            setOnline(e.target.checked)
+                                        }
+                                        name='online'
+                                        color='primary'
+                                    />
+                                }
+                                label='Искам да съм изцяло онлайн'
                             />
                         </div>
                         <div className={styles['input-container']}>

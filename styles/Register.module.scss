@@ -11,7 +11,8 @@
             margin: 10px;
         }
 
-        :global .MuiTextField-root {
+        :global .MuiTextField-root,
+        :global .MuiFormControlLabel-root {
             width: 100%;
         }
 
