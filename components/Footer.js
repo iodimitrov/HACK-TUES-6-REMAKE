@@ -9,7 +9,12 @@ import styles from 'styles/Footer.module.scss';
 
 const Footer = () => (
     <Box className={styles['footer-container']}>
-        <Container maxWidth={false} disableGutters className={styles.footer}>
+        <Container
+            maxWidth={false}
+            disableGutters
+            className={styles.footer}
+            component='footer'
+        >
             <Box className={styles['icon-container']}>
                 <IconButton
                     href='https://www.facebook.com/HackTUES/'

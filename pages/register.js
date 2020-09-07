@@ -27,6 +27,7 @@ import firebase from 'firebase/app';
 import 'firebase/auth';
 import cookies from 'next-cookies';
 import { GoogleReCaptcha } from 'react-google-recaptcha-v3';
+import NextLink from 'components/Link';
 
 const Register = () => {
     const router = useRouter();
@@ -433,7 +434,14 @@ const Register = () => {
                                         color='primary'
                                     />
                                 }
-                                label='Съгласен съм с регламента на хакатона'
+                                label={
+                                    <>
+                                        Съгласен съм с&nbsp;
+                                        <NextLink href='/regulation'>
+                                            регламента на хакатона
+                                        </NextLink>
+                                    </>
+                                }
                             />
                         </div>
                         <div className={styles['input-container']}>
@@ -487,7 +495,7 @@ const Register = () => {
                                 variant='contained'
                                 disabled={!verified}
                             >
-                                Регистритай ме
+                                Регистрирай ме
                             </Button>
                         </div>
                         <div className={styles['input-container']}>
