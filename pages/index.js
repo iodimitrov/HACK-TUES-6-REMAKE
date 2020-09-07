@@ -159,7 +159,7 @@ const Index = () => {
                         <Box className={styles.date}>
                             <span>
                                 <CalendarToday fontSize='large' />
-                                1-4 октомври 2020
+                                1-11 октомври 2020
                             </span>
                             <span>
                                 <Room fontSize='large' />
