@@ -51,13 +51,14 @@ const Profile = (props) => {
     const [gradeError, setGradeError] = useState(false);
     const [tshirtError, setTshirtError] = useState(false);
     const [phoneError, setPhoneError] = useState(false);
+    const [workshopError, setWorkshopError] = useState(false);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [edit, setEdit] = useState(false);
     const [dialog, setDialog] = useState(false);
 
-    const lecturesLimit = 50;
-    const workshopLimit = 50;
+    const lecturesLimit = 2;
+    const workshopLimit = 2;
     const grades = [
         '9А',
         '9Б',
@@ -82,6 +83,13 @@ const Profile = (props) => {
     ];
 
     const tshirts = ['S', 'M', 'L', 'XL', '2XL'];
+
+    const workshops = [
+        'Не искам да присъствам',
+        'Уъркшоп 1',
+        'Уъркшоп 2',
+        'Уъркшоп 3',
+    ];
 
     const handleOnKeyUp = (e) => {
         e.target.value = e.target.value.replace(/[^а-я-\s]/i, '');
@@ -114,6 +122,14 @@ const Profile = (props) => {
 
             if (!/\S/.test(data.tshirt) || !tshirts.includes(data.tshirt)) {
                 setTshirtError('Невалиден размер');
+                return;
+            }
+
+            if (
+                !/\S/.test(data.workshop) ||
+                (!workshops.includes(data.workshop) && data.workshop !== false)
+            ) {
+                setWorkshopError('Невалидна опция');
                 return;
             }
 
@@ -344,6 +360,66 @@ const Profile = (props) => {
                                             )
                                         }
                                     />
+                                    {users && (
+                                        <Tooltip
+                                            title={
+                                                users.filter(
+                                                    (user) => user.workshop
+                                                ).length >= workshopLimit &&
+                                                !data.workshop
+                                                    ? 'Изчерпани места'
+                                                    : ''
+                                            }
+                                        >
+                                            <TextField
+                                                select
+                                                label='Уъркшоп'
+                                                value={
+                                                    data.workshop === false
+                                                        ? 'Не искам да присъствам'
+                                                        : data.workshop
+                                                }
+                                                InputProps={{
+                                                    readOnly: !edit,
+                                                }}
+                                                disabled={
+                                                    users.filter(
+                                                        (user) => user.workshop
+                                                    ).length >= workshopLimit &&
+                                                    !data.workshop
+                                                }
+                                                error={workshopError.length > 0}
+                                                helperText={workshopError}
+                                                onChange={(e) =>
+                                                    mutate(
+                                                        {
+                                                            ...data,
+                                                            workshop:
+                                                                e.target
+                                                                    .value ===
+                                                                'Не искам да присъствам'
+                                                                    ? false
+                                                                    : e.target
+                                                                          .value,
+                                                        },
+                                                        false
+                                                    )
+                                                }
+                                                required
+                                            >
+                                                {workshops.map(
+                                                    (workshop, i) => (
+                                                        <MenuItem
+                                                            key={i}
+                                                            value={workshop}
+                                                        >
+                                                            {workshop}
+                                                        </MenuItem>
+                                                    )
+                                                )}
+                                            </TextField>
+                                        </Tooltip>
+                                    )}
                                 </div>
                                 <div className={styles['input-container']}>
                                     <Typography>
@@ -357,7 +433,7 @@ const Profile = (props) => {
                                             : ' (никого)'}
                                     </Typography>
                                 </div>
-                                {/* {users && (
+                                {users && (
                                     <div className={styles['input-container']}>
                                         <Tooltip
                                             title={
@@ -400,55 +476,11 @@ const Profile = (props) => {
                                                         }
                                                     />
                                                 }
-                                                label='Искам да присъствам на лекциите'
-                                            />
-                                        </Tooltip>
-                                        <Tooltip
-                                            title={
-                                                users.filter(
-                                                    (user) => user.workshop
-                                                ).length >= workshopLimit &&
-                                                !data.workshop
-                                                    ? 'Изчерпани места'
-                                                    : ''
-                                            }
-                                        >
-                                            <FormControlLabel
-                                                className={
-                                                    styles['switch-label']
-                                                }
-                                                control={
-                                                    <Switch
-                                                        checked={data.workshop}
-                                                        disabled={
-                                                            users.filter(
-                                                                (user) =>
-                                                                    user.workshop
-                                                            ).length >=
-                                                                workshopLimit &&
-                                                            !data.workshop
-                                                        }
-                                                        name='workshop'
-                                                        color='primary'
-                                                        onChange={(e) =>
-                                                            edit &&
-                                                            mutate(
-                                                                {
-                                                                    ...data,
-                                                                    workshop:
-                                                                        e.target
-                                                                            .checked,
-                                                                },
-                                                                false
-                                                            )
-                                                        }
-                                                    />
-                                                }
-                                                label='Искам да присъствам на уъркшопа'
+                                                label='Искам да присъствам на лекцията'
                                             />
                                         </Tooltip>
                                     </div>
-                                )} */}
+                                )}
                                 <div className={styles['input-container']}>
                                     <FormControlLabel
                                         className={styles['switch-label']}
@@ -497,6 +529,18 @@ const Profile = (props) => {
                                         label='Искам да съм изцяло онлайн'
                                     />
                                 </div>
+                                <div className={styles['input-container']}>
+                                    <Typography
+                                        component='em'
+                                        style={{ marginBottom: '0' }}
+                                    >
+                                        <strong style={{ color: 'red' }}>
+                                            Внимание:
+                                        </strong>{' '}
+                                        Бройките за лекцията и уъркшопите са
+                                        ограничени.
+                                    </Typography>
+                                </div>
                             </CardContent>
                             <CardActions
                                 className={styles['card-actions']}
@@ -543,14 +587,7 @@ const Profile = (props) => {
                                                     изтриете профила си?
                                                 </DialogTitle>
                                                 <DialogContent>
-                                                    <DialogContentText id='alert-dialog-description'>
-                                                        Let Google help apps
-                                                        determine location. This
-                                                        means sending anonymous
-                                                        location data to Google,
-                                                        even when no apps are
-                                                        running.
-                                                    </DialogContentText>
+                                                    <DialogContentText></DialogContentText>
                                                 </DialogContent>
                                                 <DialogActions>
                                                     <Button

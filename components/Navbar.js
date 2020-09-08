@@ -8,6 +8,7 @@ import {
     Menu,
     MenuItem,
 } from '@material-ui/core';
+import MuiLink from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
 import Link from './Link';
 import { useState } from 'react';
@@ -17,14 +18,12 @@ import { useUser } from 'utils/auth/useUser';
 const Navbar = (props) => {
     const { user, logout } = useUser();
     const [open, setOpen] = useState(false);
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+    const [anchorArchive, setAnchorArchive] = useState(null);
+    const [anchorDecl, setAnchorDecl] = useState(null);
 
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorArchive(null);
+        setAnchorDecl(null);
     };
 
     const navbarLinks = () => (
@@ -32,15 +31,19 @@ const Navbar = (props) => {
             <Link underline='none' className={styles.link} href='/schedule'>
                 <Button>Програма</Button>
             </Link>
-            <Button className={styles.link} onClick={handleClick}>
-                Архив
-            </Button>
+            <MuiLink
+                underline='none'
+                className={styles.link}
+                onClick={(e) => setAnchorArchive(e.currentTarget)}
+            >
+                <Button>Архив</Button>
+            </MuiLink>
             <Menu
                 className='archive'
                 MenuListProps={{ style: { padding: 0 } }}
-                anchorEl={anchorEl}
+                anchorEl={anchorArchive}
                 keepMounted
-                open={Boolean(anchorEl)}
+                open={Boolean(anchorArchive)}
                 onClose={handleClose}
             >
                 <MenuItem
@@ -104,6 +107,48 @@ const Navbar = (props) => {
             <Link underline='none' className={styles.link} href='/about'>
                 <Button>За Hack TUES</Button>
             </Link>
+            <MuiLink
+                underline='none'
+                className={styles.link}
+                onClick={(e) => setAnchorDecl(e.currentTarget)}
+            >
+                <Button className={styles.link}>Декларации</Button>
+            </MuiLink>
+            <Menu
+                className='declarations'
+                MenuListProps={{ style: { padding: 0 } }}
+                anchorEl={anchorDecl}
+                keepMounted
+                open={Boolean(anchorDecl)}
+                onClose={handleClose}
+            >
+                <MenuItem
+                    underline='none'
+                    className='declaration-item'
+                    component={MuiLink}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    href='https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/declaration_adult.pdf?alt=media&token=e46fd402-e6eb-44ce-aa12-108eda6b281c'
+                    onClick={handleClose}
+                >
+                    <span>
+                        Декларация (<strong>на или над</strong> 18 години)
+                    </span>
+                </MenuItem>
+                <MenuItem
+                    underline='none'
+                    className='declaration-item'
+                    component={MuiLink}
+                    target='_blank'
+                    rel='noopener noreferrer'
+                    href='https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/declaration_minor.pdf?alt=media&token=451e2a54-e70e-4901-89fa-a1712fb04050'
+                    onClick={handleClose}
+                >
+                    <span>
+                        Декларация (<strong>под</strong> 18 години)
+                    </span>
+                </MenuItem>
+            </Menu>
             <span className={styles.separator}></span>
             {user ? (
                 <>
