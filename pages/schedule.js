@@ -109,10 +109,6 @@ const Schedule = () => (
                             icon={<Laptop />}
                             color='secondary'
                             label='Онлайн'
-                            component='a'
-                            target='_blank'
-                            rel='noopener'
-                            href='https://goo.gl/maps/pfY4KzmY2QfD6vCx5'
                             clickable
                         />
                     </CardActions>
@@ -140,10 +136,6 @@ const Schedule = () => (
                             icon={<Laptop />}
                             color='secondary'
                             label='Онлайн'
-                            component='a'
-                            target='_blank'
-                            rel='noopener'
-                            href='https://goo.gl/maps/pfY4KzmY2QfD6vCx5'
                             clickable
                         />
                     </CardActions>
@@ -183,10 +175,6 @@ const Schedule = () => (
                             icon={<Laptop />}
                             color='secondary'
                             label='Онлайн'
-                            component='a'
-                            target='_blank'
-                            rel='noopener'
-                            href='https://goo.gl/maps/pfY4KzmY2QfD6vCx5'
                             clickable
                         />
                     </CardActions>
@@ -215,10 +203,6 @@ const Schedule = () => (
                             icon={<Laptop />}
                             color='secondary'
                             label='Онлайн'
-                            component='a'
-                            target='_blank'
-                            rel='noopener'
-                            href='https://goo.gl/maps/pfY4KzmY2QfD6vCx5'
                             clickable
                         />
                     </CardActions>
