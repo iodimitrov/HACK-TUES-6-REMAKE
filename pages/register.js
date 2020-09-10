@@ -542,7 +542,7 @@ const Register = () => {
                         </div>
                         <div className={styles['input-container']}>
                             <Typography component='em'>
-                                {/* <strong style={{ color: 'red' }}>
+                                <strong style={{ color: 'red' }}>
                                     Внимание:
                                 </strong>{' '}
                                 За лекциите и уъркшопите ще може да се запишете
@@ -550,7 +550,7 @@ const Register = () => {
                                 регистрирате успешно :). Имайте предвид, че
                                 бройките са ограничени.
                                 <br />
-                                <br /> */}
+                                <br />
                                 Този сайт е защитен от reCAPTCHA и важат 
                                 <Link
                                     href='https://policies.google.com/privacy?hl=bg'

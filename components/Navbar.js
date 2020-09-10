@@ -14,9 +14,20 @@ import Link from './Link';
 import { useState } from 'react';
 import styles from 'styles/Navbar.module.scss';
 import { useUser } from 'utils/auth/useUser';
+import { useDocument } from '@nandorojo/swr-firestore';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 const Navbar = (props) => {
     const { user, logout } = useUser();
+    const { data } = useDocument(
+        firebase.auth().currentUser
+            ? `users/${firebase.auth().currentUser.uid}`
+            : null,
+        {
+            listen: true,
+        }
+    );
     const [open, setOpen] = useState(false);
     const [anchorArchive, setAnchorArchive] = useState(null);
     const [anchorDecl, setAnchorDecl] = useState(null);
@@ -152,6 +163,31 @@ const Navbar = (props) => {
             <span className={styles.separator}></span>
             {user ? (
                 <>
+                    {data && data.team ? (
+                        <Link underline='none' className={styles.link} href='/'>
+                            <Button
+                                disableElevation
+                                color='primary'
+                                variant='contained'
+                            >
+                                Моят отбор
+                            </Button>
+                        </Link>
+                    ) : (
+                        <Link
+                            underline='none'
+                            className={styles.link}
+                            href='/createteam'
+                        >
+                            <Button
+                                disableElevation
+                                color='primary'
+                                variant='contained'
+                            >
+                                Създай отбор
+                            </Button>
+                        </Link>
+                    )}
                     <Link
                         underline='none'
                         className={styles.link}

@@ -28,6 +28,15 @@ body {
     background-attachment: fixed;
 }
 
+#__next {
+    & > .MuiContainer-root {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
 .grecaptcha-badge {
     visibility: hidden;
 }
@@ -170,6 +179,18 @@ a {
             margin: 20px 0px;
             background: linear-gradient(to left, white, black, white);
         }
+    }
+}
+
+.search-option {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    p:last-child {
+        color: green;
+        font-weight: bold;
     }
 }
 
