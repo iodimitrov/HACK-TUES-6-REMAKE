@@ -8,6 +8,10 @@
         flex-direction: row;
         position: relative;
 
+        &.tech-container {
+            flex-wrap: wrap;
+        }
+
         & > * {
             margin: 10px;
         }
@@ -16,6 +20,10 @@
         :global .MuiFormControlLabel-root,
         :global .MuiAutocomplete-root {
             width: 100%;
+        }
+
+        :global .MuiChip-root {
+            margin: 4px;
         }
 
         :global .MuiFormControlLabel-root {
@@ -34,6 +42,12 @@
             background-color: white;
             top: 50px;
             position: absolute;
+        }
+
+        .tech {
+            span {
+                pointer-events: none;
+            }
         }
     }
 }

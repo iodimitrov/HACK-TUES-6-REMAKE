@@ -221,34 +221,34 @@ const Schedule = () => (
                         <Typography component='ul'>
                             <Typography component='li'>
                                 от <strong>10:30</strong> до{' '}
-                                <strong>13:30</strong> - Финали
+                                <strong>14:20</strong> - Финали
                                 <Typography component='ul'>
                                     <Typography component='li'>
                                         от <strong>10:30</strong> до{' '}
-                                        <strong>11:50</strong> - първа част
-                                        <br />
-                                    </Typography>
-                                    <Typography component='li'>
-                                        от <strong>11:50</strong> до{' '}
-                                        <strong>12:10</strong> - почивка
+                                        <strong>12:10</strong> - първа част
                                         <br />
                                     </Typography>
                                     <Typography component='li'>
                                         от <strong>12:10</strong> до{' '}
-                                        <strong>13:30</strong> - втора част
+                                        <strong>12:40</strong> - почивка
+                                        <br />
+                                    </Typography>
+                                    <Typography component='li'>
+                                        от <strong>12:40</strong> до{' '}
+                                        <strong>14:20</strong> - втора част
                                         <br />
                                     </Typography>
                                 </Typography>
                             </Typography>
                             <Typography component='li'>
-                                от <strong>13:30</strong> до{' '}
-                                <strong>15:00</strong> - Заседание на журито за
+                                от <strong>14:20</strong> до{' '}
+                                <strong>15:50</strong> - Заседание на журито за
                                 излъчване на победители
                                 <br />
                             </Typography>
                             <Typography component='li'>
-                                от <strong>15:00</strong> до{' '}
-                                <strong>16:00</strong> - Церемония по
+                                от <strong>16:00</strong> до{' '}
+                                <strong>17:00</strong> - Церемония по
                                 награждаване
                                 <br />
                             </Typography>

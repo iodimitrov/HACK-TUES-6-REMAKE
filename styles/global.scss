@@ -194,6 +194,12 @@ a {
     }
 }
 
+.selected-tech {
+    background-color: #00ffe5 !important;
+    color: black !important;
+    box-shadow: 0 1.5px 3px rgba(0, 0, 0, 0.16), 0 1.5px 3px rgba(0, 0, 0, 0.23);
+}
+
 @media only screen and (min-width: 1024px) {
     /* width */
     ::-webkit-scrollbar {

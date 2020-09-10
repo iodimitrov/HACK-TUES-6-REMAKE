@@ -4,7 +4,6 @@ import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
 import {
     Container,
-    InputAdornment,
     Typography,
     TextField,
     Button,
@@ -18,16 +17,21 @@ import firebase from 'firebase/app';
 import cookies from 'next-cookies';
 import { useCollection } from '@nandorojo/swr-firestore';
 import Router, { useRouter } from 'next/router';
+import { getBeautifulColor } from 'utils/functions';
 
-const CreateTeam = () => {
+const CreateTeam = (props) => {
     const router = useRouter();
-    const { data, add } = useCollection('teams', {
+    const { data } = useCollection('teams', {
         listen: true,
     });
 
     const { data: users } = useCollection('users', {
         where: ['team', '==', null],
         listen: true,
+    });
+
+    const { data: tech } = useCollection('tech', {
+        initialData: props.users,
     });
 
     const [name, setName] = useState({
@@ -39,13 +43,79 @@ const CreateTeam = () => {
     const [projectLinks, setProjectLinks] = useState('');
     const [projectUsers, setProjectUsers] = useState([]);
     const [projectTech, setProjectTech] = useState([]);
+    const [error, setError] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        const allUsers = users.map((user) => user.id);
+        const currUsers = projectUsers.map((user) => user.id);
+        const allTech = tech.map((tag) => tag.name);
+
         if (!/\S/.test(name.value)) {
             setName({ value: name.value, error: 'Невалидно име' });
             return;
+        }
+
+        if (data.map((team) => team.name).includes(name.value)) {
+            setName({ value: name.value, error: 'Името вече е заето' });
+            return;
+        }
+
+        if (!currUsers.every((user) => allUsers.includes(user))) {
+            setError(
+                'Избрали сте невалиден потребител или такъв, който вече има отбор'
+            );
+            return;
+        }
+
+        if (!projectTech.every((tag) => allTech.includes(tag))) {
+            setError('Избрали сте невалидна технология');
+            return;
+        }
+
+        firebase
+            .firestore()
+            .collection('teams')
+            .add({
+                name: name.value,
+                projectDescription,
+                projectName,
+                projectLinks,
+                projectTech: projectTech.map((tech) =>
+                    firebase.firestore().doc(`tech/${tech}`)
+                ),
+                projectUsers: projectUsers.map((user) =>
+                    firebase.firestore().doc(`users/${user.id}`)
+                ),
+                special: false,
+                verified: false,
+                votes: 0,
+                scoreFinal: 0,
+                scoreSemiFinal: 0,
+            })
+            .then((doc) => {
+                console.log(doc);
+                projectUsers.forEach((user) => {
+                    firebase
+                        .firestore()
+                        .doc(`users/${user.id}`)
+                        .update({
+                            team: firebase.firestore().doc(`teams/${doc.id}`),
+                        });
+                });
+            });
+    };
+
+    const handleTech = (e) => {
+        const value = e.target.children[0].innerHTML;
+        if (e.target.classList.contains('selected-tech')) {
+            e.target.classList.remove('selected-tech');
+            let temp = projectTech.filter((tech) => tech !== value);
+            setProjectTech(temp);
+        } else {
+            e.target.classList.add('selected-tech');
+            setProjectTech([...new Set([...projectTech, value])]);
         }
     };
 
@@ -155,7 +225,48 @@ const CreateTeam = () => {
                             />
                         )}
                     </div>
+                    <div
+                        className={`${styles['input-container']} ${styles['tech-container']}`}
+                    >
+                        {tech &&
+                            tech.map((item, index) => (
+                                <Chip
+                                    className={styles.tech}
+                                    key={index}
+                                    onClick={handleTech}
+                                    style={getBeautifulColor(item.color)}
+                                    label={item.name}
+                                />
+                            ))}
+                    </div>
+                    <div
+                        className={`${styles['input-container']} ${styles['tech-container']}`}
+                    >
+                        <Button
+                            className={styles.submit}
+                            type='submit'
+                            disableElevation
+                            color='primary'
+                            variant='contained'
+                        >
+                            Цък to create
+                        </Button>
+                    </div>
                 </form>
+                <Snackbar
+                    open={error.length > 0}
+                    autoHideDuration={6000}
+                    onClose={() => setError(false)}
+                >
+                    <Alert
+                        elevation={6}
+                        variant='filled'
+                        onClose={() => setError(false)}
+                        severity='error'
+                    >
+                        {error}
+                    </Alert>
+                </Snackbar>
             </Container>
             <Footer />
         </Container>
@@ -191,6 +302,11 @@ CreateTeam.getInitialProps = async (ctx) => {
                 } else {
                     Router.push('/');
                 }
+            } else {
+                let tech = await firebase.firestore().collection('tech').get();
+                return {
+                    tech: tech.docs.map((tag) => tag.data()),
+                };
             }
         }
     }
