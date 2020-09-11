@@ -34,7 +34,7 @@ const CreateTeam = (props) => {
     });
 
     const { data: tech } = useCollection('tech', {
-        initialData: props.users,
+        initialData: props.tech,
     });
 
     const [name, setName] = useState({
@@ -89,7 +89,7 @@ const CreateTeam = (props) => {
                 name: name.value,
                 projectDescription,
                 projectName,
-                projectLinks: projectLinks.split(/[ ,]+/),
+                projectLinks,
                 projectTech: projectTech.map((tech) =>
                     firebase.firestore().doc(`tech/${tech}`)
                 ),
@@ -104,6 +104,8 @@ const CreateTeam = (props) => {
                 votes: 0,
                 scoreFinal: 0,
                 scoreSemiFinal: 0,
+                createdAt: new Date().toJSON(),
+                updatedAt: new Date().toJSON(),
             })
             .then(async (doc) => {
                 await firebase

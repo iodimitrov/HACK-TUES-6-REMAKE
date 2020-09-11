@@ -1,0 +1,120 @@
+@import 'variables';
+
+.content {
+    .card {
+        .card-header {
+            :global .MuiCardHeader-avatar {
+                .MuiAvatar-root {
+                    background-color: $secondary-color;
+                }
+            }
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            width: 100%;
+
+            &.tech-container {
+                flex-wrap: wrap;
+
+                .tech {
+                    span {
+                        pointer-events: none;
+                    }
+                }
+            }
+
+            & > * {
+                margin: 10px;
+            }
+
+            :global .MuiTextField-root,
+            :global .MuiFormControlLabel-root,
+            :global .MuiAutocomplete-root,
+            :global .MuiButton-root {
+                width: 100%;
+            }
+
+            :global .MuiChip-root {
+                margin: 4px;
+            }
+
+            :global .MuiFormControlLabel-root {
+                margin: 0;
+            }
+
+            .switch-label {
+                margin: 10px 0 0;
+            }
+
+            .submit {
+                margin: 10px 0 0 10px;
+            }
+
+            .repo-link {
+                display: block;
+                margin-top: 5px;
+            }
+
+            .is-editing {
+                background-color: #00e676;
+
+                &:hover {
+                    background-color: darken(#00e676, 10);
+                }
+            }
+
+            .delete {
+                background-color: #f50057;
+                color: white;
+
+                &:hover {
+                    background-color: darken(#f50057, 10);
+                }
+            }
+        }
+    }
+
+    .user-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        .user-card {
+            margin-top: 20px;
+            width: 49%;
+
+            .card-header {
+                :global .MuiCardHeader-avatar {
+                    .MuiAvatar-root {
+                        background-color: $secondary-color;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .content {
+        .card {
+            .input-container {
+                flex-direction: column;
+
+                &.tech-container {
+                    flex-direction: row;
+                }
+
+                & > * {
+                    margin: 10px 0;
+                }
+
+                :global .MuiFormControlLabel-root {
+                    margin-left: -13px;
+                }
+            }
+        }
+    }
+}

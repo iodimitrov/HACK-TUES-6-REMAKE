@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Head from 'next/head';
 import Navbar from 'components/Navbar';
 import Footer from 'components/Footer';
@@ -56,6 +56,8 @@ const Profile = (props) => {
     const [success, setSuccess] = useState(false);
     const [edit, setEdit] = useState(false);
     const [dialog, setDialog] = useState(false);
+    const [team, setTeam] = useState('');
+    const [votedFor, setVotedFor] = useState('');
 
     const lecturesLimit = 2;
     const workshopLimit = 2;
@@ -90,6 +92,16 @@ const Profile = (props) => {
         'Уъркшоп 2',
         'Уъркшоп 3',
     ];
+
+    useEffect(() => {
+        data.team?.onSnapshot((doc) => {
+            console.log(doc.data());
+            setTeam(doc.data().name);
+        });
+        data.votedFor?.onSnapshot((doc) => {
+            setVotedFor(doc.data().name);
+        });
+    }, []);
 
     const handleOnKeyUp = (e) => {
         e.target.value = e.target.value.replace(/[^а-я-\s]/i, '');
@@ -423,14 +435,12 @@ const Profile = (props) => {
                                 </div>
                                 <div className={styles['input-container']}>
                                     <Typography>
-                                        <strong>Отбор:</strong>
-                                        {data.team ? data.team : ' (няма)'}
+                                        <strong>Отбор:&nbsp;</strong>
+                                        {team ? team : '(няма)'}
                                     </Typography>
                                     <Typography>
                                         <strong>Гласувал за:</strong>
-                                        {data.votedFor
-                                            ? data.votedFor
-                                            : ' (никого)'}
+                                        {votedFor ? votedFor : ' (никого)'}
                                     </Typography>
                                 </div>
                                 {users && (
@@ -691,6 +701,7 @@ Profile.getInitialProps = async (ctx) => {
                 .doc(`users/${allCookies.auth.id}`)
                 .get();
             data = doc.data();
+            delete data.team;
             return { data, user: allCookies.auth };
         }
     }
