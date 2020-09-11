@@ -18,9 +18,12 @@ import cookies from 'next-cookies';
 import { useCollection } from '@nandorojo/swr-firestore';
 import Router, { useRouter } from 'next/router';
 import { getBeautifulColor } from 'utils/functions';
+import { useUser } from 'utils/auth/useUser';
 
 const CreateTeam = (props) => {
     const router = useRouter();
+    const { user: currUser } = useUser();
+
     const { data } = useCollection('teams', {
         listen: true,
     });
@@ -62,6 +65,11 @@ const CreateTeam = (props) => {
             return;
         }
 
+        if (currUsers.length > 4) {
+            setError('Избрали сте твърде много участници');
+            return;
+        }
+
         if (!currUsers.every((user) => allUsers.includes(user))) {
             setError(
                 'Избрали сте невалиден потребител или такъв, който вече има отбор'
@@ -81,29 +89,39 @@ const CreateTeam = (props) => {
                 name: name.value,
                 projectDescription,
                 projectName,
-                projectLinks,
+                projectLinks: projectLinks.split(/[ ,]+/),
                 projectTech: projectTech.map((tech) =>
                     firebase.firestore().doc(`tech/${tech}`)
                 ),
-                projectUsers: projectUsers.map((user) =>
-                    firebase.firestore().doc(`users/${user.id}`)
-                ),
+                projectUsers: [
+                    ...projectUsers.map((user) =>
+                        firebase.firestore().doc(`users/${user.id}`)
+                    ),
+                    firebase.firestore().doc(`users/${currUser.id}`),
+                ],
                 special: false,
-                verified: false,
+                verified: currUsers.length >= 2,
                 votes: 0,
                 scoreFinal: 0,
                 scoreSemiFinal: 0,
             })
-            .then((doc) => {
-                console.log(doc);
-                projectUsers.forEach((user) => {
-                    firebase
+            .then(async (doc) => {
+                await firebase
+                    .firestore()
+                    .doc(`users/${currUser.id}`)
+                    .update({
+                        isLeader: true,
+                        team: firebase.firestore().doc(`teams/${doc.id}`),
+                    });
+                projectUsers.forEach(async (user) => {
+                    await firebase
                         .firestore()
                         .doc(`users/${user.id}`)
                         .update({
                             team: firebase.firestore().doc(`teams/${doc.id}`),
                         });
                 });
+                router.push('/');
             });
     };
 
@@ -175,15 +193,17 @@ const CreateTeam = (props) => {
                         />
                     </div>
                     <div className={styles['input-container']}>
-                        {users && (
+                        {users && currUser && (
                             <Autocomplete
                                 multiple
                                 noOptionsText="Няма хорица :'("
                                 filterSelectedOptions
-                                options={users.map(
-                                    (user) =>
-                                        `${user.name} ${user.surname},${user.grade},${user.id}`
-                                )}
+                                options={users
+                                    .filter((user) => user.id !== currUser.id)
+                                    .map(
+                                        (user) =>
+                                            `${user.name} ${user.surname},${user.grade},${user.id}`
+                                    )}
                                 renderOption={(option, state) => {
                                     const data = parseOption(option);
                                     return (
