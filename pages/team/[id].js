@@ -31,21 +31,16 @@ import styles from 'styles/Team.module.scss';
 import firebase from 'firebase/app';
 import cookies from 'next-cookies';
 import { useDocument, useCollection } from '@nandorojo/swr-firestore';
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { getBeautifulColor } from 'utils/functions';
-import { useUser } from 'utils/auth/useUser';
 
 const Team = (props) => {
     const router = useRouter();
-    const { user: currUser, logout } = useUser();
-    const { data, update, deleteDocument, mutate } = useDocument(
-        `teams/${props.team.id}`,
-        {
-            listen: true,
-            revalidateOnMount: true,
-            initialData: props.team,
-        }
-    );
+    const { data, update, mutate } = useDocument(`teams/${props.team.id}`, {
+        listen: true,
+        revalidateOnMount: true,
+        initialData: props.team,
+    });
 
     const { data: tech } = useCollection('tech', {
         initialData: props.tech,
@@ -77,7 +72,7 @@ const Team = (props) => {
             Promise.all(
                 data.projectUsers.map(async (user) => {
                     let doc = await user.get();
-                    if (currUser && currUser.id === user.id) {
+                    if (props.currUserId === user.id) {
                         setIsLeader(doc.data().isLeader);
                     }
                     return { ...doc.data(), id: doc.id };
@@ -184,7 +179,7 @@ const Team = (props) => {
         })
             .then(() => {
                 setBackdrop(false);
-                if (userId === currUser.id) {
+                if (userId === props.currUserId) {
                     router.replace('/');
                 }
             })
@@ -379,7 +374,8 @@ const Team = (props) => {
                                             options={users
                                                 .filter(
                                                     (user) =>
-                                                        user.id !== currUser.id
+                                                        user.id !==
+                                                        props.currUserId
                                                 )
                                                 .map(
                                                     (user) =>
@@ -594,52 +590,31 @@ const Team = (props) => {
                                                 : 'Участник'
                                         }
                                     />
-                                    {currUser && (
-                                        <CardActions
-                                            className={styles['card-actions']}
-                                            disableSpacing
+                                    <CardActions
+                                        className={styles['card-actions']}
+                                        disableSpacing
+                                    >
+                                        <div
+                                            className={
+                                                styles['input-container']
+                                            }
                                         >
-                                            <div
-                                                className={
-                                                    styles['input-container']
-                                                }
-                                            >
-                                                {currUser.id !== user.id &&
-                                                    isLeader && (
-                                                        <>
-                                                            <Button
-                                                                disableElevation
-                                                                type='submit'
-                                                                color='secondary'
-                                                                variant='contained'
-                                                                onClick={() =>
-                                                                    makeLeader(
-                                                                        user.id
-                                                                    )
-                                                                }
-                                                            >
-                                                                Направи капитан
-                                                            </Button>
-                                                            <Button
-                                                                disableElevation
-                                                                type='submit'
-                                                                color='primary'
-                                                                variant='contained'
-                                                                className={
-                                                                    styles.delete
-                                                                }
-                                                                onClick={() =>
-                                                                    removeUser(
-                                                                        user.id
-                                                                    )
-                                                                }
-                                                            >
-                                                                Премахни
-                                                            </Button>
-                                                        </>
-                                                    )}
-                                                {currUser.id === user.id &&
-                                                    !user.isLeader && (
+                                            {props.currUserId !== user.id &&
+                                                isLeader && (
+                                                    <>
+                                                        <Button
+                                                            disableElevation
+                                                            type='submit'
+                                                            color='secondary'
+                                                            variant='contained'
+                                                            onClick={() =>
+                                                                makeLeader(
+                                                                    user.id
+                                                                )
+                                                            }
+                                                        >
+                                                            Направи капитан
+                                                        </Button>
                                                         <Button
                                                             disableElevation
                                                             type='submit'
@@ -654,12 +629,29 @@ const Team = (props) => {
                                                                 )
                                                             }
                                                         >
-                                                            Напусни
+                                                            Премахни
                                                         </Button>
-                                                    )}
-                                            </div>
-                                        </CardActions>
-                                    )}
+                                                    </>
+                                                )}
+                                            {props.currUserId === user.id &&
+                                                !user.isLeader && (
+                                                    <Button
+                                                        disableElevation
+                                                        type='submit'
+                                                        color='primary'
+                                                        variant='contained'
+                                                        className={
+                                                            styles.delete
+                                                        }
+                                                        onClick={() =>
+                                                            removeUser(user.id)
+                                                        }
+                                                    >
+                                                        Напусни
+                                                    </Button>
+                                                )}
+                                        </div>
+                                    </CardActions>
                                 </Card>
                             </Grow>
                         ))}
@@ -701,52 +693,29 @@ const Team = (props) => {
     );
 };
 
-Team.getInitialProps = async (ctx) => {
+export const getServerSideProps = async (ctx) => {
     const allCookies = cookies(ctx);
-    if (!allCookies.auth) {
-        if (typeof window === 'undefined') {
-            ctx.res.writeHead(302, { Location: '/' });
-            ctx.res.end();
-        } else {
-            Router.push('/');
-        }
-    } else {
-        if (!allCookies.auth.emailVerified) {
-            if (typeof window === 'undefined') {
-                ctx.res.writeHead(302, { Location: '/verifyemail' });
-                ctx.res.end();
-            } else {
-                Router.push('/verifyemail');
-            }
-        } else {
-            let doc = await firebase
-                .firestore()
-                .doc(`users/${allCookies.auth.id}`)
-                .get();
-            if (!doc.data().team) {
-                if (typeof window === 'undefined') {
-                    ctx.res.writeHead(302, { Location: '/' });
-                    ctx.res.end();
-                } else {
-                    Router.push('/');
-                }
-            } else {
-                let tech = await firebase.firestore().collection('tech').get();
-                let team = await doc.data().team.get();
-                return {
-                    tech: tech.docs.map((tag) => tag.data()),
-                    team: {
-                        id: team.id,
-                        name: team.data().name,
-                        projectName: team.data().projectName,
-                        projectDescription: team.data().projectDescription,
-                        projectLinks: team.data().projectLinks,
-                    },
-                };
-            }
-        }
+    if (ctx.query && ctx.query.id) {
+        let tech = await firebase.firestore().collection('tech').get();
+        let team = await firebase
+            .firestore()
+            .doc(`teams/${ctx.query.id}`)
+            .get();
+        return {
+            props: {
+                tech: tech.docs.map((tag) => tag.data()),
+                team: {
+                    id: team.id,
+                    name: team.data().name,
+                    projectName: team.data().projectName,
+                    projectDescription: team.data().projectDescription,
+                    projectLinks: team.data().projectLinks,
+                },
+                currUserId: allCookies.auth ? allCookies.auth.id : null,
+            },
+        };
     }
-    return {};
+    return { props: {} };
 };
 
 export default Team;

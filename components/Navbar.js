@@ -164,7 +164,12 @@ const Navbar = (props) => {
             {user ? (
                 <>
                     {data && data.team ? (
-                        <Link underline='none' className={styles.link} href='/'>
+                        <Link
+                            underline='none'
+                            className={styles.link}
+                            href='/team/[id]'
+                            as={`/team/${data.team.id}`}
+                        >
                             <Button
                                 disableElevation
                                 color='primary'
