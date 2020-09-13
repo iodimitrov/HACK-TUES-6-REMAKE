@@ -113,6 +113,7 @@ const CreateTeam = (props) => {
                     .doc(`users/${currUser.id}`)
                     .update({
                         isLeader: true,
+                        updatedAt: new Date().toJSON(),
                         team: firebase.firestore().doc(`teams/${doc.id}`),
                     });
                 projectUsers.forEach(async (user) => {
@@ -120,6 +121,7 @@ const CreateTeam = (props) => {
                         .firestore()
                         .doc(`users/${user.id}`)
                         .update({
+                            updatedAt: new Date().toJSON(),
                             team: firebase.firestore().doc(`teams/${doc.id}`),
                         });
                 });

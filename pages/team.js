@@ -23,16 +23,21 @@ import {
     DialogTitle,
     Link,
     Chip,
+    Backdrop,
+    CircularProgress,
 } from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
+import { Autocomplete, Alert } from '@material-ui/lab';
 import styles from 'styles/Team.module.scss';
 import firebase from 'firebase/app';
 import cookies from 'next-cookies';
 import { useDocument, useCollection } from '@nandorojo/swr-firestore';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { getBeautifulColor } from 'utils/functions';
+import { useUser } from 'utils/auth/useUser';
 
 const Team = (props) => {
+    const router = useRouter();
+    const { user: currUser, logout } = useUser();
     const { data, update, deleteDocument, mutate } = useDocument(
         `teams/${props.team.id}`,
         {
@@ -46,25 +51,40 @@ const Team = (props) => {
         initialData: props.tech,
     });
 
+    const { data: users } = useCollection('users', {
+        where: ['team', '==', null],
+        listen: true,
+    });
+
     const [nameError, setNameError] = useState(false);
     const [projectTech, setProjectTech] = useState([]);
     const [projectUsers, setProjectUsers] = useState([]);
+    const [newUsers, setNewUsers] = useState([]);
     const [edit, setEdit] = useState(false);
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
     const [dialog, setDialog] = useState(false);
+    const [isLeader, setIsLeader] = useState(false);
+    const [backdrop, setBackdrop] = useState(false);
 
     useEffect(() => {
+        currentUsers();
+        currentTech();
+    }, [data.projectUsers]);
+
+    const currentUsers = () => {
         if (data.projectUsers) {
             Promise.all(
                 data.projectUsers.map(async (user) => {
                     let doc = await user.get();
-                    return doc.data();
+                    if (currUser && currUser.id === user.id) {
+                        setIsLeader(doc.data().isLeader);
+                    }
+                    return { ...doc.data(), id: doc.id };
                 })
             ).then((users) => setProjectUsers(users));
         }
-        currentTech();
-    }, [data]);
+    };
 
     const currentTech = () => {
         if (data.projectTech) {
@@ -97,7 +117,28 @@ const Team = (props) => {
                     projectTech: projectTech.map((tech) =>
                         firebase.firestore().doc(`tech/${tech.name}`)
                     ),
+                    projectUsers:
+                        newUsers.length > 0
+                            ? firebase.firestore.FieldValue.arrayUnion(
+                                  ...newUsers.map((user) =>
+                                      firebase
+                                          .firestore()
+                                          .doc(`users/${user.id}`)
+                                  )
+                              )
+                            : data.projectUsers,
+                    verified: projectUsers.length + newUsers.length > 2,
                 });
+                newUsers.forEach(async (user) => {
+                    await firebase
+                        .firestore()
+                        .doc(`users/${user.id}`)
+                        .update({
+                            team: firebase.firestore().doc(`teams/${data.id}`),
+                            updatedAt: new Date().toJSON(),
+                        });
+                });
+                setNewUsers([]);
                 setSuccess('Отборът бе редактиран успешно.');
             } catch (error) {
                 mutate();
@@ -122,7 +163,60 @@ const Team = (props) => {
         }
     };
 
-    const handleDeletion = () => {};
+    const handleDeletion = () => {
+        fetch('/api/deleteteam')
+            .then(() => {
+                router.replace('/');
+            })
+            .catch((error) => {
+                setError(error.message);
+            });
+    };
+
+    const removeUser = (userId) => {
+        setBackdrop(true);
+        fetch('/api/removeuserteam', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId }),
+        })
+            .then(() => {
+                setBackdrop(false);
+                if (userId === currUser.id) {
+                    router.replace('/');
+                }
+            })
+            .catch((error) => {
+                setBackdrop(false);
+                setError(error.message);
+            });
+    };
+
+    const makeLeader = (userId) => {
+        setBackdrop(true);
+        fetch('/api/makeleader', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ userId }),
+        })
+            .then(() => {
+                setBackdrop(false);
+                router.reload();
+            })
+            .catch((error) => {
+                setBackdrop(false);
+                setError(error.message);
+            });
+    };
+
+    const parseOption = (value) => {
+        let data = value.split(',');
+        return { fullName: data[0], grade: data[1], id: data[2] };
+    };
 
     return (
         <Container maxWidth={false}>
@@ -276,6 +370,68 @@ const Team = (props) => {
                                         )}
                                     </Typography>
                                 </div>
+                                {edit && (
+                                    <div className={styles['input-container']}>
+                                        <Autocomplete
+                                            multiple
+                                            noOptionsText="Няма хорица :'("
+                                            filterSelectedOptions
+                                            options={users
+                                                .filter(
+                                                    (user) =>
+                                                        user.id !== currUser.id
+                                                )
+                                                .map(
+                                                    (user) =>
+                                                        `${user.name} ${user.surname},${user.grade},${user.id}`
+                                                )}
+                                            renderOption={(option, state) => {
+                                                const data = parseOption(
+                                                    option
+                                                );
+                                                return (
+                                                    <div className='search-option'>
+                                                        <p>{data.fullName}</p>
+                                                        <p>{data.grade}</p>
+                                                    </div>
+                                                );
+                                            }}
+                                            renderInput={(params) => (
+                                                <TextField
+                                                    {...params}
+                                                    label='Добави участници'
+                                                    helperText='Търсете по име и/или фамилия'
+                                                />
+                                            )}
+                                            renderTags={(value, getTagProps) =>
+                                                value.map((tag, index) => {
+                                                    let data = parseOption(tag);
+                                                    return (
+                                                        <Chip
+                                                            {...getTagProps({
+                                                                index,
+                                                            })}
+                                                            label={`${data.fullName} - ${data.grade}`}
+                                                        />
+                                                    );
+                                                })
+                                            }
+                                            value={
+                                                newUsers.map(
+                                                    (user) =>
+                                                        `${user.fullName},${user.grade},${user.id}`
+                                                ) || ''
+                                            }
+                                            onChange={(event, value) =>
+                                                setNewUsers(
+                                                    value.map((user) =>
+                                                        parseOption(user)
+                                                    )
+                                                )
+                                            }
+                                        />
+                                    </div>
+                                )}
                                 <div
                                     className={`${styles['input-container']} ${styles['tech-container']}`}
                                 >
@@ -317,84 +473,93 @@ const Team = (props) => {
                                         ))}
                                 </div>
                             </CardContent>
-                            <CardActions
-                                className={styles['card-actions']}
-                                disableSpacing
-                            >
-                                <div className={styles['input-container']}>
-                                    <Button
-                                        className={`${styles.edit} ${
-                                            edit ? styles['is-editing'] : ''
-                                        }`}
-                                        disableElevation
-                                        type='submit'
-                                        color='primary'
-                                        variant='contained'
-                                        form='edit-team'
-                                    >
-                                        {edit ? 'Запази' : 'Редактирай'}
-                                    </Button>
-                                    {!edit ? (
-                                        <>
+                            {isLeader && (
+                                <CardActions
+                                    className={styles['card-actions']}
+                                    disableSpacing
+                                >
+                                    <div className={styles['input-container']}>
+                                        <Button
+                                            className={`${styles.edit} ${
+                                                edit ? styles['is-editing'] : ''
+                                            }`}
+                                            disableElevation
+                                            type='submit'
+                                            color='primary'
+                                            variant='contained'
+                                            form='edit-team'
+                                        >
+                                            {edit ? 'Запази' : 'Редактирай'}
+                                        </Button>
+                                        {!edit ? (
+                                            <>
+                                                <Button
+                                                    className={styles.delete}
+                                                    disableElevation
+                                                    variant='contained'
+                                                    onClick={() =>
+                                                        setDialog(true)
+                                                    }
+                                                >
+                                                    Изтрий отбора
+                                                </Button>
+                                                <Dialog
+                                                    open={dialog}
+                                                    onClose={() =>
+                                                        setDialog(false)
+                                                    }
+                                                >
+                                                    <DialogTitle>
+                                                        Сигурни ли сте, че
+                                                        искате да изтриете
+                                                        отбора?
+                                                    </DialogTitle>
+                                                    <DialogContent>
+                                                        <DialogContentText></DialogContentText>
+                                                    </DialogContent>
+                                                    <DialogActions>
+                                                        <Button
+                                                            onClick={() =>
+                                                                setDialog(false)
+                                                            }
+                                                            color='primary'
+                                                            variant='outlined'
+                                                        >
+                                                            Отказ
+                                                        </Button>
+                                                        <Button
+                                                            onClick={() => {
+                                                                handleDeletion();
+                                                                setDialog(
+                                                                    false
+                                                                );
+                                                            }}
+                                                            disableElevation
+                                                            color='primary'
+                                                            variant='contained'
+                                                        >
+                                                            Потвърди
+                                                        </Button>
+                                                    </DialogActions>
+                                                </Dialog>
+                                            </>
+                                        ) : (
                                             <Button
                                                 className={styles.delete}
                                                 disableElevation
                                                 variant='contained'
-                                                onClick={() => setDialog(true)}
+                                                onClick={() => {
+                                                    setEdit(false);
+                                                    currentTech();
+                                                    mutate();
+                                                }}
                                             >
-                                                Изтрий отбора
+                                                Отказ
                                             </Button>
-                                            <Dialog
-                                                open={dialog}
-                                                onClose={() => setDialog(false)}
-                                            >
-                                                <DialogTitle>
-                                                    Сигурни ли сте, че искате да
-                                                    изтриете отбора?
-                                                </DialogTitle>
-                                                <DialogContent>
-                                                    <DialogContentText></DialogContentText>
-                                                </DialogContent>
-                                                <DialogActions>
-                                                    <Button
-                                                        onClick={() =>
-                                                            setDialog(false)
-                                                        }
-                                                        color='primary'
-                                                        variant='outlined'
-                                                    >
-                                                        Отказ
-                                                    </Button>
-                                                    <Button
-                                                        onClick={() => {
-                                                            handleDeletion();
-                                                            setDialog(false);
-                                                        }}
-                                                        disableElevation
-                                                        color='primary'
-                                                        variant='contained'
-                                                    >
-                                                        Потвърди
-                                                    </Button>
-                                                </DialogActions>
-                                            </Dialog>
-                                        </>
-                                    ) : (
-                                        <Button
-                                            className={styles.delete}
-                                            disableElevation
-                                            variant='contained'
-                                            onClick={() => {
-                                                setEdit(false);
-                                                currentTech();
-                                                mutate();
-                                            }}
-                                        >
-                                            Отказ
-                                        </Button>
-                                    )}
-                                </div>
-                            </CardActions>
+                                        )}
+                                    </div>
+                                </CardActions>
+                            )}
                         </Card>
                     </Grow>
                 ) : (
@@ -406,9 +571,11 @@ const Team = (props) => {
                     maxWidth={false}
                 >
                     {projectUsers &&
-                        projectUsers.map((user) => (
-                            <Grow in>
-                                <Card className={styles['user-card']}>
+                        projectUsers.map((user, index) => (
+                            <Grow in key={index}>
+                                <Card
+                                    className={`${styles['user-card']} ${styles['card']}`}
+                                >
                                     <CardHeader
                                         className={
                                             user.isLeader
@@ -427,6 +594,72 @@ const Team = (props) => {
                                                 : 'Участник'
                                         }
                                     />
+                                    {currUser && (
+                                        <CardActions
+                                            className={styles['card-actions']}
+                                            disableSpacing
+                                        >
+                                            <div
+                                                className={
+                                                    styles['input-container']
+                                                }
+                                            >
+                                                {currUser.id !== user.id &&
+                                                    isLeader && (
+                                                        <>
+                                                            <Button
+                                                                disableElevation
+                                                                type='submit'
+                                                                color='secondary'
+                                                                variant='contained'
+                                                                onClick={() =>
+                                                                    makeLeader(
+                                                                        user.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                Направи капитан
+                                                            </Button>
+                                                            <Button
+                                                                disableElevation
+                                                                type='submit'
+                                                                color='primary'
+                                                                variant='contained'
+                                                                className={
+                                                                    styles.delete
+                                                                }
+                                                                onClick={() =>
+                                                                    removeUser(
+                                                                        user.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                Премахни
+                                                            </Button>
+                                                        </>
+                                                    )}
+                                                {currUser.id === user.id &&
+                                                    !user.isLeader && (
+                                                        <Button
+                                                            disableElevation
+                                                            type='submit'
+                                                            color='primary'
+                                                            variant='contained'
+                                                            className={
+                                                                styles.delete
+                                                            }
+                                                            onClick={() =>
+                                                                removeUser(
+                                                                    user.id
+                                                                )
+                                                            }
+                                                        >
+                                                            Напусни
+                                                        </Button>
+                                                    )}
+                                            </div>
+                                        </CardActions>
+                                    )}
                                 </Card>
                             </Grow>
                         ))}
@@ -459,6 +692,9 @@ const Team = (props) => {
                         {success}
                     </Alert>
                 </Snackbar>
+                <Backdrop open={backdrop} style={{ zIndex: '9999' }}>
+                    <CircularProgress color='primary' />
+                </Backdrop>
             </Container>
             <Footer />
         </Container>

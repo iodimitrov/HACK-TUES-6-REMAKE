@@ -76,23 +76,26 @@
             }
         }
     }
+}
 
+.user-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .user-card {
+        margin-top: 20px;
+        width: 49%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
     .user-container {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        .user-card {
-            margin-top: 20px;
-            width: 49%;
+        flex-direction: column;
 
-            .card-header {
-                :global .MuiCardHeader-avatar {
-                    .MuiAvatar-root {
-                        background-color: $secondary-color;
-                    }
-                }
-            }
+        .user-card {
+            width: 100%;
         }
     }
 }
