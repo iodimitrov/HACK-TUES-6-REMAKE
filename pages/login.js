@@ -35,7 +35,7 @@ const Login = () => {
     });
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
-    const [verified, setVerified] = useState(false);
+    const [verified, setVerified] = useState(true);
     const [dialog, setDialog] = useState(false);
 
     const handleSubmit = (e) => {
@@ -68,7 +68,6 @@ const Login = () => {
         //         setVerified(json.success);
         //     });
         // });
-        setVerified(true);
     };
 
     const handlePasswordReset = () => {

@@ -79,7 +79,7 @@ const Register = () => {
     const [dialog, setDialog] = useState(false);
     const [error, setError] = useState(false);
 
-    const [verified, setVerified] = useState(false);
+    const [verified, setVerified] = useState(true);
 
     const grades = [
         '9А',
@@ -116,7 +116,6 @@ const Register = () => {
         //         setVerified(json.success);
         //     });
         // });
-        setVerified(true);
     };
 
     const handleSubmit = (e) => {
