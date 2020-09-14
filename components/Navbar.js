@@ -42,6 +42,9 @@ const Navbar = (props) => {
             <Link underline='none' className={styles.link} href='/schedule'>
                 <Button>Програма</Button>
             </Link>
+            <Link underline='none' className={styles.link} href='/teams'>
+                <Button>Отбори</Button>
+            </Link>
             <MuiLink
                 underline='none'
                 className={styles.link}

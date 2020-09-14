@@ -1,0 +1,67 @@
+@import 'variables';
+
+.caution {
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    width: auto;
+    padding: 10px 27px;
+
+    p {
+        font-size: 20px;
+        text-align: center;
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 1600px;
+    width: 100%;
+
+    .card {
+        max-width: 350px;
+        width: 100%;
+        margin: 0 10px 15px;
+        display: flex;
+        flex-direction: column;
+        color: #303030;
+
+        .card-header {
+            :global .MuiCardHeader-avatar {
+                .MuiAvatar-root {
+                    background-color: $secondary-color;
+                }
+            }
+        }
+
+        .card-content {
+            padding-top: 10px;
+
+            .data-container {
+                &:not(:last-child) {
+                    margin-bottom: 15px;
+                }
+
+                :global .MuiTypography-root {
+                    margin-bottom: 5px;
+                }
+
+                .tech {
+                    margin: 2px 4px 2px 0;
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 787px) {
+    .content {
+        .card {
+            max-width: 100%;
+            margin: 0 0 15px;
+        }
+    }
+}

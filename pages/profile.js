@@ -95,7 +95,6 @@ const Profile = (props) => {
 
     useEffect(() => {
         data.team?.onSnapshot((doc) => {
-            console.log(doc.data());
             setTeam(doc.data().name);
         });
         data.votedFor?.onSnapshot((doc) => {

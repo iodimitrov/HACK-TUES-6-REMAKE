@@ -11,8 +11,6 @@ import {
     Typography,
     Avatar,
     TextField,
-    FormControlLabel,
-    Switch,
     Button,
     Grow,
     Snackbar,
@@ -71,11 +69,13 @@ const Team = (props) => {
         if (data.projectUsers) {
             Promise.all(
                 data.projectUsers.map(async (user) => {
-                    let doc = await user.get();
-                    if (props.currUserId === user.id) {
-                        setIsLeader(doc.data().isLeader);
+                    if (typeof user.get === 'function') {
+                        let doc = await user.get();
+                        if (props.currUserId === user.id) {
+                            setIsLeader(doc.data().isLeader);
+                        }
+                        return { ...doc.data(), id: doc.id };
                     }
-                    return { ...doc.data(), id: doc.id };
                 })
             ).then((users) => setProjectUsers(users));
         }
@@ -85,8 +85,10 @@ const Team = (props) => {
         if (data.projectTech) {
             Promise.all(
                 data.projectTech.map(async (tech) => {
-                    let doc = await tech.get();
-                    return doc.data();
+                    if (typeof tech.get === 'function') {
+                        let doc = await tech.get();
+                        return doc.data();
+                    }
                 })
             ).then((tech) => setProjectTech(tech));
         }
@@ -433,17 +435,20 @@ const Team = (props) => {
                                 >
                                     {!edit &&
                                         projectTech &&
-                                        projectTech.map((item, index) => (
-                                            <Chip
-                                                className={styles.tech}
-                                                key={index}
-                                                clickable
-                                                style={getBeautifulColor(
-                                                    item.color
-                                                )}
-                                                label={item.name}
-                                            />
-                                        ))}
+                                        projectTech.map(
+                                            (item, index) =>
+                                                item && (
+                                                    <Chip
+                                                        className={styles.tech}
+                                                        key={index}
+                                                        clickable
+                                                        style={getBeautifulColor(
+                                                            item.color
+                                                        )}
+                                                        label={item.name}
+                                                    />
+                                                )
+                                        )}
                                     {edit &&
                                         tech &&
                                         tech.map((item, index) => (
@@ -567,94 +572,106 @@ const Team = (props) => {
                     maxWidth={false}
                 >
                     {projectUsers &&
-                        projectUsers.map((user, index) => (
-                            <Grow in key={index}>
-                                <Card
-                                    className={`${styles['user-card']} ${styles['card']}`}
-                                >
-                                    <CardHeader
-                                        className={
-                                            user.isLeader
-                                                ? styles['card-header']
-                                                : ''
-                                        }
-                                        avatar={
-                                            <Avatar>
-                                                {user.name.charAt(0)}
-                                            </Avatar>
-                                        }
-                                        title={`${user.name} ${user.surname}`}
-                                        subheader={
-                                            user.isLeader
-                                                ? 'Капитан'
-                                                : 'Участник'
-                                        }
-                                    />
-                                    <CardActions
-                                        className={styles['card-actions']}
-                                        disableSpacing
-                                    >
-                                        <div
-                                            className={
-                                                styles['input-container']
-                                            }
+                        projectUsers.map(
+                            (user, index) =>
+                                user && (
+                                    <Grow in key={index}>
+                                        <Card
+                                            className={`${styles['user-card']} ${styles['card']}`}
                                         >
-                                            {props.currUserId !== user.id &&
-                                                isLeader && (
-                                                    <>
-                                                        <Button
-                                                            disableElevation
-                                                            type='submit'
-                                                            color='secondary'
-                                                            variant='contained'
-                                                            onClick={() =>
-                                                                makeLeader(
-                                                                    user.id
-                                                                )
-                                                            }
-                                                        >
-                                                            Направи капитан
-                                                        </Button>
-                                                        <Button
-                                                            disableElevation
-                                                            type='submit'
-                                                            color='primary'
-                                                            variant='contained'
-                                                            className={
-                                                                styles.delete
-                                                            }
-                                                            onClick={() =>
-                                                                removeUser(
-                                                                    user.id
-                                                                )
-                                                            }
-                                                        >
-                                                            Премахни
-                                                        </Button>
-                                                    </>
-                                                )}
-                                            {props.currUserId === user.id &&
-                                                !user.isLeader && (
-                                                    <Button
-                                                        disableElevation
-                                                        type='submit'
-                                                        color='primary'
-                                                        variant='contained'
-                                                        className={
-                                                            styles.delete
-                                                        }
-                                                        onClick={() =>
-                                                            removeUser(user.id)
-                                                        }
-                                                    >
-                                                        Напусни
-                                                    </Button>
-                                                )}
-                                        </div>
-                                    </CardActions>
-                                </Card>
-                            </Grow>
-                        ))}
+                                            <CardHeader
+                                                className={
+                                                    user.isLeader
+                                                        ? styles['card-header']
+                                                        : ''
+                                                }
+                                                avatar={
+                                                    <Avatar>
+                                                        {user.name.charAt(0)}
+                                                    </Avatar>
+                                                }
+                                                title={`${user.name} ${user.surname}`}
+                                                subheader={
+                                                    user.isLeader
+                                                        ? 'Капитан'
+                                                        : 'Участник'
+                                                }
+                                            />
+                                            <CardActions
+                                                className={
+                                                    styles['card-actions']
+                                                }
+                                                disableSpacing
+                                            >
+                                                <div
+                                                    className={
+                                                        styles[
+                                                            'input-container'
+                                                        ]
+                                                    }
+                                                >
+                                                    {props.currUserId !==
+                                                        user.id &&
+                                                        isLeader && (
+                                                            <>
+                                                                <Button
+                                                                    disableElevation
+                                                                    type='submit'
+                                                                    color='secondary'
+                                                                    variant='contained'
+                                                                    onClick={() =>
+                                                                        makeLeader(
+                                                                            user.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Направи
+                                                                    капитан
+                                                                </Button>
+                                                                <Button
+                                                                    disableElevation
+                                                                    type='submit'
+                                                                    color='primary'
+                                                                    variant='contained'
+                                                                    className={
+                                                                        styles.delete
+                                                                    }
+                                                                    onClick={() =>
+                                                                        removeUser(
+                                                                            user.id
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Премахни
+                                                                </Button>
+                                                            </>
+                                                        )}
+                                                    {props.currUserId ===
+                                                        user.id &&
+                                                        !user.isLeader && (
+                                                            <Button
+                                                                disableElevation
+                                                                type='submit'
+                                                                color='primary'
+                                                                variant='contained'
+                                                                className={
+                                                                    styles.delete
+                                                                }
+                                                                onClick={() =>
+                                                                    removeUser(
+                                                                        user.id
+                                                                    )
+                                                                }
+                                                            >
+                                                                Напусни
+                                                            </Button>
+                                                        )}
+                                                </div>
+                                            </CardActions>
+                                        </Card>
+                                    </Grow>
+                                )
+                        )}
                 </Container>
                 <Snackbar
                     open={error.length > 0}
