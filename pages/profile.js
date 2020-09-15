@@ -13,6 +13,11 @@ import {
     MenuItem,
     TextField,
     FormControlLabel,
+    FormControl,
+    FormLabel,
+    RadioGroup,
+    FormHelperText,
+    Radio,
     Switch,
     Button,
     Grow,
@@ -59,8 +64,11 @@ const Profile = (props) => {
     const [team, setTeam] = useState('');
     const [votedFor, setVotedFor] = useState('');
 
-    const lecturesLimit = 2;
-    const workshopLimit = 2;
+    const lecturesLimit = 50;
+    const workshopLimit1 = 40;
+    const workshopLimit2 = 38;
+    const workshopLimit3 = 32;
+
     const grades = [
         '9А',
         '9Б',
@@ -144,6 +152,16 @@ const Profile = (props) => {
                 return;
             }
 
+            if (
+                users.filter((user) => user.workshop === data.workshop) >=
+                returnWorkshopLimit(data.workshop)
+            ) {
+                setWorkshopError(
+                    'Достигнат е лимитът на местата за дадения уъркшоп'
+                );
+                return;
+            }
+
             try {
                 await update({
                     updatedAt: new Date().toJSON(),
@@ -156,7 +174,8 @@ const Profile = (props) => {
                     online: data.online,
                     allergies: data.allergies,
                     lectures: data.lectures,
-                    workshop: data.workshop,
+                    workshop:
+                        data.workshop === workshops[0] ? false : data.workshop,
                     searchQueries: generateSearchQueries(
                         `${data.name} ${data.surname}`
                     ),
@@ -191,6 +210,17 @@ const Profile = (props) => {
             mutate();
             setError(error.message);
         }
+    };
+
+    const returnWorkshopLimit = (value) => {
+        if (value === workshops[1]) {
+            return workshopLimit1;
+        } else if (value === workshops[2]) {
+            return workshopLimit2;
+        } else if (value === workshops[3]) {
+            return workshopLimit3;
+        }
+        return true;
     };
 
     return (
@@ -371,65 +401,87 @@ const Profile = (props) => {
                                             )
                                         }
                                     />
+                                </div>
+                                <div className={styles['input-container']}>
                                     {users && (
-                                        <Tooltip
-                                            title={
-                                                users.filter(
-                                                    (user) => user.workshop
-                                                ).length >= workshopLimit &&
-                                                !data.workshop
-                                                    ? 'Изчерпани места'
-                                                    : ''
-                                            }
+                                        <FormControl
+                                            className={styles.workshops}
+                                            component='fieldset'
+                                            error={workshopError.length > 0}
                                         >
-                                            <TextField
-                                                select
-                                                label='Уъркшоп'
+                                            <FormLabel component='legend'>
+                                                Уъркшопи
+                                            </FormLabel>
+                                            <RadioGroup
+                                                name='workshops'
                                                 value={
                                                     data.workshop === false
-                                                        ? 'Не искам да присъствам'
+                                                        ? workshops[0]
                                                         : data.workshop
                                                 }
-                                                InputProps={{
-                                                    readOnly: !edit,
-                                                }}
-                                                disabled={
-                                                    users.filter(
-                                                        (user) => user.workshop
-                                                    ).length >= workshopLimit &&
-                                                    !data.workshop
-                                                }
-                                                error={workshopError.length > 0}
-                                                helperText={workshopError}
                                                 onChange={(e) =>
+                                                    edit &&
                                                     mutate(
                                                         {
                                                             ...data,
                                                             workshop:
-                                                                e.target
-                                                                    .value ===
-                                                                'Не искам да присъствам'
-                                                                    ? false
-                                                                    : e.target
-                                                                          .value,
+                                                                e.target.value,
                                                         },
                                                         false
                                                     )
                                                 }
-                                                required
                                             >
-                                                {workshops.map(
-                                                    (workshop, i) => (
-                                                        <MenuItem
-                                                            key={i}
-                                                            value={workshop}
-                                                        >
-                                                            {workshop}
-                                                        </MenuItem>
-                                                    )
-                                                )}
-                                            </TextField>
-                                        </Tooltip>
+                                                <FormControlLabel
+                                                    value={workshops[0]}
+                                                    control={<Radio />}
+                                                    label={workshops[0]}
+                                                />
+                                                <FormControlLabel
+                                                    disabled={
+                                                        users.filter(
+                                                            (user) =>
+                                                                user.workshop ===
+                                                                workshops[1]
+                                                        ).length >=
+                                                            workshopLimit1 &&
+                                                        data.workshop !==
+                                                            workshops[1]
+                                                    }
+                                                    value={workshops[1]}
+                                                    control={<Radio />}
+                                                    label={workshops[1]}
+                                                />
+                                                <FormControlLabel
+                                                    disabled={
+                                                        users.filter(
+                                                            (user) =>
+                                                                user.workshop ===
+                                                                workshops[2]
+                                                        ).length >=
+                                                        workshopLimit2
+                                                    }
+                                                    value={workshops[2]}
+                                                    control={<Radio />}
+                                                    label={workshops[2]}
+                                                />
+                                                <FormControlLabel
+                                                    disabled={
+                                                        users.filter(
+                                                            (user) =>
+                                                                user.workshop ===
+                                                                workshops[3]
+                                                        ).length >=
+                                                        workshopLimit3
+                                                    }
+                                                    value={workshops[3]}
+                                                    control={<Radio />}
+                                                    label={workshops[3]}
+                                                />
+                                            </RadioGroup>
+                                            <FormHelperText>
+                                                {workshopError}
+                                            </FormHelperText>
+                                        </FormControl>
                                     )}
                                 </div>
                                 <div className={styles['input-container']}>

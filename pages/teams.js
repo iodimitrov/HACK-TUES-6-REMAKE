@@ -16,8 +16,9 @@ import Link from 'components/Link';
 import styles from 'styles/Teams.module.scss';
 import { useCollection } from '@nandorojo/swr-firestore';
 import { getBeautifulColor } from 'utils/functions';
+import cookies from 'next-cookies';
 
-const Teams = () => {
+const Teams = (props) => {
     const { data } = useCollection('teams', {
         listen: true,
     });
@@ -65,6 +66,9 @@ const Teams = () => {
                 })
             ).then((teams) => setTeams(teams));
         }
+        return () => {
+            document.onkeypress = (e) => {};
+        };
     }, [data]);
 
     return (
@@ -94,16 +98,18 @@ const Teams = () => {
                     </u>{' '}
                     отбори!
                 </Typography>
-                <Button
-                    color='primary'
-                    disableElevation
-                    variant='contained'
-                    onClick={() => setShowVerified(!showVerified)}
-                >
-                    {showVerified
-                        ? 'Покажи непотвърдените отбори'
-                        : 'Покажи потвърдените отбори'}
-                </Button>
+                {props.user && (
+                    <Button
+                        color='primary'
+                        disableElevation
+                        variant='contained'
+                        onClick={() => setShowVerified(!showVerified)}
+                    >
+                        {showVerified
+                            ? 'Покажи непотвърдените отбори'
+                            : 'Покажи потвърдените отбори'}
+                    </Button>
+                )}
             </Container>
             <Container
                 maxWidth={false}
@@ -213,6 +219,14 @@ const Teams = () => {
             <Footer />
         </Container>
     );
+};
+
+Teams.getInitialProps = async (ctx) => {
+    const allCookies = cookies(ctx);
+    if (allCookies.auth) {
+        return { user: allCookies.auth };
+    }
+    return {};
 };
 
 export default Teams;

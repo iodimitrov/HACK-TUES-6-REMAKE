@@ -40,6 +40,16 @@
                     background-color: darken(#f50057, 10);
                 }
             }
+
+            .workshops {
+                :global .MuiFormGroup-root {
+                    margin-top: 10px;
+
+                    .MuiRadio-root {
+                        padding-left: 0;
+                    }
+                }
+            }
         }
     }
 }
@@ -54,8 +64,8 @@
                     margin: 10px 0;
                 }
 
-                :global .MuiFormControlLabel-root {
-                    margin-left: -13px;
+                .switch-label {
+                    margin-left: -10px;
                 }
             }
         }
