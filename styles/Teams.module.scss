@@ -6,8 +6,15 @@
     margin-bottom: 20px;
     width: auto;
     padding: 10px 27px;
+    display: flex;
+    align-items: center;
+
+    button {
+        margin-left: 10px;
+    }
 
     p {
+        margin-right: 10px;
         font-size: 20px;
         text-align: center;
     }
@@ -62,6 +69,18 @@
         .card {
             max-width: 100%;
             margin: 0 0 15px;
+        }
+    }
+
+    .caution {
+        flex-direction: column;
+
+        button {
+            margin-top: 10px;
+        }
+
+        p {
+            margin-right: 0px;
         }
     }
 }

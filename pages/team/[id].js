@@ -71,10 +71,21 @@ const Team = (props) => {
                 data.projectUsers.map(async (user) => {
                     if (typeof user.get === 'function') {
                         let doc = await user.get();
+                        let retrievedUser;
+                        if (doc.data().isLeader) {
+                            let res = await fetch(
+                                `/api/retrieveuser?userId=${user.id}`
+                            );
+                            retrievedUser = await res.json();
+                        }
                         if (props.currUserId === user.id) {
                             setIsLeader(doc.data().isLeader);
                         }
-                        return { ...doc.data(), id: doc.id };
+                        return {
+                            ...doc.data(),
+                            id: doc.id,
+                            email: retrievedUser?.email,
+                        };
                     }
                 })
             ).then((users) => setProjectUsers(users));
@@ -101,6 +112,11 @@ const Team = (props) => {
         } else {
             if (!/\S/.test(data.name)) {
                 setNameError('Невалидно име');
+                return;
+            }
+
+            if (projectUsers.length + newUsers.length > 5) {
+                setError('Избрали сте твърде много участници');
                 return;
             }
 
@@ -597,6 +613,20 @@ const Team = (props) => {
                                                         : 'Участник'
                                                 }
                                             />
+                                            {user.isLeader && user.email && (
+                                                <CardContent
+                                                    style={{
+                                                        padding: '0 16px',
+                                                    }}
+                                                >
+                                                    <strong>
+                                                        {user.email}
+                                                    </strong>{' '}
+                                                    - за въпроси относно
+                                                    присъединяването в този
+                                                    отбор
+                                                </CardContent>
+                                            )}
                                             <CardActions
                                                 className={
                                                     styles['card-actions']

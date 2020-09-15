@@ -10,6 +10,7 @@ import {
     Typography,
     Avatar,
     Chip,
+    Button,
 } from '@material-ui/core';
 import Link from 'components/Link';
 import styles from 'styles/Teams.module.scss';
@@ -22,6 +23,7 @@ const Teams = () => {
     });
 
     const [teams, setTeams] = useState([]);
+    const [showVerified, setShowVerified] = useState(true);
 
     useEffect(() => {
         document.onkeypress = (e) => {
@@ -79,8 +81,29 @@ const Teams = () => {
             >
                 <Typography>
                     <strong style={{ color: 'red' }}>Внимание:</strong> На тази
-                    страница се показват <u>само потвърдените</u> отбори!
+                    страница се показват{' '}
+                    <u>
+                        {showVerified ? (
+                            'само потвърдените'
+                        ) : (
+                            <span>
+                                само <span style={{ color: 'red' }}>не</span>
+                                потвърдените
+                            </span>
+                        )}
+                    </u>{' '}
+                    отбори!
                 </Typography>
+                <Button
+                    color='primary'
+                    disableElevation
+                    variant='contained'
+                    onClick={() => setShowVerified(!showVerified)}
+                >
+                    {showVerified
+                        ? 'Покажи непотвърдените отбори'
+                        : 'Покажи потвърдените отбори'}
+                </Button>
             </Container>
             <Container
                 maxWidth={false}
@@ -88,9 +111,13 @@ const Teams = () => {
                 disableGutters
             >
                 {teams ? (
-                    teams.filter((team) => team.verified).length > 0 ? (
+                    teams.filter((team) =>
+                        showVerified ? team.verified : !team.verified
+                    ).length > 0 ? (
                         teams
-                            .filter((team) => team.verified)
+                            .filter((team) =>
+                                showVerified ? team.verified : !team.verified
+                            )
                             .map((team, i) => (
                                 <Card
                                     key={i}
@@ -159,11 +186,19 @@ const Teams = () => {
                             ))
                     ) : (
                         <Card className={styles.card}>
-                            <CardHeader
-                                className={styles['card-header']}
-                                title='Няма потвърдени отбори :O'
-                                subheader='press f to pay respects'
-                            />
+                            {showVerified ? (
+                                <CardHeader
+                                    className={styles['card-header']}
+                                    title='Няма потвърдени отбори :O'
+                                    subheader='press f to pay respects'
+                                />
+                            ) : (
+                                <CardHeader
+                                    className={styles['card-header']}
+                                    title='Няма непотвърдени отбори :))'
+                                    subheader='good'
+                                />
+                            )}
                         </Card>
                     )
                 ) : (
