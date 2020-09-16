@@ -128,7 +128,7 @@ const Navbar = (props) => {
             >
                 <Button className={styles.link}>Декларации</Button>
             </MuiLink>
-            <Menu
+            {/* <Menu
                 className='declarations'
                 MenuListProps={{ style: { padding: 0 } }}
                 anchorEl={anchorDecl}
@@ -162,7 +162,7 @@ const Navbar = (props) => {
                         Декларация (<strong>под</strong> 18 години)
                     </span>
                 </MenuItem>
-            </Menu>
+            </Menu> */}
             <span className={styles.separator}></span>
             {user ? (
                 <>
