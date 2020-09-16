@@ -79,7 +79,7 @@ const Register = () => {
     const [dialog, setDialog] = useState(false);
     const [error, setError] = useState(false);
 
-    const [verified, setVerified] = useState(true);
+    const [verified, setVerified] = useState(false);
 
     const grades = [
         '9А',
@@ -111,11 +111,11 @@ const Register = () => {
     };
 
     const verifyRecaptcha = (token) => {
-        // fetch(`/api/verify/${token}`).then((response) => {
-        //     response.json().then((json) => {
-        //         setVerified(json.success);
-        //     });
-        // });
+        fetch(`/api/verify/${token}`).then((response) => {
+            response.json().then((json) => {
+                setVerified(json.success);
+            });
+        });
     };
 
     const handleSubmit = (e) => {

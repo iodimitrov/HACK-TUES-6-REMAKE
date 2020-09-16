@@ -35,7 +35,7 @@ const Login = () => {
     });
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState(false);
-    const [verified, setVerified] = useState(true);
+    const [verified, setVerified] = useState(false);
     const [dialog, setDialog] = useState(false);
 
     const handleSubmit = (e) => {
@@ -63,11 +63,11 @@ const Login = () => {
     };
 
     const verifyRecaptcha = (token) => {
-        // fetch(`/api/verify/${token}`).then((response) => {
-        //     response.json().then((json) => {
-        //         setVerified(json.success);
-        //     });
-        // });
+        fetch(`/api/verify/${token}`).then((response) => {
+            response.json().then((json) => {
+                setVerified(json.success);
+            });
+        });
     };
 
     const handlePasswordReset = () => {
