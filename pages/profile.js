@@ -494,7 +494,7 @@ const Profile = (props) => {
                                         {votedFor ? votedFor : ' (никого)'}
                                     </Typography>
                                 </div>
-                                {users && (
+                                {/* {users && (
                                     <div className={styles['input-container']}>
                                         <Tooltip
                                             title={
@@ -541,7 +541,7 @@ const Profile = (props) => {
                                             />
                                         </Tooltip>
                                     </div>
-                                )}
+                                )} */}
                                 <div className={styles['input-container']}>
                                     <FormControlLabel
                                         className={styles['switch-label']}

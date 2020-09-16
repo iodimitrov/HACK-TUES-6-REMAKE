@@ -28,7 +28,7 @@ const Teams = (props) => {
 
     useEffect(() => {
         document.onkeypress = (e) => {
-            if (e.keyCode === 102) {
+            if (e.keyCode === 102 || e.keyCode === 1092) {
                 window.open(
                     'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstleyVEVO',
                     '_blank'
