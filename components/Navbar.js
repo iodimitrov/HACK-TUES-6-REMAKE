@@ -121,13 +121,13 @@ const Navbar = (props) => {
             <Link underline='none' className={styles.link} href='/about'>
                 <Button>За Hack TUES</Button>
             </Link>
-            <MuiLink
+            {/* <MuiLink
                 underline='none'
                 className={styles.link}
                 onClick={(e) => setAnchorDecl(e.currentTarget)}
             >
                 <Button className={styles.link}>Декларации</Button>
-            </MuiLink>
+            </MuiLink> */}
             {/* <Menu
                 className='declarations'
                 MenuListProps={{ style: { padding: 0 } }}
