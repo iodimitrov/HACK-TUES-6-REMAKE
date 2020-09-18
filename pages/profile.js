@@ -66,8 +66,8 @@ const Profile = (props) => {
 
     const lecturesLimit = 50;
     const workshopLimit1 = 40;
-    const workshopLimit2 = 38;
-    const workshopLimit3 = 32;
+    const workshopLimit2 = 20; //38
+    const workshopLimit3 = 20; //32
 
     const grades = [
         '9А',
