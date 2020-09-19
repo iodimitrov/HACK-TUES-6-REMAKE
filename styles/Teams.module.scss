@@ -34,9 +34,9 @@
         margin: 0 10px 15px;
         display: flex;
         flex-direction: column;
-        color: #303030;
 
         .card-header {
+            color: #303030;
             :global .MuiCardHeader-avatar {
                 .MuiAvatar-root {
                     background-color: $secondary-color;
@@ -45,6 +45,7 @@
         }
 
         .card-content {
+            color: #303030;
             padding-top: 10px;
 
             .data-container {
@@ -60,6 +61,11 @@
                     margin: 2px 4px 2px 0;
                 }
             }
+        }
+
+        .card-actions {
+            padding: 16px;
+            margin: auto 0 0;
         }
     }
 }

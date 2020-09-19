@@ -10,10 +10,20 @@ export const config = {
     },
 };
 
-export default (req, res) => {
+export default async (req, res) => {
     const allCookies = cookies({ req });
     if (!allCookies.auth) {
         return res.status(400).send({ message: 'No user logged' });
+    }
+    const doc = await admin
+        .firestore()
+        .doc(`users/${allCookies.auth.id}`)
+        .get();
+    if (doc.data().votedFor) {
+        await admin
+            .firestore()
+            .doc(`teams/${doc.data().votedFor.id}`)
+            .update({ votes: admin.firestore.FieldValue.increment(-1) });
     }
     admin
         .auth()

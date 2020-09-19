@@ -7,14 +7,18 @@ import {
     Card,
     CardHeader,
     CardContent,
+    CardActions,
     Typography,
     Avatar,
     Chip,
     Button,
+    Snackbar,
 } from '@material-ui/core';
+import { Alert } from '@material-ui/lab';
 import Link from 'components/Link';
 import styles from 'styles/Teams.module.scss';
-import { useCollection } from '@nandorojo/swr-firestore';
+import firebase from 'firebase/app';
+import { useCollection, useDocument } from '@nandorojo/swr-firestore';
 import { getBeautifulColor } from 'utils/functions';
 import cookies from 'next-cookies';
 
@@ -23,8 +27,17 @@ const Teams = (props) => {
         listen: true,
     });
 
+    const { data: user, update: updateUser } = useDocument(
+        props.user ? `users/${props.user.id}` : null,
+        {
+            listen: true,
+        }
+    );
+
     const [teams, setTeams] = useState([]);
     const [showVerified, setShowVerified] = useState(true);
+    const [voting, setVoting] = useState(false); //change to 'true' to activate the voting
+    const [success, setSuccess] = useState(false);
 
     useEffect(() => {
         document.onkeypress = (e) => {
@@ -70,6 +83,24 @@ const Teams = (props) => {
             document.onkeypress = (e) => {};
         };
     }, [data]);
+
+    const vote = async (id) => {
+        if (!user.votedFor && id && user.team.id !== id) {
+            try {
+                await firebase
+                    .firestore()
+                    .doc(`teams/${id}`)
+                    .update({
+                        votes: firebase.firestore.FieldValue.increment(1),
+                    });
+                await updateUser({
+                    votedFor: firebase.firestore().doc(`teams/${id}`),
+                });
+                setSuccess('Успешно гласувахте!');
+            } catch (e) {}
+        }
+        return false;
+    };
 
     return (
         <Container maxWidth={false}>
@@ -125,15 +156,12 @@ const Teams = (props) => {
                                 showVerified ? team.verified : !team.verified
                             )
                             .map((team, i) => (
-                                <Card
-                                    key={i}
-                                    underline='none'
-                                    component={Link}
-                                    href='/team/[id]'
-                                    as={`/team/${team.id}`}
-                                    className={styles.card}
-                                >
+                                <Card key={i} className={styles.card}>
                                     <CardHeader
+                                        underline='none'
+                                        component={Link}
+                                        href='/team/[id]'
+                                        as={`/team/${team.id}`}
                                         avatar={
                                             <Avatar>
                                                 {team.name.charAt(0)}
@@ -144,6 +172,10 @@ const Teams = (props) => {
                                         subheader='Отбор'
                                     />
                                     <CardContent
+                                        underline='none'
+                                        component={Link}
+                                        href='/team/[id]'
+                                        as={`/team/${team.id}`}
                                         className={styles['card-content']}
                                     >
                                         <div
@@ -188,6 +220,26 @@ const Teams = (props) => {
                                                 )}
                                         </div>
                                     </CardContent>
+                                    {voting && props.user && team.verified && (
+                                        <CardActions
+                                            className={styles['card-actions']}
+                                        >
+                                            <Button
+                                                disabled={
+                                                    user.votedFor ||
+                                                    (user.team &&
+                                                        user.team.id ===
+                                                            team.id)
+                                                }
+                                                variant='contained'
+                                                disableElevation
+                                                color='primary'
+                                                onClick={() => vote(team.id)}
+                                            >
+                                                Гласувай
+                                            </Button>
+                                        </CardActions>
+                                    )}
                                 </Card>
                             ))
                     ) : (
@@ -215,6 +267,20 @@ const Teams = (props) => {
                         />
                     </Card>
                 )}
+                <Snackbar
+                    open={success.length > 0}
+                    autoHideDuration={6000}
+                    onClose={() => setSuccess(false)}
+                >
+                    <Alert
+                        elevation={6}
+                        variant='filled'
+                        onClose={() => setSuccess(false)}
+                        severity='success'
+                    >
+                        {success}
+                    </Alert>
+                </Snackbar>
             </Container>
             <Footer />
         </Container>
