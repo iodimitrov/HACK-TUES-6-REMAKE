@@ -31,6 +31,22 @@ export default async (req, res) => {
                     team: null,
                 });
             });
+            let votingUsers = await admin
+                .firestore()
+                .collection('users')
+                .where(
+                    'votedFor',
+                    '==',
+                    admin.firestore().doc(`teams/${team.id}`)
+                )
+                .get();
+            votingUsers = votingUsers.docs.map((doc) => doc.id);
+            votingUsers.forEach(async (id) => {
+                await admin
+                    .firestore()
+                    .doc(`users/${id}`)
+                    .update({ votedFor: null });
+            });
             await admin.firestore().doc(`teams/${team.id}`).delete();
             return res.status(200).send({ message: 'OK' });
         } else {
@@ -39,6 +55,7 @@ export default async (req, res) => {
             });
         }
     } catch (e) {
+        console.log(e);
         return res.status(500).send(e);
     }
 };

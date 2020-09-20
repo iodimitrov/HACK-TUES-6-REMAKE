@@ -1,25 +1,5 @@
 @import 'variables';
 
-.caution {
-    background-color: white;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    width: auto;
-    padding: 10px 27px;
-    display: flex;
-    align-items: center;
-
-    button {
-        margin-left: 10px;
-    }
-
-    p {
-        margin-right: 10px;
-        font-size: 20px;
-        text-align: center;
-    }
-}
-
 .content {
     display: flex;
     flex-direction: row;
@@ -34,18 +14,19 @@
         margin: 0 10px 15px;
         display: flex;
         flex-direction: column;
+        color: #303030;
 
         .card-header {
-            color: #303030;
             :global .MuiCardHeader-avatar {
                 .MuiAvatar-root {
-                    background-color: $secondary-color;
+                    background-color: transparent;
+                    width: 150px;
+                    height: 150px;
                 }
             }
         }
 
         .card-content {
-            color: #303030;
             padding-top: 10px;
 
             .data-container {
@@ -75,18 +56,6 @@
         .card {
             max-width: 100%;
             margin: 0 0 15px;
-        }
-    }
-
-    .caution {
-        flex-direction: column;
-
-        button {
-            margin-top: 10px;
-        }
-
-        p {
-            margin-right: 0px;
         }
     }
 }

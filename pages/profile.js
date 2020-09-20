@@ -102,13 +102,21 @@ const Profile = (props) => {
     ];
 
     useEffect(() => {
-        data.team?.onSnapshot((doc) => {
-            setTeam(doc.data().name);
-        });
-        data.votedFor?.onSnapshot((doc) => {
-            setVotedFor(doc.data().name);
-        });
-    }, []);
+        data.team
+            ? data.team.onSnapshot((doc) => {
+                  if (doc.exists) {
+                      setTeam(doc.data().name);
+                  }
+              })
+            : setTeam('');
+        data.votedFor
+            ? data.votedFor.onSnapshot((doc) => {
+                  if (doc.exists) {
+                      setVotedFor(doc.data().name);
+                  }
+              })
+            : setVotedFor('');
+    }, [data.team, data.votedFor]);
 
     const handleOnKeyUp = (e) => {
         e.target.value = e.target.value.replace(/[^а-я-\s]/i, '');
@@ -203,6 +211,13 @@ const Profile = (props) => {
 
     const handleDeletion = async () => {
         try {
+            await fetch('/api/removeuserteam', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ userId: props.user.id }),
+            });
             await fetch('/api/deleteuser');
             await logout();
             await deleteDocument();
@@ -221,6 +236,19 @@ const Profile = (props) => {
             return workshopLimit3;
         }
         return true;
+    };
+
+    const removeVote = async () => {
+        try {
+            await firebase
+                .firestore()
+                .doc(`teams/${data.votedFor.id}`)
+                .update({
+                    votes: firebase.firestore.FieldValue.increment(-1),
+                });
+            await update({ votedFor: null });
+            setVotedFor('');
+        } catch (e) {}
     };
 
     return (
@@ -489,9 +517,26 @@ const Profile = (props) => {
                                         <strong>Отбор:&nbsp;</strong>
                                         {team ? team : '(няма)'}
                                     </Typography>
-                                    <Typography>
-                                        <strong>Гласувал за:</strong>
+                                    <Typography
+                                        style={{
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                        }}
+                                    >
+                                        <strong>Гласувал за:&nbsp;</strong>
                                         {votedFor ? votedFor : ' (никого)'}
+                                        {votedFor && (
+                                            <Button
+                                                onClick={removeVote}
+                                                disableElevation
+                                                style={{ marginLeft: '10px' }}
+                                                size='small'
+                                                variant='contained'
+                                                className={styles.delete}
+                                            >
+                                                Премахни глас
+                                            </Button>
+                                        )}
                                     </Typography>
                                 </div>
                                 {/* {users && (
@@ -602,6 +647,19 @@ const Profile = (props) => {
                                         ограничени.
                                     </Typography>
                                 </div>
+                                <div className={styles['input-container']}>
+                                    <Typography
+                                        component='em'
+                                        style={{ marginBottom: '0' }}
+                                    >
+                                        <strong style={{ color: 'red' }}>
+                                            Внимание 2:
+                                        </strong>{' '}
+                                        За да <u>изтриете профила</u> си
+                                        направете някой съотборник капитан или
+                                        изтрийте отбора си.
+                                    </Typography>
+                                </div>
                             </CardContent>
                             <CardActions
                                 className={styles['card-actions']}
@@ -632,8 +690,13 @@ const Profile = (props) => {
                                                 Смяна на паролата
                                             </Button>
                                             <Button
-                                                className={styles.delete}
+                                                className={
+                                                    data.isLeader
+                                                        ? ''
+                                                        : styles.delete
+                                                }
                                                 disableElevation
+                                                disabled={data.isLeader}
                                                 variant='contained'
                                                 onClick={() => setDialog(true)}
                                             >
@@ -753,6 +816,7 @@ Profile.getInitialProps = async (ctx) => {
                 .get();
             data = doc.data();
             delete data.team;
+            delete data.votedFor;
             return { data, user: allCookies.auth };
         }
     }
