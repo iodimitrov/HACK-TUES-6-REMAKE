@@ -124,14 +124,14 @@ const Navbar = (props) => {
             <Link underline='none' className={styles.link} href='/about'>
                 <Button>За Hack TUES</Button>
             </Link>
-            {/* <MuiLink
+            <MuiLink
                 underline='none'
                 className={styles.link}
                 onClick={(e) => setAnchorDecl(e.currentTarget)}
             >
                 <Button className={styles.link}>Декларации</Button>
-            </MuiLink> */}
-            {/* <Menu
+            </MuiLink>
+            <Menu
                 className='declarations'
                 MenuListProps={{ style: { padding: 0 } }}
                 anchorEl={anchorDecl}
@@ -165,7 +165,7 @@ const Navbar = (props) => {
                         Декларация (<strong>под</strong> 18 години)
                     </span>
                 </MenuItem>
-            </Menu> */}
+            </Menu>
             <span className={styles.separator}></span>
             {user ? (
                 <>
