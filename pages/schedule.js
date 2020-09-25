@@ -46,18 +46,27 @@ const Schedule = () => (
                             </Typography>
                             <Typography component='li'>
                                 от <strong>18:15</strong> до{' '}
-                                <strong>19:00</strong> - *Образователна лекция
+                                <strong>19:00</strong> - Лекция "Hack TUES Tips
+                                && Tricks"
                                 <br />
                             </Typography>
                             <Typography component='li'>
                                 от <strong>19:15</strong> до{' '}
-                                <strong>20:30</strong> - *Образователна лекция
-                                (онлайн)
+                                <strong>20:30</strong> - Първи уъркшоп: “Kак да
+                                създам съвременно уеб приложение за 10 минути?”
                                 <br />
                             </Typography>
                             <Typography component='li'>
                                 от <strong>19:15</strong> до{' '}
-                                <strong>20:30</strong> - *Образователни уъркшопи
+                                <strong>20:30</strong> - Втори уъркшоп: "Ардуино
+                                за начинаещи”
+                                <br />
+                            </Typography>
+                            <Typography component='li'>
+                                от <strong>19:15</strong> до{' '}
+                                <strong>20:30</strong> - Трети уъркшоп:
+                                "Микроконтролери в IoT” И махаме очаквайте
+                                детайли дисклеймъра отдолу.
                                 <br />
                             </Typography>
                         </Typography>
@@ -74,7 +83,7 @@ const Schedule = () => (
                             clickable
                         />
                     </CardActions>
-                    <CardContent className={styles['card-content']}>
+                    {/* <CardContent className={styles['card-content']}>
                         <Typography
                             component='em'
                             style={{
@@ -84,7 +93,7 @@ const Schedule = () => (
                         >
                             *Очаквайте повече детайли скоро!
                         </Typography>
-                    </CardContent>
+                    </CardContent> */}
                 </Card>
             </Grow>
             <Grow in timeout={350}>

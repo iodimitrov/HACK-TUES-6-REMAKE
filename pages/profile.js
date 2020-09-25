@@ -28,6 +28,7 @@ import {
     DialogContentText,
     DialogTitle,
     Tooltip,
+    Link,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import styles from 'styles/Profile.module.scss';
@@ -756,6 +757,27 @@ const Profile = (props) => {
                     ) : (
                         'loading'
                     )}
+                    <Card className={`${styles.card} ${styles['notice']}`}>
+                        <CardContent className={styles['card-content']}>
+                            Повече информация за отборите може да намерите{' '}
+                            <Link
+                                href='https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/faq_teams.pdf?alt=media&token=b3548f2c-6456-47c4-8cec-7ee492f747ac'
+                                rel='noopener noreferrer'
+                                target='_blank'
+                            >
+                                тук
+                            </Link>
+                            , а за уъркшопите и лекциите -{' '}
+                            <Link
+                                href='https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/faq_workshops.pdf?alt=media&token=87b5219d-fe46-4998-b19e-25dce1a36d86'
+                                rel='noopener noreferrer'
+                                target='_blank'
+                            >
+                                тук
+                            </Link>
+                            .
+                        </CardContent>
+                    </Card>
                     <Snackbar
                         open={error.length > 0}
                         autoHideDuration={6000}

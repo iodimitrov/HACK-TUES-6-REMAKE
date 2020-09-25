@@ -13,6 +13,7 @@ import {
     Chip,
     Button,
     Snackbar,
+    Link as MuiLink,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import Link from 'components/Link';
@@ -141,6 +142,56 @@ const Teams = (props) => {
                             : 'Покажи потвърдените отбори'}
                     </Button>
                 )}
+            </Container>
+            <Container
+                maxWidth={false}
+                className={styles['sponsors-container']}
+                disableGutters
+            >
+                <MuiLink
+                    href='https://www.sap.com/bulgaria/index.html'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                >
+                    <img
+                        className={styles.sap}
+                        src='https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/logos%2F1.sap.png?alt=media&token=ff3a7975-9b4e-4bc4-894a-1773910d8fb8'
+                        alt='sap'
+                    />
+                </MuiLink>
+                <MuiLink
+                    href='http://telebid-pro.com/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                >
+                    <img
+                        className={styles.telebid}
+                        src='https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/logos%2F2.telebid.svg?alt=media&token=d4dc0866-ab95-4154-ab92-b9ba4fd90e4f'
+                        alt='telebidpro'
+                    />
+                </MuiLink>
+                <MuiLink
+                    href='https://www.experian.bg/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                >
+                    <img
+                        className={styles.experian}
+                        src='https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/logos%2F3.experian.png?alt=media&token=233ad042-f4f6-4ae3-b81e-388591b7c889'
+                        alt='experian'
+                    />
+                </MuiLink>
+                <MuiLink
+                    href='https://www.facebook.com/vmwarebg/'
+                    target='_blank'
+                    rel='noopener noreferrer'
+                >
+                    <img
+                        className={styles.vmware}
+                        src='https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/logos%2F4.vmware.png?alt=media&token=2c20475d-49a9-442c-9d0c-249059f61523'
+                        alt='vmware'
+                    />
+                </MuiLink>
             </Container>
             <Container
                 maxWidth={false}

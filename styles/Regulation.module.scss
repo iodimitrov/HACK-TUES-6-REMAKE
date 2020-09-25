@@ -20,4 +20,11 @@
             }
         }
     }
+
+    &.notice {
+        .card-content {
+            padding: 16px;
+            font-size: 16px;
+        }
+    }
 }

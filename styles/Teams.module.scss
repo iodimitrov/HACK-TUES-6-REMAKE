@@ -1,9 +1,42 @@
 @import 'variables';
 
-.caution {
+.sponsors-container {
     background-color: white;
     border-radius: 5px;
     margin-bottom: 20px;
+    width: auto;
+    padding: 10px 27px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    img {
+        object-fit: contain;
+        margin: 20px 25px;
+    }
+
+    .sap {
+        width: 145px;
+    }
+
+    .telebid {
+        width: 200px;
+    }
+
+    .experian {
+        width: 200px;
+    }
+
+    .vmware {
+        width: 200px;
+    }
+}
+
+.caution {
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
     width: auto;
     padding: 10px 27px;
     display: flex;
@@ -87,6 +120,26 @@
 
         p {
             margin-right: 0px;
+        }
+    }
+}
+
+@media only screen and (max-width: 530px) {
+    .sponsors-container {
+        .sap {
+            width: 90px;
+        }
+
+        .telebid {
+            width: 145px;
+        }
+
+        .experian {
+            width: 145px;
+        }
+
+        .vmware {
+            width: 145px;
         }
     }
 }

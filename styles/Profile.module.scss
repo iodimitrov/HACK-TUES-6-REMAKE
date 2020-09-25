@@ -51,6 +51,15 @@
                 }
             }
         }
+
+        &.notice {
+            margin-top: 10px;
+
+            .card-content {
+                padding: 16px;
+                font-size: 16px;
+            }
+        }
     }
 }
 
