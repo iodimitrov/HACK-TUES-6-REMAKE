@@ -1,0 +1,39 @@
+.tshirts-card {
+    .card-content {
+        div {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+    }
+}
+
+.emails-accordion {
+    .accordion-details {
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+.allergies-accordion {
+    .accordion-details {
+        display: flex;
+        flex-direction: column;
+        font-size: 18px;
+
+        & > * {
+            margin: 10px 0;
+        }
+    }
+}
+
+.csv-card {
+    .card-actions {
+        display: flex;
+        flex-direction: column;
+
+        button {
+            width: 100%;
+            margin: 5px 0;
+        }
+    }
+}
