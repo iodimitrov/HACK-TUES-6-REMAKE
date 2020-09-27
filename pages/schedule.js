@@ -46,27 +46,26 @@ const Schedule = () => (
                             </Typography>
                             <Typography component='li'>
                                 от <strong>18:15</strong> до{' '}
-                                <strong>19:00</strong> - Лекция "Hack TUES Tips
-                                && Tricks"
+                                <strong>19:00</strong> - Презентация "Hack TUES
+                                Tips && Tricks"
                                 <br />
                             </Typography>
                             <Typography component='li'>
                                 от <strong>19:15</strong> до{' '}
-                                <strong>20:30</strong> - Първи уъркшоп: “Kак да
-                                създам съвременно уеб приложение за 10 минути?”
+                                <strong>20:30</strong> - Уъркшоп: “Kак да създам
+                                съвременно уеб приложение за 10 минути?”
                                 <br />
                             </Typography>
                             <Typography component='li'>
                                 от <strong>19:15</strong> до{' '}
-                                <strong>20:30</strong> - Втори уъркшоп: "Ардуино
-                                за начинаещи”
+                                <strong>20:30</strong> - Уъркшоп: "Ардуино за
+                                начинаещи”
                                 <br />
                             </Typography>
                             <Typography component='li'>
                                 от <strong>19:15</strong> до{' '}
-                                <strong>20:30</strong> - Трети уъркшоп:
-                                "Микроконтролери в IoT” И махаме очаквайте
-                                детайли дисклеймъра отдолу.
+                                <strong>20:30</strong> - Уъркшоп:
+                                "Микроконтролери в IoT”
                                 <br />
                             </Typography>
                         </Typography>
