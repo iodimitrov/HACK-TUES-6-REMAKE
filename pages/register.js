@@ -204,6 +204,7 @@ const Register = () => {
                         createdAt: new Date().toJSON(),
                         updatedAt: new Date().toJSON(),
                         name: name.value,
+                        email: email.value,
                         surname: surname.value,
                         grade: grade.value,
                         tshirt: tshirt.value,
