@@ -299,7 +299,9 @@ const CreateTeam = (props) => {
 
 CreateTeam.getInitialProps = async (ctx) => {
     const allCookies = cookies(ctx);
-    if (!allCookies.auth) {
+    const limit =
+        new Date().getTime() - new Date('2020-09-28T00:00:00').getTime() >= 0;
+    if (!allCookies.auth || limit) {
         if (typeof window === 'undefined') {
             ctx.res.writeHead(302, { Location: '/' });
             ctx.res.end();
