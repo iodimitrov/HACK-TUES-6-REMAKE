@@ -31,6 +31,9 @@ const Navbar = (props) => {
     const [open, setOpen] = useState(false);
     const [anchorArchive, setAnchorArchive] = useState(null);
     const [anchorDecl, setAnchorDecl] = useState(null);
+    const [limit, setLimit] = useState(
+        new Date().getTime() - new Date('2020-09-28T00:00:00').getTime() >= 0
+    );
 
     const handleClose = () => {
         setAnchorArchive(null);
@@ -185,19 +188,21 @@ const Navbar = (props) => {
                             </Button>
                         </Link>
                     ) : (
-                        <Link
-                            underline='none'
-                            className={styles.link}
-                            href='/createteam'
-                        >
-                            <Button
-                                disableElevation
-                                color='primary'
-                                variant='contained'
+                        !limit && (
+                            <Link
+                                underline='none'
+                                className={styles.link}
+                                href='/createteam'
                             >
-                                Създай отбор
-                            </Button>
-                        </Link>
+                                <Button
+                                    disableElevation
+                                    color='primary'
+                                    variant='contained'
+                                >
+                                    Създай отбор
+                                </Button>
+                            </Link>
+                        )
                     )}
                     <Link
                         underline='none'

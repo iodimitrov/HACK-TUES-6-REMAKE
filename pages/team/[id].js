@@ -59,6 +59,9 @@ const Team = (props) => {
     const [dialog, setDialog] = useState(false);
     const [isLeader, setIsLeader] = useState(false);
     const [backdrop, setBackdrop] = useState(false);
+    const [limit, setLimit] = useState(
+        new Date().getTime() - new Date('2020-09-28T00:00:00').getTime() >= 0
+    );
 
     useEffect(() => {
         currentUsers();
@@ -71,20 +74,12 @@ const Team = (props) => {
                 data.projectUsers.map(async (user) => {
                     if (typeof user.get === 'function') {
                         let doc = await user.get();
-                        let retrievedUser;
-                        if (doc.data().isLeader) {
-                            let res = await fetch(
-                                `/api/retrieveuser?userId=${user.id}`
-                            );
-                            retrievedUser = await res.json();
-                        }
                         if (props.currUserId === user.id) {
                             setIsLeader(doc.data().isLeader);
                         }
                         return {
                             ...doc.data(),
                             id: doc.id,
-                            email: retrievedUser?.email,
                         };
                     }
                 })
@@ -263,6 +258,7 @@ const Team = (props) => {
                                 <div className={styles['input-container']}>
                                     <TextField
                                         label='Име на отбора'
+                                        disabled={edit && limit}
                                         value={data.name || ''}
                                         error={nameError.length > 0}
                                         helperText={nameError}
@@ -383,7 +379,7 @@ const Team = (props) => {
                                         )}
                                     </Typography>
                                 </div>
-                                {edit && (
+                                {edit && !limit && (
                                     <div className={styles['input-container']}>
                                         <Autocomplete
                                             multiple

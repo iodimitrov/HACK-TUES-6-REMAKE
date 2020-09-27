@@ -64,6 +64,9 @@ const Profile = (props) => {
     const [dialog, setDialog] = useState(false);
     const [team, setTeam] = useState('');
     const [votedFor, setVotedFor] = useState('');
+    const [limit, setLimit] = useState(
+        new Date().getTime() - new Date('2020-09-28T00:00:00').getTime() >= 0
+    );
 
     const lecturesLimit = 50;
     const workshopLimit1 = 40;
@@ -391,6 +394,7 @@ const Profile = (props) => {
                                         InputProps={{
                                             readOnly: !edit,
                                         }}
+                                        disabled={edit && limit}
                                         error={tshirtError.length > 0}
                                         helperText={tshirtError}
                                         onChange={(e) =>

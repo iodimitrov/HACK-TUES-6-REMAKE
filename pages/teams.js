@@ -304,8 +304,8 @@ const Teams = (props) => {
                             ) : (
                                 <CardHeader
                                     className={styles['card-header']}
-                                    title='Няма непотвърдени отбори :))'
-                                    subheader='good'
+                                    title='Няма непотвърдени отбори'
+                                    subheader='good to know :))'
                                 />
                             )}
                         </Card>

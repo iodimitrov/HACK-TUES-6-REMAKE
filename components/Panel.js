@@ -18,6 +18,7 @@ import {
     Snackbar,
     CircularProgress,
     Link as MuiLink,
+    TextField,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 import { Alert } from '@material-ui/lab';
@@ -27,8 +28,8 @@ import firebase from 'firebase/app';
 import { useCollection, useDocument } from '@nandorojo/swr-firestore';
 import { getBeautifulColor } from 'utils/functions';
 
-const Teams = (props) => {
-    const { data } = useCollection('teams', {
+const Panel = () => {
+    const { data, mutate } = useCollection('teams', {
         listen: true,
     });
 
@@ -36,28 +37,46 @@ const Teams = (props) => {
         listen: true,
     });
 
-    const [emails, setEmails] = useState([]);
     const [backdrop, setBackdrop] = useState(false);
+    const [teams, setTeams] = useState([]);
+    const [success, setSuccess] = useState(false);
+    const [edit, setEdit] = useState(false);
 
     useEffect(() => {
-        (async () => {
-            if (users) {
-                setEmails(
-                    await Promise.all(
-                        users
-                            .filter((user) => user.team)
-                            .map(async (user) => {
-                                let res = await fetch(
-                                    `/api/retrieveuser?userId=${user.id}`
-                                );
-                                let retrievedUser = await res.json();
-                                return retrievedUser.email;
+        if (data) {
+            Promise.all(
+                data.map(async (team) => {
+                    let tech;
+                    let users;
+                    if (team.projectTech) {
+                        tech = await Promise.all(
+                            team.projectTech.map(async (tech) => {
+                                if (typeof tech.get === 'function') {
+                                    let doc = await tech.get();
+                                    return doc.data();
+                                }
                             })
-                    )
-                );
-            }
-        })();
-    }, []);
+                        );
+                    }
+                    if (team.projectUsers) {
+                        users = await Promise.all(
+                            team.projectUsers.map(async (user) => {
+                                if (typeof user.get === 'function') {
+                                    let doc = await user.get();
+                                    return doc.data();
+                                }
+                            })
+                        );
+                    }
+                    team.projectTech = tech;
+                    team.projectUsers = users;
+                    return team;
+                })
+            ).then((teams) => {
+                setTeams(teams);
+            });
+        }
+    }, [data]);
 
     const getContestantsInfo = async () => {
         setBackdrop(true);
@@ -76,26 +95,13 @@ const Teams = (props) => {
                 'изцяло онлайн',
             ],
         ];
-        let currEmails = [];
         let teams = [];
-
-        for (const user of users) {
-            let res = await fetch(`/api/retrieveuser?userId=${user.id}`);
-            let retrievedUser = await res.json();
-            currEmails.push(retrievedUser.email);
-            if (user.team) {
-                let teamDoc = await user.team.get();
-                teams.push(teamDoc.data().name || 'няма');
-            } else {
-                teams.push('няма');
-            }
-        }
 
         users.forEach((user, i) => {
             rows.push([
                 `${user.name} ${user.surname}`,
                 user.grade,
-                currEmails[i],
+                user.email,
                 user.phone,
                 teams[i],
                 user.isLeader ? 'да' : 'не',
@@ -141,6 +147,27 @@ const Teams = (props) => {
 
         link.click();
         setBackdrop(false);
+    };
+
+    const editScores = async () => {
+        if (!edit) {
+            setEdit(true);
+        } else {
+            setBackdrop(true);
+            let i = 0;
+            for (const doc of data) {
+                await firebase
+                    .firestore()
+                    .doc(`teams/${doc.id}`)
+                    .update({
+                        scoreSemiFinal: parseInt(data[i].scoreSemiFinal),
+                        scoreFinal: parseInt(data[i].scoreFinal),
+                    });
+                i++;
+            }
+            setEdit(false);
+            setBackdrop(false);
+        }
     };
 
     return (
@@ -227,8 +254,10 @@ const Teams = (props) => {
                                         user.workshop ===
                                         'Kак да създам съвременно уеб приложение за 10 минути'
                                 )
-                                .map((user) => (
-                                    <div>{`${user.name} ${user.surname} (${user.grade})`}</div>
+                                .map((user, i) => (
+                                    <div
+                                        key={i}
+                                    >{`${user.name} ${user.surname} (${user.grade})`}</div>
                                 ))}
                     </AccordionDetails>
                 </Accordion>
@@ -252,8 +281,10 @@ const Teams = (props) => {
                                         user.workshop ===
                                         'Embedded за начинаещи'
                                 )
-                                .map((user) => (
-                                    <div>{`${user.name} ${user.surname} (${user.grade})`}</div>
+                                .map((user, i) => (
+                                    <div
+                                        key={i}
+                                    >{`${user.name} ${user.surname} (${user.grade})`}</div>
                                 ))}
                     </AccordionDetails>
                 </Accordion>
@@ -277,8 +308,10 @@ const Teams = (props) => {
                                         user.workshop ===
                                         'Embedded за напреднали'
                                 )
-                                .map((user) => (
-                                    <div>{`${user.name} ${user.surname} (${user.grade})`}</div>
+                                .map((user, i) => (
+                                    <div
+                                        key={i}
+                                    >{`${user.name} ${user.surname} (${user.grade})`}</div>
                                 ))}
                     </AccordionDetails>
                 </Accordion>
@@ -419,9 +452,10 @@ const Teams = (props) => {
                         <Typography>Имейли на участници в отбори</Typography>
                     </AccordionSummary>
                     <AccordionDetails className={styles['accordion-details']}>
-                        {emails && emails.length > 0
-                            ? emails.map((email) => <span>{email} </span>)
-                            : 'loading...'}
+                        {users &&
+                            users.map((user, i) => (
+                                <span key={i}>{user.email} </span>
+                            ))}
                     </AccordionDetails>
                 </Accordion>
                 <Accordion className={styles['allergies-accordion']}>
@@ -434,8 +468,10 @@ const Teams = (props) => {
                         {users &&
                             users
                                 .filter((user) => user.allergies)
-                                .map((user) => (
-                                    <div>{`${user.name} ${user.surname} (${user.grade}) - ${user.allergies}`}</div>
+                                .map((user, i) => (
+                                    <div
+                                        key={i}
+                                    >{`${user.name} ${user.surname} (${user.grade}) - ${user.allergies}`}</div>
                                 ))}
                     </AccordionDetails>
                 </Accordion>
@@ -451,8 +487,10 @@ const Teams = (props) => {
                         {users &&
                             users
                                 .filter((user) => user.online)
-                                .map((user) => (
-                                    <div>{`${user.name} ${user.surname} (${user.grade})`}</div>
+                                .map((user, i) => (
+                                    <div
+                                        key={i}
+                                    >{`${user.name} ${user.surname} (${user.grade})`}</div>
                                 ))}
                     </AccordionDetails>
                 </Accordion>{' '}
@@ -479,13 +517,140 @@ const Teams = (props) => {
                         </Button>
                     </CardActions>
                 </Card>
+                {/* <Button
+                    style={{ marginTop: '20px', width: '100%' }}
+                    className={`${styles.edit} ${
+                        edit ? styles['is-editing'] : ''
+                    }`}
+                    disableElevation
+                    type='submit'
+                    color='primary'
+                    variant='contained'
+                    onClick={editScores}
+                >
+                    {edit ? 'Запази' : 'Редактирай'}
+                </Button> */}
                 <Backdrop open={backdrop} style={{ zIndex: '9999' }}>
                     <CircularProgress color='primary' />
                 </Backdrop>
+            </Container>
+            <br />
+            <Container
+                maxWidth={false}
+                className={styles['teams-container']}
+                disableGutters
+            >
+                {teams
+                    ? teams.map((team, i) => (
+                          <Card key={i} className={styles.card}>
+                              <CardHeader
+                                  underline='none'
+                                  component={Link}
+                                  href='/team/[id]'
+                                  as={`/team/${team.id}`}
+                                  avatar={
+                                      <Avatar>{team.name.charAt(0)}</Avatar>
+                                  }
+                                  className={styles['card-header']}
+                                  title={`${team.name}`}
+                                  subheader='Отбор'
+                              />
+                              <CardContent
+                                  underline='none'
+                                  component={Link}
+                                  href='/team/[id]'
+                                  as={`/team/${team.id}`}
+                                  className={styles['card-content']}
+                              >
+                                  <div className={styles['data-container']}>
+                                      <Typography>
+                                          <strong>Технологии</strong>
+                                      </Typography>
+                                      {team.projectTech &&
+                                          team.projectTech.map(
+                                              (tech, i) =>
+                                                  tech && (
+                                                      <Chip
+                                                          className={
+                                                              styles.tech
+                                                          }
+                                                          key={i}
+                                                          style={getBeautifulColor(
+                                                              tech.color
+                                                          )}
+                                                          label={tech.name}
+                                                      />
+                                                  )
+                                          )}
+                                  </div>
+                                  <div className={styles['data-container']}>
+                                      <Typography>
+                                          <strong>Участници</strong>
+                                      </Typography>
+                                      {team.projectUsers &&
+                                          team.projectUsers.map(
+                                              (user, i) =>
+                                                  user && (
+                                                      <Typography
+                                                          style={{
+                                                              backgroundColor: user.isLeader
+                                                                  ? 'lightgreen'
+                                                                  : 'transparent',
+                                                          }}
+                                                          key={i}
+                                                      >{`${user.name} ${user.surname} - ${user.grade}`}</Typography>
+                                                  )
+                                          )}
+                                  </div>
+                              </CardContent>
+                              <CardActions className={styles['card-actions']}>
+                                  <TextField
+                                      fullWidth
+                                      label='Точки на полуфинал'
+                                      defaultValue={team.scoreSemiFinal}
+                                      type='number'
+                                      InputProps={{
+                                          readOnly: !edit,
+                                      }}
+                                      onChange={(e) => {
+                                          data[i].scoreSemiFinal =
+                                              e.target.value;
+                                      }}
+                                  />
+                                  <TextField
+                                      fullWidth
+                                      label='Точки на финал'
+                                      defaultValue={team.scoreFinal}
+                                      type='number'
+                                      InputProps={{
+                                          readOnly: !edit,
+                                      }}
+                                      onChange={(e) => {
+                                          data[i].scoreFinal = e.target.value;
+                                      }}
+                                  />
+                              </CardActions>
+                          </Card>
+                      ))
+                    : 'loading...'}
+                <Snackbar
+                    open={success.length > 0}
+                    autoHideDuration={6000}
+                    onClose={() => setSuccess(false)}
+                >
+                    <Alert
+                        elevation={6}
+                        variant='filled'
+                        onClose={() => setSuccess(false)}
+                        severity='success'
+                    >
+                        {success}
+                    </Alert>
+                </Snackbar>
             </Container>
             <Footer />
         </Container>
     );
 };
 
-export default Teams;
+export default Panel;
