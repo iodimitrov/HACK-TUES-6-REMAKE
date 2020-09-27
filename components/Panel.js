@@ -82,6 +82,7 @@ const Panel = () => {
         setBackdrop(true);
         let rows = [
             [
+                'ид',
                 'име',
                 'клас',
                 'имейл',
@@ -99,6 +100,7 @@ const Panel = () => {
 
         users.forEach((user, i) => {
             rows.push([
+                user.id,
                 `${user.name} ${user.surname}`,
                 user.grade,
                 user.email,
@@ -143,6 +145,32 @@ const Panel = () => {
         let link = document.createElement('a');
         link.setAttribute('href', encodedUri);
         link.setAttribute('download', 'projects_data.tsv');
+        document.body.appendChild(link);
+
+        link.click();
+        setBackdrop(false);
+    };
+
+    const getDiscordInfo = async () => {
+        setBackdrop(true);
+        let rows = [];
+
+        teams.forEach((team) => {
+            rows.push([
+                team.id,
+                team.name,
+                ...team.projectUsers.map((user) => user.email),
+            ]);
+        });
+
+        let csvContent =
+            'data:text/csv;charset=utf-8,' +
+            rows.map((e) => e.join(',')).join('\n');
+
+        let encodedUri = encodeURI(csvContent);
+        let link = document.createElement('a');
+        link.setAttribute('href', encodedUri);
+        link.setAttribute('download', 'discord_data.csv');
         document.body.appendChild(link);
 
         link.click();
@@ -515,6 +543,14 @@ const Panel = () => {
                             Изтегли TSV с инфо за&nbsp;
                             <strong>проектите</strong>
                         </Button>
+                        <Button
+                            variant='contained'
+                            disableElevation
+                            onClick={getDiscordInfo}
+                        >
+                            Изтегли CSV с инфо за&nbsp;
+                            <strong>Дискорд</strong>
+                        </Button>
                     </CardActions>
                 </Card>
                 {/* <Button
@@ -553,7 +589,7 @@ const Panel = () => {
                                   }
                                   className={styles['card-header']}
                                   title={`${team.name}`}
-                                  subheader='Отбор'
+                                  subheader={`${team.id}`}
                               />
                               <CardContent
                                   underline='none'
@@ -598,7 +634,7 @@ const Panel = () => {
                                                                   : 'transparent',
                                                           }}
                                                           key={i}
-                                                      >{`${user.name} ${user.surname} - ${user.grade}`}</Typography>
+                                                      >{`${user.name} ${user.surname} - ${user.grade} (${user.email})`}</Typography>
                                                   )
                                           )}
                                   </div>
