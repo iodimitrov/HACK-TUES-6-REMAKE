@@ -1,0 +1,103 @@
+@import 'variables';
+
+$container-width: 1470px;
+
+.content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: $container-width;
+    width: 100%;
+
+    .card {
+        max-width: ($container-width / 3) - 20px;
+        width: 100%;
+        margin: 0 10px 15px;
+        display: flex;
+        flex-direction: column;
+
+        .card-header {
+            :global .MuiCardHeader-content {
+                .MuiCardHeader-title {
+                    text-align: center;
+                    background: linear-gradient(
+                        to bottom,
+                        #181233,
+                        #59132b,
+                        #a8170a,
+                        #fd4500
+                    );
+                    background-clip: text;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    font-weight: bold;
+                    font-size: 28px;
+                }
+            }
+        }
+
+        .card-content {
+            color: #303030;
+            padding: 16px 20px 24px;
+
+            :global .MuiTypography-root {
+                font-size: 18px;
+
+                ul {
+                    padding-left: 25px;
+
+                    li:first-child {
+                        margin-top: 10px;
+                    }
+                }
+            }
+        }
+
+        .icon-content {
+            padding: 25px 0;
+            text-align: center;
+            background: linear-gradient(
+                to bottom,
+                #181233,
+                #59132b,
+                #a8170a,
+                #fd4500
+            );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            :global .MuiSvgIcon-root {
+                color: white;
+                width: 120px;
+                height: 120px;
+            }
+        }
+
+        .card-actions {
+            padding: 16px;
+            margin: auto 0 0;
+        }
+    }
+
+    .main-card {
+        max-width: $container-width;
+
+        .card-header {
+            :global .MuiCardHeader-content {
+                .MuiCardHeader-title {
+                    font-size: 40px;
+                    margin-top: 15px;
+                }
+            }
+        }
+
+        .card-content {
+            background: url('https://firebasestorage.googleapis.com/v0/b/hack-tues.appspot.com/o/image.png?alt=media&token=6d5172bb-3fa1-48b7-84e3-12d59c01ca7f');
+            background-size: auto 80%;
+            background-position: bottom center;
+            background-repeat: repeat-x;
+        }
+    }
+}
