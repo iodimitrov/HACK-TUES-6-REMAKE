@@ -48,6 +48,9 @@ const Navbar = (props) => {
             <Link underline='none' className={styles.link} href='/teams'>
                 <Button>Отбори</Button>
             </Link>
+            <Link underline='none' className={styles.link} href='/topics'>
+                <Button>Теми</Button>
+            </Link>
             {/* <Link underline='none' className={styles.link} href='/mentors'>
                 <Button>Ментори</Button>
             </Link> */}
