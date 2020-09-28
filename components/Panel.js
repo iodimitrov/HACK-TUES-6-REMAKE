@@ -97,6 +97,17 @@ const Panel = () => {
             ],
         ];
         let teams = [];
+        for (const user of users) {
+            if (user.team) {
+                let teamDoc = await firebase
+                    .firestore()
+                    .doc(`teams/${user.team.id}`)
+                    .get();
+                teams.push(teamDoc.data().name);
+            } else {
+                teams.push('няма');
+            }
+        }
 
         users.forEach((user, i) => {
             rows.push([
