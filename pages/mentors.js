@@ -58,6 +58,77 @@ const Mentors = () => {
         }
     }, [data]);
 
+    const getMentorTrum = (trum) => {
+        switch (trum) {
+            case 'f1':
+                return (
+                    <>
+                        <span>
+                            2.10 (<strong>Петък</strong>) - от
+                            <strong>10:00</strong> до
+                            <strong>14:00</strong>
+                        </span>
+                        <br />
+                    </>
+                );
+            case 'f2':
+                return (
+                    <>
+                        <span>
+                            2.10 (<strong>Петък</strong>) - от
+                            <strong>15:00</strong> до
+                            <strong>19:00</strong>
+                        </span>
+                        <br />
+                    </>
+                );
+            case 's1':
+                return (
+                    <>
+                        <span>
+                            3.10 (<strong>Събота</strong>) - от
+                            <strong>10:00</strong> до
+                            <strong>14:00</strong>
+                        </span>
+                        <br />
+                    </>
+                );
+            case 's2':
+                return (
+                    <>
+                        <span>
+                            3.10 (<strong>Събота</strong>) - от
+                            <strong>15:00</strong> до
+                            <strong>19:00</strong>
+                        </span>
+                        <br />
+                    </>
+                );
+            case 'n1':
+                return (
+                    <>
+                        <span>
+                            4.10 (<strong>Неделя</strong>) - от
+                            <strong>10:00</strong> до
+                            <strong>14:00</strong>
+                        </span>
+                        <br />
+                    </>
+                );
+            case 'n2':
+                return (
+                    <>
+                        <span>
+                            4.10 (<strong>Неделя</strong>) - от
+                            <strong>15:00</strong> до
+                            <strong>19:00</strong>
+                        </span>
+                        <br />
+                    </>
+                );
+        }
+    };
+
     return (
         <Container maxWidth={false}>
             <Head>
@@ -116,17 +187,27 @@ const Mentors = () => {
                                     </div>
                                 )}
                             </CardContent>
-                            {mentor.graduation && (
-                                <CardActions className={styles['card-actions']}>
-                                    <Typography
-                                        variant='body2'
-                                        color='textSecondary'
-                                        component='p'
-                                    >
-                                        Випуск {mentor.graduation}
+                            <CardActions className={styles['card-actions']}>
+                                <div className={styles['data-container']}>
+                                    <Typography>
+                                        <strong>Присъствия</strong>
                                     </Typography>
-                                </CardActions>
-                            )}
+                                    <Typography className={styles.trum}>
+                                        {mentor.trum
+                                            .split(/[ ,]+/)
+                                            .map((trum) => getMentorTrum(trum))}
+                                    </Typography>
+                                </div>
+                                <Typography
+                                    variant='body2'
+                                    color='textSecondary'
+                                    component='p'
+                                >
+                                    {mentor.graduation
+                                        ? `Випуск ${mentor.graduation}`
+                                        : ' '}
+                                </Typography>
+                            </CardActions>
                         </Card>
                     ))}
             </Container>
