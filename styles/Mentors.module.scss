@@ -26,27 +26,44 @@
             }
         }
 
+        .data-container {
+            &:not(:last-child) {
+                margin-bottom: 15px;
+            }
+
+            :global .MuiTypography-root {
+                margin-bottom: 5px;
+            }
+
+            .tech {
+                margin: 2px 4px 2px 0;
+            }
+        }
         .card-content {
             padding-top: 10px;
-
-            .data-container {
-                &:not(:last-child) {
-                    margin-bottom: 15px;
-                }
-
-                :global .MuiTypography-root {
-                    margin-bottom: 5px;
-                }
-
-                .tech {
-                    margin: 2px 4px 2px 0;
-                }
-            }
         }
 
         .card-actions {
             padding: 16px;
             margin: auto 0 0;
+            flex-direction: column;
+            align-items: flex-start;
+
+            & > * {
+                margin-left: 0;
+            }
+
+            .trum {
+                width: 100%;
+
+                margin-bottom: 10px;
+
+                span {
+                    display: inline-block;
+                    width: 100%;
+                    text-align: justify;
+                }
+            }
         }
     }
 }
