@@ -651,7 +651,9 @@ const Profile = (props) => {
                                         <strong style={{ color: 'red' }}>
                                             Код за Discord:
                                         </strong>{' '}
-                                        <strong>{data.code}</strong>
+                                        <strong>
+                                            {data.code ? data.cod : '(няма)'}
+                                        </strong>
                                     </Typography>
                                 </div>
                                 <div className={styles['input-container']}>
