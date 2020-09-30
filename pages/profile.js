@@ -652,7 +652,7 @@ const Profile = (props) => {
                                             Код за Discord:
                                         </strong>{' '}
                                         <strong>
-                                            {data.code ? data.cod : '(няма)'}
+                                            {data.code ? data.code : '(няма)'}
                                         </strong>
                                     </Typography>
                                 </div>
