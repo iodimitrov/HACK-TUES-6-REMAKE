@@ -471,14 +471,15 @@ const Profile = (props) => {
                                                 />
                                                 <FormControlLabel
                                                     disabled={
-                                                        users.filter(
+                                                        (users.filter(
                                                             (user) =>
                                                                 user.workshop ===
                                                                 workshops[1]
                                                         ).length >=
                                                             workshopLimit1 &&
-                                                        data.workshop !==
-                                                            workshops[1]
+                                                            data.workshop !==
+                                                                workshops[1]) ||
+                                                        limit
                                                     }
                                                     value={workshops[1]}
                                                     control={<Radio />}
@@ -491,7 +492,8 @@ const Profile = (props) => {
                                                                 user.workshop ===
                                                                 workshops[2]
                                                         ).length >=
-                                                        workshopLimit2
+                                                            workshopLimit2 ||
+                                                        limit
                                                     }
                                                     value={workshops[2]}
                                                     control={<Radio />}
@@ -504,7 +506,8 @@ const Profile = (props) => {
                                                                 user.workshop ===
                                                                 workshops[3]
                                                         ).length >=
-                                                        workshopLimit3
+                                                            workshopLimit3 ||
+                                                        limit
                                                     }
                                                     value={workshops[3]}
                                                     control={<Radio />}
@@ -639,6 +642,19 @@ const Profile = (props) => {
                                         }
                                         label='Искам да съм изцяло онлайн'
                                     />
+                                </div>
+                                <div className={styles['input-container']}>
+                                    <Typography
+                                        component='em'
+                                        style={{ marginBottom: '0' }}
+                                    >
+                                        <strong style={{ color: 'red' }}>
+                                            Код за Discord:
+                                        </strong>{' '}
+                                        <strong>
+                                            {data.code ? data.code : '(няма)'}
+                                        </strong>
+                                    </Typography>
                                 </div>
                                 <div className={styles['input-container']}>
                                     <Typography
