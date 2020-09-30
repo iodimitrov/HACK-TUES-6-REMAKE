@@ -478,7 +478,8 @@ const Profile = (props) => {
                                                         ).length >=
                                                             workshopLimit1 &&
                                                         data.workshop !==
-                                                            workshops[1]
+                                                            workshops[1] ||
+                                                            limit
                                                     }
                                                     value={workshops[1]}
                                                     control={<Radio />}
@@ -491,7 +492,8 @@ const Profile = (props) => {
                                                                 user.workshop ===
                                                                 workshops[2]
                                                         ).length >=
-                                                        workshopLimit2
+                                                        workshopLimit2  ||
+                                                            limit
                                                     }
                                                     value={workshops[2]}
                                                     control={<Radio />}
@@ -504,7 +506,8 @@ const Profile = (props) => {
                                                                 user.workshop ===
                                                                 workshops[3]
                                                         ).length >=
-                                                        workshopLimit3
+                                                        workshopLimit3 ||
+                                                            limit
                                                     }
                                                     value={workshops[3]}
                                                     control={<Radio />}
