@@ -164,12 +164,12 @@ const Schedule = () => (
                                 Работа по проектите
                                 <br />
                             </Typography>
-                            <Typography component='li'>
+                            {/* <Typography component='li'>
                                 от <strong>17:00</strong> до{' '}
                                 <strong>18:00</strong> - Презентация на тема
                                 “Как да презентираме проектите си”
                                 <br />
-                            </Typography>
+                            </Typography> */}
                             <Typography component='li'>
                                 <strong>23:59:59</strong> - Краен срок за
                                 качване в GitHub на финалната версия на
@@ -200,8 +200,38 @@ const Schedule = () => (
                     <CardContent className={styles['card-content']}>
                         <Typography component='ul'>
                             <Typography component='li'>
-                                Провеждане на четвърт- и полуфинали (графикът
-                                предстои да се уточни)
+                                от <strong>10:00</strong> до{' '}
+                                <strong>11:40</strong> - Полуфинали (част 1)
+                                <br />
+                            </Typography>
+                            <Typography component='li'>
+                                от <strong>11:40</strong> до{' '}
+                                <strong>12:00</strong> - Почивка
+                                <br />
+                            </Typography>
+                            <Typography component='li'>
+                                от <strong>12:00</strong> до{' '}
+                                <strong>13:40</strong> - Полуфинали (част 2)
+                                <br />
+                            </Typography>
+                            <Typography component='li'>
+                                от <strong>13:40</strong> до{' '}
+                                <strong>14:00</strong> - Почивка
+                                <br />
+                            </Typography>
+                            <Typography component='li'>
+                                от <strong>14:00</strong> до{' '}
+                                <strong>15:40</strong> - Полуфинали (част 3)
+                                <br />
+                            </Typography>
+                            <Typography component='li'>
+                                от <strong>15:40</strong> до{' '}
+                                <strong>16:00</strong> - Почивка
+                                <br />
+                            </Typography>
+                            <Typography component='li'>
+                                от <strong>16:00</strong> до{' '}
+                                <strong>17:00</strong> - Заседаване на журито
                                 <br />
                             </Typography>
                         </Typography>
