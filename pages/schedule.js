@@ -172,7 +172,7 @@ const Schedule = () => (
                             </Typography> */}
                             <Typography component='li'>
                                 <strong>23:59:59</strong> - Краен срок за
-                                качване в GitHub на финалната версия на
+                                качване в хранилище на финалната версия на
                                 проектите
                                 <br />
                             </Typography>
@@ -188,10 +188,40 @@ const Schedule = () => (
                     </CardActions>
                 </Card>
             </Grow>
-            <Grow in timeout={500}>
+            <Grow in timeout={450}>
                 <Card className={styles.card}>
                     <CardHeader
                         avatar={<Avatar>5</Avatar>}
+                        className={styles['card-header']}
+                        title='06.10.2020 г.'
+                        subheader='Вторник'
+                    />
+                    <Divider />
+                    <CardContent className={styles['card-content']}>
+                        <Typography component='ul'>
+                            <Typography component='li'>
+                                от <strong>20:00</strong> до{' '}
+                                <strong>21:00</strong> - Презентация на
+                                тема:&nbsp;
+                                <strong>“Изкуството да презентираш”</strong>
+                                <br />
+                            </Typography>
+                        </Typography>
+                    </CardContent>
+                    <CardActions className={styles['card-actions']}>
+                        <Chip
+                            icon={<Laptop />}
+                            color='secondary'
+                            label='Discord'
+                            clickable
+                        />
+                    </CardActions>
+                </Card>
+            </Grow>
+            <Grow in timeout={500}>
+                <Card className={styles.card}>
+                    <CardHeader
+                        avatar={<Avatar>6</Avatar>}
                         className={styles['card-header']}
                         title='10.10.2020 г.'
                         subheader='Събота'
@@ -249,7 +279,7 @@ const Schedule = () => (
             <Grow in timeout={550}>
                 <Card className={styles.card}>
                     <CardHeader
-                        avatar={<Avatar>6</Avatar>}
+                        avatar={<Avatar>7</Avatar>}
                         className={styles['card-header']}
                         title='11.10.2020 г.'
                         subheader='Неделя'
