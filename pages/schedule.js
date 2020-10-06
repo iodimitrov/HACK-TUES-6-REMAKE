@@ -288,28 +288,28 @@ const Schedule = () => (
                     <CardContent className={styles['card-content']}>
                         <Typography component='ul'>
                             <Typography component='li'>
-                                от <strong>10:30</strong> до{' '}
-                                <strong>14:20</strong> - Финали
+                                от <strong>10:00</strong> до{' '}
+                                <strong>14:30</strong> - Финали
                                 <Typography component='ul'>
                                     <Typography component='li'>
-                                        от <strong>10:30</strong> до{' '}
-                                        <strong>12:10</strong> - първа част
+                                        от <strong>10:00</strong> до{' '}
+                                        <strong>12:00</strong> - първа част
                                         <br />
                                     </Typography>
                                     <Typography component='li'>
-                                        от <strong>12:10</strong> до{' '}
-                                        <strong>12:40</strong> - почивка
+                                        от <strong>12:00</strong> до{' '}
+                                        <strong>12:30</strong> - почивка
                                         <br />
                                     </Typography>
                                     <Typography component='li'>
-                                        от <strong>12:40</strong> до{' '}
-                                        <strong>14:20</strong> - втора част
+                                        от <strong>12:30</strong> до{' '}
+                                        <strong>14:30</strong> - втора част
                                         <br />
                                     </Typography>
                                 </Typography>
                             </Typography>
                             <Typography component='li'>
-                                от <strong>14:20</strong> до{' '}
+                                от <strong>14:30</strong> до{' '}
                                 <strong>15:50</strong> - Заседание на журито за
                                 излъчване на победители
                                 <br />
