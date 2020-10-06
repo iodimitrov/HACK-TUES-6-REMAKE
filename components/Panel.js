@@ -533,6 +533,21 @@ const Panel = () => {
                                 ))}
                     </AccordionDetails>
                 </Accordion>{' '}
+                <Accordion className={styles['allergies-accordion']}>
+                    <AccordionSummary expandIcon={<ExpandMore />}>
+                        <Typography>Гласове на потребителите</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails className={styles['accordion-details']}>
+                        {data &&
+                            data
+                                .sort((a, b) => (a.votes < b.votes ? 1 : -1))
+                                .map((team, i) => (
+                                    <div
+                                        key={i}
+                                    >{`${team.name} - ${team.votes}`}</div>
+                                ))}
+                    </AccordionDetails>
+                </Accordion>{' '}
                 <br />
                 <Card className={styles['csv-card']}>
                     <CardActions className={styles['card-actions']}>

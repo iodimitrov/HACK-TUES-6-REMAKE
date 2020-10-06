@@ -74,6 +74,9 @@ const Index = () => {
         'https://purewater.bg/',
         'http://www.smartcom.bg/',
         'https://sofiatech.bg/',
+        'https://devstyler.io/',
+        'https://www.sofia-da.eu/',
+        'http://www.telelink.com/',
     ];
     const names = [
         'sap',
@@ -100,6 +103,9 @@ const Index = () => {
         'purewater',
         'smartcom',
         'sofiatech',
+        'devstyler',
+        'sda',
+        'telelink',
     ];
     return (
         <Container maxWidth={false}>
@@ -124,40 +130,44 @@ const Index = () => {
                 <Grow in>
                     <Box className={styles['herosection']}>
                         <Logo />
-                        <Timer
-                            initialTime={
-                                new Date('2020-10-01T17:30:00').getTime() -
-                                new Date().getTime()
-                            }
-                            direction='backward'
-                        >
-                            <Box className={styles.timer}>
-                                <div>
-                                    <span>
-                                        <Timer.Days />
-                                    </span>
-                                    <span>Дена</span>
-                                </div>
-                                <div>
-                                    <span>
-                                        <Timer.Hours />
-                                    </span>
-                                    <span>Часа</span>
-                                </div>
-                                <div>
-                                    <span>
-                                        <Timer.Minutes />
-                                    </span>
-                                    <span>Минути</span>
-                                </div>
-                                <div>
-                                    <span>
-                                        <Timer.Seconds />
-                                    </span>
-                                    <span>Секунди</span>
-                                </div>
-                            </Box>
-                        </Timer>
+                        {new Date('2020-10-01T17:30:00').getTime() -
+                            new Date().getTime() >=
+                            0 && (
+                            <Timer
+                                initialTime={
+                                    new Date('2020-10-01T17:30:00').getTime() -
+                                    new Date().getTime()
+                                }
+                                direction='backward'
+                            >
+                                <Box className={styles.timer}>
+                                    <div>
+                                        <span>
+                                            <Timer.Days />
+                                        </span>
+                                        <span>Дена</span>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <Timer.Hours />
+                                        </span>
+                                        <span>Часа</span>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <Timer.Minutes />
+                                        </span>
+                                        <span>Минути</span>
+                                    </div>
+                                    <div>
+                                        <span>
+                                            <Timer.Seconds />
+                                        </span>
+                                        <span>Секунди</span>
+                                    </div>
+                                </Box>
+                            </Timer>
+                        )}
                         <Box className={styles.date}>
                             <span>
                                 <CalendarToday fontSize='large' />
