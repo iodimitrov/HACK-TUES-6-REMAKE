@@ -6,7 +6,7 @@ import { EmojiEvents } from '@material-ui/icons';
 import styles from 'styles/Leaderboard.module.scss';
 import { useCollection } from '@nandorojo/swr-firestore';
 
-const Leaderboard = (props) => {
+const Leaderboard = () => {
     const { data: finalists } = useCollection('teams', {
         where: ['finalist', '==', true],
         orderBy: ['scoreFinal', 'desc'],
