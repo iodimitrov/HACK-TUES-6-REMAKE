@@ -37,7 +37,7 @@ const Teams = (props) => {
 
     const [teams, setTeams] = useState([]);
     const [showVerified, setShowVerified] = useState(true);
-    const [voting, setVoting] = useState(false); //change to 'true' to activate the voting
+    const [voting, setVoting] = useState(true); //change to 'true' to activate the voting
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
