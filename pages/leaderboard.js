@@ -74,7 +74,7 @@ const Leaderboard = () => {
                                 >
                                     <div>
                                         <span className={styles.position}>
-                                            {i + 1 === 1 ? (
+                                            {i + 1 === 9999 ? (
                                                 <EmojiEvents
                                                     style={{
                                                         verticalAlign: 'sub',
