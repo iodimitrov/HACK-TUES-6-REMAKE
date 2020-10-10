@@ -122,7 +122,16 @@ const Leaderboard = () => {
                         </div>
                         {semiFinalistsLeft &&
                             semiFinalistsLeft.map((team, i) => (
-                                <div className={styles['data-container']}>
+                                <div
+                                    className={`${styles['data-container']} ${
+                                        styles[
+                                            getStylePosition(
+                                                i + 1,
+                                                team.special
+                                            )
+                                        ]
+                                    }`}
+                                >
                                     <div>
                                         <span className={styles.position}>
                                             {i + 1}
@@ -153,7 +162,16 @@ const Leaderboard = () => {
                         </div>
                         {semiFinalistsRight &&
                             semiFinalistsRight.map((team, i) => (
-                                <div className={styles['data-container']}>
+                                <div
+                                    className={`${styles['data-container']} ${
+                                        styles[
+                                            getStylePosition(
+                                                i + 1,
+                                                team.special
+                                            )
+                                        ]
+                                    }`}
+                                >
                                     <div>
                                         <span className={styles.position}>
                                             {i + 1}
