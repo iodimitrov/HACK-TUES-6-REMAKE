@@ -69,12 +69,7 @@ const Leaderboard = () => {
                             {finalists.map((team, i) => (
                                 <div
                                     className={`${styles['data-container']} ${
-                                        styles[
-                                            getStylePosition(
-                                                i + 1,
-                                                team.special
-                                            )
-                                        ]
+                                        styles[getStylePosition(0, null)]
                                     }`}
                                 >
                                     <div>
