@@ -125,7 +125,10 @@ const Leaderboard = () => {
                                 <div
                                     className={`${styles['data-container']} ${
                                         styles[
-                                            getStylePosition(0, team.special)
+                                            getStylePosition(
+                                                i + 1,
+                                                team.special
+                                            )
                                         ]
                                     }`}
                                 >
@@ -162,7 +165,10 @@ const Leaderboard = () => {
                                 <div
                                     className={`${styles['data-container']} ${
                                         styles[
-                                            getStylePosition(0, team.special)
+                                            getStylePosition(
+                                                i + 1,
+                                                team.special
+                                            )
                                         ]
                                     }`}
                                 >
