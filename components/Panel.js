@@ -579,7 +579,7 @@ const Panel = () => {
                         </Button>
                     </CardActions>
                 </Card>
-                {/* <Button
+                <Button
                     style={{ marginTop: '20px', width: '100%' }}
                     className={`${styles.edit} ${
                         edit ? styles['is-editing'] : ''
@@ -591,7 +591,7 @@ const Panel = () => {
                     onClick={editScores}
                 >
                     {edit ? 'Запази' : 'Редактирай'}
-                </Button> */}
+                </Button>
                 <Backdrop open={backdrop} style={{ zIndex: '9999' }}>
                     <CircularProgress color='primary' />
                 </Backdrop>
