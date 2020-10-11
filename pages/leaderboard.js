@@ -69,12 +69,12 @@ const Leaderboard = () => {
                             {finalists.map((team, i) => (
                                 <div
                                     className={`${styles['data-container']} ${
-                                        styles[getStylePosition(0, null)]
+                                        styles[getStylePosition(i + 1, null)]
                                     }`}
                                 >
                                     <div>
                                         <span className={styles.position}>
-                                            {i + 1 === 9999 ? (
+                                            {i + 1 === 1 ? (
                                                 <EmojiEvents
                                                     style={{
                                                         verticalAlign: 'sub',
