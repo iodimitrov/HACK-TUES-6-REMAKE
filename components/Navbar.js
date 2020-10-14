@@ -51,6 +51,9 @@ const Navbar = (props) => {
             <Link underline='none' className={styles.link} href='/leaderboard'>
                 <Button>Класация</Button>
             </Link>
+            <Link underline='none' className={styles.link} href='/winners'>
+                <Button>Победители</Button>
+            </Link>
             <Link underline='none' className={styles.link} href='/topics'>
                 <Button>Теми</Button>
             </Link>
@@ -133,13 +136,13 @@ const Navbar = (props) => {
             <Link underline='none' className={styles.link} href='/about'>
                 <Button>За Hack TUES</Button>
             </Link>
-            <MuiLink
+            {/* <MuiLink
                 underline='none'
                 className={styles.link}
                 onClick={(e) => setAnchorDecl(e.currentTarget)}
             >
                 <Button className={styles.link}>Декларации</Button>
-            </MuiLink>
+            </MuiLink> */}
             <Menu
                 className='declarations'
                 MenuListProps={{ style: { padding: 0 } }}
