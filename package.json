@@ -29,6 +29,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "export": "rimraf ./out && next build && next export",
     "format": "prettier --write '**/*.{js,ts,tsx,jsx}'",
     "post-update": "echo \"codesandbox preview only, need an update\" && yarn upgrade --latest"
   },
