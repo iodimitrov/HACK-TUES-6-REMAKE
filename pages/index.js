@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
-import Head from 'next/head';
-import Navbar from 'components/Navbar';
-import Footer from 'components/Footer';
-import Logo from 'components/Logo';
-import { Container, Box, Link, IconButton, Grow } from '@material-ui/core';
-import Image from 'material-ui-image';
+import { Box, Container, Grow, IconButton, Link } from '@material-ui/core';
 import {
   CalendarToday,
-  Room,
   ChevronLeft,
   ChevronRight,
+  Room,
 } from '@material-ui/icons';
-import styles from 'styles/Index.module.scss';
-import Timer from 'react-compound-timer';
+import Footer from 'components/Footer';
+import Logo from 'components/Logo';
+import Navbar from 'components/Navbar';
+// import 'firebase/storage';
+import Image from 'material-ui-image';
+import Head from 'next/head';
 import Carousel from 'nuka-carousel';
-import firebase from 'firebase/app';
-import 'firebase/storage';
+import { useEffect, useState } from 'react';
+import Timer from 'react-compound-timer';
+import styles from 'styles/Index.module.scss';
+import { logos } from '../data/logos';
 
 const Index = () => {
   const [images, setImages] = useState([]);
@@ -24,13 +24,8 @@ const Index = () => {
   useEffect(() => {
     window.addEventListener('resize', detectColumns);
     detectColumns();
-    (async () => {
-      let images = await firebase.storage().ref().child('logos').listAll();
-      let images_urls = await Promise.all(
-        images.items.map((itemRef) => itemRef.getDownloadURL()),
-      );
-      setImages(images_urls);
-    })();
+    // XXX: nuka-carousel breaks if we're not using state :|
+    setImages(logos);
   }, []);
 
   const detectColumns = () => {
