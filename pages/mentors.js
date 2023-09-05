@@ -1,59 +1,22 @@
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import Navbar from 'components/Navbar';
-import Footer from 'components/Footer';
 import {
-  Container,
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Typography,
   Avatar,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
   Chip,
-  Button,
+  Container,
+  Typography,
 } from '@material-ui/core';
-import styles from 'styles/Mentors.module.scss';
-import firebase from 'firebase/app';
+import Footer from 'components/Footer';
+import Navbar from 'components/Navbar';
 import 'firebase/storage';
-import { useCollection } from '@nandorojo/swr-firestore';
+import Head from 'next/head';
+import styles from 'styles/Mentors.module.scss';
 import { getBeautifulColor } from 'utils/functions';
+import { mentors, images } from '../data/mentors';
 
 const Mentors = () => {
-  const { data } = useCollection('mentors');
-
-  const [mentors, setMentors] = useState([]);
-  const [images, setImages] = useState([]);
-
-  useEffect(() => {
-    if (data) {
-      (async () => {
-        let images = await firebase.storage().ref().child('mentors').listAll();
-        let images_urls = await Promise.all(
-          images.items.map((itemRef) => itemRef.getDownloadURL()),
-        );
-        setImages(images_urls);
-      })();
-      Promise.all(
-        data.map(async (mentor) => {
-          let tech;
-          if (mentor.technologies) {
-            tech = await Promise.all(
-              mentor.technologies.map(async (tech) => {
-                if (typeof tech.get === 'function') {
-                  let doc = await tech.get();
-                  return doc.data();
-                }
-              }),
-            );
-          }
-          mentor.technologies = tech;
-          return mentor;
-        }),
-      ).then((mentors) => setMentors(mentors));
-    }
-  }, [data]);
-
   const getMentorTrum = (trum) => {
     switch (trum) {
       case 'f1':
