@@ -1,41 +1,25 @@
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import Navbar from 'components/Navbar';
-import Footer from 'components/Footer';
 import {
-  Container,
-  Card,
-  CardHeader,
-  CardContent,
-  CardActions,
-  Typography,
   Avatar,
+  Card,
+  CardContent,
+  CardHeader,
   Chip,
-  Button,
-  Snackbar,
+  Container,
   Link as MuiLink,
+  Snackbar,
+  Typography,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
+import Footer from 'components/Footer';
 import Link from 'components/Link';
+import Navbar from 'components/Navbar';
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
 import styles from 'styles/Teams.module.scss';
-import firebase from 'firebase/app';
-import { useCollection, useDocument } from '@nandorojo/swr-firestore';
 import { getBeautifulColor } from 'utils/functions';
-import cookies from 'next-cookies';
+import { teams } from '../data/teams';
 
 const Teams = (props) => {
-  const { data } = useCollection('teams', {
-    listen: true,
-  });
-
-  const { data: user, update: updateUser } = useDocument(
-    props.user ? `users/${props.user.id}` : null,
-    {
-      listen: true,
-    },
-  );
-
-  const [teams, setTeams] = useState([]);
   const [showVerified, setShowVerified] = useState(true);
   const [success, setSuccess] = useState(false);
 
@@ -48,59 +32,10 @@ const Teams = (props) => {
         );
       }
     };
-    if (data) {
-      Promise.all(
-        data.map(async (team) => {
-          let tech;
-          let users;
-          if (team.projectTech) {
-            tech = await Promise.all(
-              team.projectTech.map(async (tech) => {
-                if (typeof tech.get === 'function') {
-                  let doc = await tech.get();
-                  return doc.data();
-                }
-              }),
-            );
-          }
-          if (team.projectUsers) {
-            users = await Promise.all(
-              team.projectUsers.map(async (user) => {
-                if (typeof user.get === 'function') {
-                  let doc = await user.get();
-                  return doc.data();
-                }
-              }),
-            );
-          }
-          team.projectTech = tech;
-          team.projectUsers = users;
-          return team;
-        }),
-      ).then((teams) => setTeams(teams));
-    }
     return () => {
       document.onkeypress = (e) => {};
     };
-  }, [data]);
-
-  const vote = async (id) => {
-    if (!user.votedFor && id && user.team.id !== id) {
-      try {
-        await firebase
-          .firestore()
-          .doc(`teams/${id}`)
-          .update({
-            votes: firebase.firestore.FieldValue.increment(1),
-          });
-        await updateUser({
-          votedFor: firebase.firestore().doc(`teams/${id}`),
-        });
-        setSuccess('Успешно гласувахте!');
-      } catch (e) {}
-    }
-    return false;
-  };
+  });
 
   return (
     <Container maxWidth={false}>
