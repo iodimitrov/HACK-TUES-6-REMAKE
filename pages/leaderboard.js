@@ -1,29 +1,25 @@
-import Head from 'next/head';
-import Navbar from 'components/Navbar';
-import Footer from 'components/Footer';
-import { Container, Card, CardHeader, CardContent } from '@material-ui/core';
+import { Card, CardContent, CardHeader, Container } from '@material-ui/core';
 import { EmojiEvents } from '@material-ui/icons';
+import Footer from 'components/Footer';
+import Navbar from 'components/Navbar';
+import Head from 'next/head';
 import styles from 'styles/Leaderboard.module.scss';
-import { useCollection } from '@nandorojo/swr-firestore';
+import { teams } from '../data/teams';
 
 const Leaderboard = () => {
-  const { data: finalists } = useCollection('teams', {
-    where: ['finalist', '==', true],
-    orderBy: ['scoreFinal', 'desc'],
-    listen: true,
-  });
+  const finalists = teams
+    .filter((team) => team.finalist === true)
+    .sort((a, b) => b.scoreFinal - a.scoreFinal);
 
-  const { data: semiFinalistsLeft } = useCollection('teams', {
-    where: ['semiFinalistsLeft', '==', true],
-    orderBy: ['scoreSemiFinal', 'desc'],
-    listen: true,
-  });
+  const semiFinalistsLeft = teams
+    .filter((team) => team.semiFinalistsLeft === true)
+    .reverse()
+    .sort((a, b) => b.scoreSemiFinal - a.scoreSemiFinal);
 
-  const { data: semiFinalistsRight } = useCollection('teams', {
-    where: ['semiFinalistsLeft', '==', false],
-    orderBy: ['scoreSemiFinal', 'desc'],
-    listen: true,
-  });
+  const semiFinalistsRight = teams
+    .filter((team) => team.semiFinalistsLeft === false)
+    .reverse()
+    .sort((a, b) => b.scoreSemiFinal - a.scoreSemiFinal);
 
   const getStylePosition = (position, special) => {
     if (position === 1) {
