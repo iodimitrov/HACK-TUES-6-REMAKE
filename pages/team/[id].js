@@ -1,51 +1,33 @@
-import { useState, useEffect } from 'react';
-import Head from 'next/head';
-import Navbar from 'components/Navbar';
-import Footer from 'components/Footer';
 import {
-  Container,
-  Card,
-  CardHeader,
-  CardActions,
-  CardContent,
-  Typography,
   Avatar,
-  TextField,
-  Button,
-  Grow,
-  Snackbar,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  Link,
-  Chip,
   Backdrop,
+  Card,
+  CardContent,
+  CardHeader,
+  Chip,
   CircularProgress,
+  Container,
+  Grow,
+  Link,
+  Snackbar,
+  TextField,
+  Typography,
 } from '@material-ui/core';
-import { Autocomplete, Alert } from '@material-ui/lab';
-import styles from 'styles/Team.module.scss';
+import { Alert } from '@material-ui/lab';
+import { useDocument } from '@nandorojo/swr-firestore';
+import Footer from 'components/Footer';
+import Navbar from 'components/Navbar';
 import firebase from 'firebase/app';
-import { useDocument, useCollection } from '@nandorojo/swr-firestore';
-import { useRouter } from 'next/router';
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
+import styles from 'styles/Team.module.scss';
 import { getBeautifulColor } from 'utils/functions';
 
 const Team = (props) => {
-  const router = useRouter();
   const { data, update, mutate } = useDocument(`teams/${props.team.id}`, {
     listen: true,
     revalidateOnMount: true,
     initialData: props.team,
-  });
-
-  const { data: tech } = useCollection('tech', {
-    initialData: props.tech,
-  });
-
-  const { data: users } = useCollection('users', {
-    where: ['team', '==', null],
-    listen: true,
   });
 
   const [nameError, setNameError] = useState(false);
@@ -89,23 +71,6 @@ const Team = (props) => {
         }),
       ).then((tech) => setProjectTech(tech));
     }
-  };
-
-  const handleTech = (e, color) => {
-    const value = e.target.children[0].innerHTML;
-    if (e.target.classList.contains('selected-tech')) {
-      e.target.classList.remove('selected-tech');
-      let temp = projectTech.filter((tech) => tech.name !== value);
-      setProjectTech(temp);
-    } else {
-      e.target.classList.add('selected-tech');
-      setProjectTech([...new Set([...projectTech, { name: value, color }])]);
-    }
-  };
-
-  const parseOption = (value) => {
-    let data = value.split(',');
-    return { fullName: data[0], grade: data[1], id: data[2] };
   };
 
   return (
