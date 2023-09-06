@@ -190,8 +190,11 @@ const Team = (props) => {
                     >
                       <CardHeader
                         avatar={<Avatar>{user.name.charAt(0)}</Avatar>}
+                        className={
+                          user.isLeader ? styles['card-header'] : undefined
+                        }
                         title={`${user.name} ${user.surname}`}
-                        subheader='Участник'
+                        subheader={user.isLeader ? 'Капитан' : 'Участник'}
                       />
                     </Card>
                   </Grow>
