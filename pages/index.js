@@ -8,7 +8,6 @@ import {
 import Footer from 'components/Footer';
 import Logo from 'components/Logo';
 import Navbar from 'components/Navbar';
-// import 'firebase/storage';
 import Image from 'material-ui-image';
 import Head from 'next/head';
 import Carousel from 'nuka-carousel';

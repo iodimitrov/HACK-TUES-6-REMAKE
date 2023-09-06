@@ -7,11 +7,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from '../components/theme';
 import 'styles/global.scss';
 import NextNprogress from 'nextjs-progressbar';
-import { config } from 'utils/auth/initFirebase';
-import 'firebase/firestore';
-import { Fuego, FuegoProvider } from '@nandorojo/swr-firestore';
-
-const fuego = new Fuego(config);
 
 export default function MyApp(props) {
   const { Component, pageProps } = props;
@@ -42,9 +37,7 @@ export default function MyApp(props) {
             height='3'
             options={{ showSpinner: false }}
           />
-          <FuegoProvider fuego={fuego}>
-            <Component {...pageProps} />
-          </FuegoProvider>
+          <Component {...pageProps} />
         </StylesProvider>
       </ThemeProvider>
     </React.Fragment>

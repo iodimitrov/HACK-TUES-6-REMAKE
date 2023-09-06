@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
-import 'firebase/storage';
 import Head from 'next/head';
 import styles from 'styles/Mentors.module.scss';
 import { getBeautifulColor } from 'utils/functions';
