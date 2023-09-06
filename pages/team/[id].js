@@ -14,64 +14,21 @@ import {
   Typography,
 } from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
-import { useDocument } from '@nandorojo/swr-firestore';
 import Footer from 'components/Footer';
 import Navbar from 'components/Navbar';
-import firebase from 'firebase/app';
 import Head from 'next/head';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from 'styles/Team.module.scss';
 import { getBeautifulColor } from 'utils/functions';
+import { teams } from '../../data/teams';
 
 const Team = (props) => {
-  const { data, update, mutate } = useDocument(`teams/${props.team.id}`, {
-    listen: true,
-    revalidateOnMount: true,
-    initialData: props.team,
-  });
-
   const [nameError, setNameError] = useState(false);
-  const [projectTech, setProjectTech] = useState([]);
-  const [projectUsers, setProjectUsers] = useState([]);
   const [newUsers, setNewUsers] = useState([]);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [dialog, setDialog] = useState(false);
   const [backdrop, setBackdrop] = useState(false);
-
-  useEffect(() => {
-    currentUsers();
-    currentTech();
-  }, [data.projectUsers]);
-
-  const currentUsers = () => {
-    if (data.projectUsers) {
-      Promise.all(
-        data.projectUsers.map(async (user) => {
-          if (typeof user.get === 'function') {
-            let doc = await user.get();
-            return {
-              ...doc.data(),
-              id: doc.id,
-            };
-          }
-        }),
-      ).then((users) => setProjectUsers(users));
-    }
-  };
-
-  const currentTech = () => {
-    if (data.projectTech) {
-      Promise.all(
-        data.projectTech.map(async (tech) => {
-          if (typeof tech.get === 'function') {
-            let doc = await tech.get();
-            return doc.data();
-          }
-        }),
-      ).then((tech) => setProjectTech(tech));
-    }
-  };
 
   return (
     <Container maxWidth={false}>
@@ -81,15 +38,17 @@ const Team = (props) => {
       </Head>
       <Navbar />
       <Container className={styles.content} maxWidth='md' disableGutters>
-        {data ? (
+        {props.team ? (
           <Grow in>
             <Card className={styles.card}>
               <CardHeader
                 avatar={
-                  <Avatar>{data.name ? data.name.charAt(0) : '' || ''}</Avatar>
+                  <Avatar>
+                    {props.team.name ? props.team.name.charAt(0) : '' || ''}
+                  </Avatar>
                 }
                 className={styles['card-header']}
-                title={data.name}
+                title={props.team.name}
                 subheader='Отбор'
               />
               <CardContent
@@ -100,7 +59,7 @@ const Team = (props) => {
                 <div className={styles['input-container']}>
                   <TextField
                     label='Име на отбора'
-                    value={data.name || ''}
+                    value={props.team.name || ''}
                     error={nameError.length > 0}
                     helperText={nameError}
                     InputProps={{
@@ -110,7 +69,7 @@ const Team = (props) => {
                     onChange={(e) =>
                       mutate(
                         {
-                          ...data,
+                          ...props.team,
                           name: e.target.value,
                         },
                         false,
@@ -119,14 +78,14 @@ const Team = (props) => {
                   />
                   <TextField
                     label='Име на проекта'
-                    value={data.projectName || ''}
+                    value={props.team.projectName || ''}
                     InputProps={{
                       readOnly: true,
                     }}
                     onChange={(e) =>
                       mutate(
                         {
-                          ...data,
+                          ...props.team,
                           projectName: e.target.value,
                         },
                         false,
@@ -137,7 +96,7 @@ const Team = (props) => {
                 <div className={styles['input-container']}>
                   <TextField
                     label='Описание на проекта'
-                    value={data.projectDescription || ''}
+                    value={props.team.projectDescription || ''}
                     multiline
                     rowsMax={5}
                     InputProps={{
@@ -146,7 +105,7 @@ const Team = (props) => {
                     onChange={(e) =>
                       mutate(
                         {
-                          ...data,
+                          ...props.team,
                           projectDescription: e.target.value,
                         },
                         false,
@@ -157,8 +116,8 @@ const Team = (props) => {
                 <div className={styles['input-container']}>
                   <Typography>
                     Линк/ове към GitHub хранилище/а:{' '}
-                    {data.projectLinks &&
-                      data.projectLinks.split(/[ ,]+/).map((link, i) => (
+                    {props.team.projectLinks &&
+                      props.team.projectLinks.split(/[ ,]+/).map((link, i) => (
                         <Link
                           className={styles['repo-link']}
                           key={i}
@@ -174,7 +133,7 @@ const Team = (props) => {
                 <div className={styles['input-container']}>
                   <Typography style={{ marginTop: '0' }}>
                     Потвърден:{' '}
-                    {data.verified ? (
+                    {props.team.verified ? (
                       <strong
                         style={{
                           color: '#00e676',
@@ -196,8 +155,8 @@ const Team = (props) => {
                 <div
                   className={`${styles['input-container']} ${styles['tech-container']}`}
                 >
-                  {projectTech &&
-                    projectTech.map(
+                  {props.team.projectTech &&
+                    props.team.projectTech.map(
                       (item, index) =>
                         item && (
                           <Chip
@@ -221,8 +180,8 @@ const Team = (props) => {
           disableGutters
           maxWidth={false}
         >
-          {projectUsers &&
-            projectUsers.map(
+          {props.team.projectUsers &&
+            props.team.projectUsers.map(
               (user, index) =>
                 user && (
                   <Grow in key={index}>
@@ -276,20 +235,20 @@ const Team = (props) => {
   );
 };
 
-export const getServerSideProps = async (ctx) => {
-  if (ctx.query && ctx.query.id) {
-    let tech = await firebase.firestore().collection('tech').get();
-    let team = await firebase.firestore().doc(`teams/${ctx.query.id}`).get();
+export const getStaticPaths = () => {
+  return {
+    paths: teams.map(({ id }) => ({
+      params: { id },
+    })),
+    fallback: false,
+  };
+};
+
+export const getStaticProps = (ctx) => {
+  if (ctx.params && ctx.params.id) {
     return {
       props: {
-        tech: tech.docs.map((tag) => tag.data()),
-        team: {
-          id: team.id,
-          name: team.data().name,
-          projectName: team.data().projectName,
-          projectDescription: team.data().projectDescription,
-          projectLinks: team.data().projectLinks,
-        },
+        team: teams.find((t) => t.id === ctx.params.id),
       },
     };
   }

@@ -43,6 +43,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: '!info',
+    projectDescription:
+      'Chrome Extension, който следи дали съдържание, което browseващият човек чете, не е пропаганда.',
+    projectLinks: 'https://github.com/GenchoBG/NotInfo',
   },
   {
     id: '3pR3S6B4gp0SvLS0nLM1',
@@ -101,6 +105,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Covid Tracker',
+    projectDescription:
+      'Мобилно приложение, което помага на хората да разберат дали са заразени преди да забележат симптоми. Всяка минута всеки телефон прави заявка през Bluetooth, за да разбере кои устройства за близо до него. Посредством ML разбираме всеки потребител в каква обстановка се намира - кола, спрял на едно място, пеша, градски транспорт. Ако даден потребител се отбележи заразен в приложението, изпращаме известие на всеки друг потребител, който може да е бил контактен. Когато получи известие, човекът може да види на карта къде се е заразил и в каква обстановка се е заразил.',
+    projectLinks: 'https://github.com/ogi02/CovidTracker',
   },
   {
     id: '410IEZoCPQad4ycYL8p6',
@@ -175,6 +183,9 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Sign Translator',
+    projectDescription: 'Най-вероятно някое ML-че',
+    projectLinks: 'https://github.com/joro2404/SignTranslator',
   },
   {
     id: '5yPk7YNkMqe2bG9xsvOg',
@@ -226,6 +237,9 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'MALI',
+    projectDescription: 'ML with AI (or vice-versa)',
+    projectLinks: '',
   },
   {
     id: '9FdUmmCfH7ev2Htk955I',
@@ -304,6 +318,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Building Community',
+    projectDescription:
+      'Уеб приложение, подпомагащо справянето с covid кризата, като предоставя достъпна връзка между съседи',
+    projectLinks: 'https://github.com/DanailYordanov/hacktues2020',
   },
   {
     id: 'ErvNYyj3Gihbmzd0Vx2O',
@@ -344,6 +362,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Машина за матиране',
+    projectDescription:
+      'Проектът се включва с натискането на зеления (ON/OFF) бутон. Играта е подходяща за 2 отбора, които се редуват. Върху плота има 4 чаши, разположени зикзагобразно. Целта на играча е да уцели някоя от чашите с топче. Ако уцели дадената чаша от един от чучурите в другия край на масата ще се налее питие и на ред е другия отбор. Като ако е оцелена чаша от първия ред - ще се налее бира, а от втория - алкохол. Ако играчът не успее да уцели нито една от чашите пак е наред другия отбор. Когато следващия отбор(играч) застане да играе трябва да натисне червения бутон, за да може играта да покаже кои чаши са елиминирани за съответния отбор/човек. Чаша се елиминира когато съответния отбор я оцели и при следващия ход на отбора, ако елиминирана чаша бъде оцелена, няма да се налее нищо и е на ход другия отбор. Питието е за играч, който не играе в момента на оцелването, тоест за някой от другия отбор. Играта приключва когато всички чаши на единия отбор бъдат елиминирани.  Целта е да "матираш" другия пръв.\n\nДопълнение:\nАко чашата свети тя е активна, ако не - е елиминирана.\n\nМоже да видите снимки на проекта в GitHub репото ни.',
+    projectLinks: 'https://github.com/grozdeto/Mashina-za-matirane',
   },
   {
     id: 'HWLB8z2mO5s7NBb9COq7',
@@ -412,6 +434,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'StayConnectedBulgaria',
+    projectDescription:
+      'StayConnectedBulgaria представлява сайт, в който потребителита получават "репортерски" права чрез регистрация. Всеки потребител може да качва собсвени статии относно минали, настоящи и бъдещи събития в България. Целта е в епидемичната обстановка всички да могат да се чувстват свързани с общността на града си. Всички статии ще бъдат разделяни по градове и сортирани по кликвания.',
+    projectLinks: 'https://github.com/HackTuesTeam/StayConnectedBulgaria',
   },
   {
     id: 'IwTmybjoLmZny4t9X8bR',
@@ -506,6 +532,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Techary',
+    projectDescription:
+      'Techary обединява всичко добро от всяка социална медия на едно място!',
+    projectLinks: 'https://github.com/AyyMD-Tech-Tips/techary/',
   },
   {
     id: 'Pe3FFM5ZebIJnDOJXtzz',
@@ -584,6 +614,9 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: '',
+    projectDescription: '',
+    projectLinks: '',
   },
   {
     id: 'PnpsZ5r00KpvrbT4hIDf',
@@ -646,6 +679,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'BusLocator',
+    projectDescription:
+      'Проектът е предназначен да помага на незрящите хора с предвижването им в градския транспорт. Чрез мобилната ни апилкация те ще могат бързо и лесно да установят дали транспортът им е пристигнал, а шофьорът ще бъде уведемен за това, че има пътници със специални потребности.',
+    projectLinks: 'https://github.com/StelianRBG/Hack-TUES-6.git',
   },
   {
     id: 'Vqx1zH6iVXotyYcZM22w',
@@ -734,6 +771,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Smike',
+    projectDescription:
+      'Проект, целящ да улесни карането на колело - тоест правим Smart bike, който ще има опции като anti lost, weather, speed, direction и подобни.',
+    projectLinks: 'https://github.com/VayerMaking/cloudsinmagenta',
   },
   {
     id: 'YaoJ8cHb6bKjutHbmv78',
@@ -779,6 +820,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'The perfect home',
+    projectDescription:
+      'Как би изглеждал един високотехнологичен дом, в който всичко се управлява витруално?',
+    projectLinks: 'https://github.com/KokoShterev/HackTUES6',
   },
   {
     id: 'b95HuHxSh0ODdlk0LpqR',
@@ -831,6 +876,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Smart Water meter',
+    projectDescription:
+      'Идеята на проекта е да създадем съвременен водомер с дисплей, отчитащ моментното и месечното потребление на водата. Нашият водомер разполага с часовник в реално време, бутон за нулиране на използваната вода и още много други опции в своето меню.',
+    projectLinks: 'https://github.com/Cminusminuc/Water_Garden',
   },
   {
     id: 'c7QFQ2fVJChVicb4kn6w',
@@ -893,6 +942,9 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Cherobyl ocelq',
+    projectDescription: '\nНие пари нямаме',
+    projectLinks: 'https://github.com/hackBRUH/Hack-Tues-6-project-',
   },
   {
     id: 'ezoLDHPH8wQVlYB8VMFi',
@@ -959,6 +1011,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Covid-manual',
+    projectDescription:
+      'Пандемията, която ни сполетя обърка всички. Заповедите и наредбите, които излизат почти всяка седмица, допълнително усложняват ситуацията. Нашата идея е да обобщим тази информация и всеки да намери това, което му трябва. Кога и къде да носим маски, кой и как може да излиза и влиза в страната и още много. Също така предоставяме кратка информация за превенция и обяснения как се разпространява.',
+    projectLinks: 'https://github.com/Friendsssss/Hack6Friends',
   },
   {
     id: 'fvxrMb36QzGhSqxtr18G',
@@ -1041,6 +1097,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Светофар!',
+    projectDescription:
+      'Светофар! е Smart City игра, в която трябва да менажирате трафик, като става все по-трудна с растежа на града Ви',
+    projectLinks: 'https://github.com/AlexOgn/Svetofar',
   },
   {
     id: 'gaKw1dYfksyhTDfY1QVO',
@@ -1098,6 +1158,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Prodigy_Wars',
+    projectDescription:
+      'Нашият отбор създаде игра, която отговаря на последните две теми от хакатона: образователна е и има за цел да разнообрази ежедневието под карантина. Тя представлява quiz с въпроси от пет области: история, география, литература, филми и математика. Общият брой на въпросите е 50, като всяка област има определен boss, който трябва да бъде победен от вашата героиня - Алекс. Има определено време за решаването на въпросите, но ако не успеете да отговорите за даденото време - губите health на вашата героиня. Алекс притежава даден живот във всяка област и при преминаването в нова тема - тя се хилва. За съжаление проектът ни не е довършен, защото не ни стигна времето. Не успяхме да добавим health - а на героинята, всички планирани boss - ове и таймерът не е на всички въпроси, но оставаме с идеята, че ще бъде довършена. Приятна игра!',
+    projectLinks: 'https://github.com/drIvanov07/TheDev',
   },
   {
     id: 'ktsrYPpdjIPbNKo5w6iZ',
@@ -1188,6 +1252,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'DRUN',
+    projectDescription:
+      'Автоматизирана система за доставка на пратки с дронове.\n\nДрон със Raspberry Pi, 4G адаптер и GPS антена се свързва със към сървър, с който комуникира информация като на къде да се движи, какво се вижда на камерата на дрона и каква е настоящата му локация. При получаване на нова заявка за доставка посредством API-то на сървъра, тази информация се взема и подава дълбока Q-Learning неврона мрежа, която навигира дрона така, че да изпълни поръчката. За по-нагледна работа с сървърното API сме създали Discord чат бот и (макар и недовършено) мобилно приложение. Платформата също така поддържа разплащания между двама регистрирани потребителя посредством частен Ethereum сървър.',
+    projectLinks: 'https://github.com/fanton-dev/DRUN',
   },
   {
     id: 'lblcxOzebLwzFZ1OuEgb',
@@ -1246,6 +1314,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Smart Kolichka',
+    projectDescription:
+      'Нашия проект е инвалидна количка, която може да бъде управлявана ръчно, чрез гласови команди и чрез мозъчни вълни.  Също така ще могат да се записват маршрути през мобилно приложение, тоест ако отидете до спалнята с количката и имате предварително записан маршрут до коридора - ще можете да я връщате в коридора и сътветно до спалнята.\nРъчното управление ще се извършва чрез джойстик и бутони, монтирани на 3д принтиран модел, направен от нас. Гласовото управление ще се извършва от гласов модул, като преди това от джойстика ще може всеки потребител да го настройва за своя глас.\nМозъчните вълни ще работят чрез мигане, съответно ако мигнеш с дясното око - завиваш надясно, ако мигнеш с лявото око - завиваш наляво, ако си с отворени очи се движиш напред, а ако си с със затворени очи - спираш.\nНадяваме се всичко да се получи, като се ръководим изцяло от нашето мото - "Невъзможното е невъзможно, докато не стане възможно!"',
+    projectLinks: 'https://github.com/Avtobus76/Hack-Tues-6.git',
   },
   {
     id: 'lg00jtdsKHq51mApIWJ9',
@@ -1296,6 +1368,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Survivor Town',
+    projectDescription:
+      'Идеята на проекта е четирима човека да се съревновават да развият собствено градче като играят мини игри помежду си. ',
+    projectLinks: 'https://github.com/GabrielGenkov/Survivor',
   },
   {
     id: 'oI2XKrcN5qHMXeNWbdS6',
@@ -1324,6 +1400,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'format-lib',
+    projectDescription:
+      'Low-level library prototype for working with ANSI escape codes',
+    projectLinks: 'https://github.com/stefan-sotirov/format-lib',
   },
   {
     id: 'oVXkmuEY6yyx04qjmjqr',
@@ -1385,6 +1465,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'CovidNews',
+    projectDescription:
+      'CovidNews представлява уеб платформа, която дава информация за Covid-19 В България. Ще намерите най-новите новини от България, статистика и бъдеща прогноза относно COVID-19, и специална чат стая, която служи за комуникация между потребителите в платформата.',
+    projectLinks: 'https://github.com/Alexander1022/HackTUES6',
   },
   {
     id: 'sOGStQXtWznYIu9bCDK8',
@@ -1454,6 +1538,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Walkly',
+    projectDescription:
+      'Walkly - мобилно приложение, което подтиква хората да се предвижват пеш, вместо да използват автомобилите си.',
+    projectLinks: 'https://github.com/Walkly-HT6',
   },
   {
     id: 'uqioXcocS1ssStlxWb9A',
@@ -1491,6 +1579,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'SISC',
+    projectDescription:
+      'SISC - System Inteligent Security Camera. Устройство, съдържащо сензор за движение и камера, за да анализира разпознатите от него обекти и да съобщи за тях на собственика. Снимките биват изпратени чрез Messenger профил, улеснявайки нашата работа с устройството. Накратко - интелигентна защита. ',
+    projectLinks: 'https://github.com/YordanMarkov/SISC',
   },
   {
     id: 'w0fpdFMh9Fl97kNNwbhb',
@@ -1589,6 +1681,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Пейо',
+    projectDescription:
+      'Пейо е млад дух в ретро тяло! Решихме да преработим радио на около 60 години, така че да използва нови технологии - и най-важното, да заживее отново!',
+    projectLinks: 'https://github.com/IlianaGenova/Peyo',
   },
   {
     id: 'wNciTehKCdigIU2Q2alD',
@@ -1666,6 +1762,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'ChaingeVote',
+    projectDescription:
+      "Each voting, election, poll and such can be altered with the standard ways they are realised. This is specifically true for elections of national scale where elections can be altered. The ability to share, express and get your opinion a proper feedback is a right that many don't have. And that is the goal we are aiming at. ChaingeVote provides a clear way to express your vote using Blockchain. A Peer-to-peer network connecting stations which are used to vote. These votes are stored on blocks that are chained together. After filling a block, it gets broadcasted to the near stations which get the block and put it in their chains.",
+    projectLinks: 'https://github.com/boki1/HackTUES-6',
   },
   {
     id: 'wu2xurcXYh5njluP5kSy',
@@ -1711,6 +1811,11 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'COVID-19 в България',
+    projectDescription:
+      'Същността на проекта е сайт, който да показва цялостната ситуация в страната от началото на пандемията, както и ситуацията в конкретния ден. Освен това има и за цел да информира хората кои обекти в областите, където живеят, са затворени поради инфектиран с COVID-19. Сайтът ще съдържа картата на България, на която карта ще бъдат изобразени тези затворени обекти и администрации. Така хората ще са по-наясно със случващото се около тях. Също така в сайта ще има опцията да се погледне определена област в България. Към нея ще има статистика на заразените, починалите и излекуваните от COVID-19, както и самата карта на областта, показваща обектите. Мислим да направим и форумче във самия сайт, в който хората могат да общуват помежду си, да пишат новини и да коментират теми, свързани със настоящата обстановка. ',
+    projectLinks:
+      'https://github.com/Niki375/Hacktues-6-project-Neprogramistite',
   },
   {
     id: 'yjhpbrpHq1fBMDK3Xfh5',
@@ -1765,6 +1870,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'ParkingPro.com',
+    projectDescription:
+      'Сайт, чрез който можеш да намираш най- близките паркинги до себе си. Тъй като спирането с кола в София си е цяло приключение, то тази уеб страница би ви улеснила много!  С интегрираната карта на Гугъл мапс откриването става дори още по - лесно!',
+    projectLinks: 'https://github.com/zlatililova/Hack_Tues_6',
   },
   {
     id: 'yyiCZz6LWIzSD6uEIgj8',
@@ -1857,6 +1966,10 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'Exogen Breach',
+    projectDescription:
+      'Разработваме игра, наричаща се Exogen Breach (буквално антигенно нашествие), в която символично играеш като нашественик в затвор, който представлява тялото на човека, като нашественика е коронавирусът. Идеята е тялото да бъде напълно инфектирано, де факто нашественика успешно е навлязъл (breach - нал) в затвора. Работим по темата „Разнообразяване на ежедневието по време на пандемията", подтема на темата „Covid-19".',
+    projectLinks: 'https://github.com/generot/TGITD_HackTues6',
   },
   {
     id: 'ze5T1kXcqS7lPDgXNd7q',
@@ -1907,5 +2020,9 @@ export const teams = [
       },
     ],
     verified: true,
+    projectName: 'web crawler',
+    projectDescription:
+      'Чрез използването на web crawler предоставяме, от редица източници, актуална иформация на клиента като всичко е направено достъпно използвайки уеб приложение за улесняването на потребителя.',
+    projectLinks: 'https://github.com/fedarrdi/HackTUES.git',
   },
 ];
